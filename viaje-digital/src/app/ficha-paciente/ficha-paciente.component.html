@@ -3,9 +3,38 @@
 
     <div class="col-md-6">
         <h1>Patient Journey</h1>
+        <!--Aqui va la ficha-->
+        <div id="panelFiguras">
+            <!--aqui se irán agregando los campos-->
+            <div class="form">
+              <div style="text-align:center">
+                <h4>
+                  Información Basica
+                </h4>
+              </div>
+              <dynamic-form [fields]="regConfig" (submit)="submit($event)">
+              </dynamic-form>
+              <!--<button (click)="agregarBoton()">add field test!</button>-->
+              <br>
+              <div class="margin-top">
+                {{ form.value | json }}
+              </div>
+              <br>
+            </div>
+            <!--------------------------------------------->
+  
+        </div>
     </div>
     <div class="col-md-6">
-        <app-lista-arquetipos></app-lista-arquetipos>
-        <app-diagrama-arquetipos></app-diagrama-arquetipos>
+        <div *ngIf="!mostrar_diagrama_arquetipos">
+            <app-lista-arquetipos
+            (mostrar_diagrama_arquetipos)="cambiarComponente($event)">
+            </app-lista-arquetipos>
+        </div>
+        <div *ngIf="mostrar_diagrama_arquetipos">
+            <app-diagrama-arquetipos
+            (mostrar_diagrama_arquetipos)="cambiarComponente($event)" (emitir_id_arquetipo)="recibirArquetipoId($event)">
+            </app-diagrama-arquetipos>
+        </div>
     </div>
 </div>

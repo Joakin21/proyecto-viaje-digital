@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {ConexionBackendService} from '../servicios/conexion-backend.service'
 import {SeleccionarArquetipoService} from '../servicios/seleccionar-arquetipo.service'
 
@@ -8,6 +8,8 @@ import {SeleccionarArquetipoService} from '../servicios/seleccionar-arquetipo.se
   styleUrls: ['./lista-arquetipos.component.css']
 })
 export class ListaArquetiposComponent implements OnInit {
+
+  @Output() mostrar_diagrama_arquetipos = new EventEmitter<boolean>();
 
   constructor(private conexBack: ConexionBackendService, private elegirArquetipo:SeleccionarArquetipoService) { }
 
@@ -25,7 +27,7 @@ export class ListaArquetiposComponent implements OnInit {
   observation:any[] = []
   section:any[] = []
 
-  ir_al_diagrama:boolean = false
+  
 
   arquetiposFromDB(arquetipos:any[]){
     
@@ -61,5 +63,7 @@ export class ListaArquetiposComponent implements OnInit {
   seleccionarArquetipo(arquetipo:any){
     //console.log(arquetipo)
     this.elegirArquetipo.asignar(arquetipo["id"])
+
+    this.mostrar_diagrama_arquetipos.emit(true)
   }
 }

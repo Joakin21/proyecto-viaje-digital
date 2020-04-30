@@ -1,1 +1,93 @@
-<p>diagrama-arquetipos works!</p>
+<button (click)="agregarAlHistorial()" class="btn btn-secondary m-2">Agregar al historial</button>
+<button (click)="mostrarNodo()" class="btn btn-secondary m-2">Información del campo</button>
+<button (click)="volverToListaArquetipos()" class="btn btn-secondary m-2">Volver</button>
+
+<div id="editor">
+    <div class="row">
+      <div class="col-md-12">
+        <!--<div *ngIf="arquetipo">
+          <button (click)="mostrarNodo()" class="btn btn-secondary m-2">agregar al formulario</button>
+        </div>-->
+        <div id="jsmind_container"></div>
+        
+      </div>
+    </div>
+    
+</div>
+
+<!-- Modal arquetipos tipo info: usado para description y attribution-->
+<div class="modal fade" id="modalTipoInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{info_text}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="info_is_lista">
+          <ul>
+            <li *ngFor="let data of info_value">{{data}} </li>
+          </ul>
+        </div>
+        <div *ngIf="info_is_lista == false">
+          <p> {{info_value}}</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal arquetipos tipo 1: Se intenta abarcar la mayoria de nodos posible-->
+<div class="modal fade" id="modalTipo1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">{{text}}</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="tipo">
+          <h5>Tipo</h5>
+          <p>{{tipo}}</p>
+        </div>
+        <div *ngIf="text">
+          <h5>Nombre</h5>
+          <p>{{text}}</p>
+        </div>
+        <div *ngIf="description">
+          <h5>Description</h5>
+          <p>{{description}}</p>
+        </div>
+        <div *ngIf="comment">
+          <h5>Comentarios</h5>
+          <p>{{comment}}</p>
+        </div>
+        <div *ngIf="source">
+          <h5>Source</h5>
+          <p>{{source}}</p>
+        </div>
+        <div *ngIf="contenido.length > 0">
+          <h5>Opciones de selección: </h5>
+          <ul>
+            <div *ngIf="tipo_nodo_elegido!='DV_ORDINAL'">
+              <li *ngFor="let nodo of contenido"><label> <b>{{nodo["text"]}}</b>{{" ["+nodo["description"]+"]"}}</label> </li>
+            </div>
+            <div *ngIf="tipo_nodo_elegido=='DV_ORDINAL'">
+              <li *ngFor="let nodo of contenido"><label> <b>{{nodo["numero"]+": "}} {{nodo["text"]}}</b>{{" ["+nodo["description"]+"]"}}</label> </li>
+            </div>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel and close</button>
+      </div>
+    </div>
+  </div>
+</div>
