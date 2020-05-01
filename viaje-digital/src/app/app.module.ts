@@ -21,6 +21,7 @@ import { SelectComponent } from "./components/select/select.component";
 import { DateComponent } from "./components/date/date.component";
 import { RadiobuttonComponent } from "./components/radiobutton/radiobutton.component";
 import { CheckboxComponent } from "./components/checkbox/checkbox.component";
+import { TituloArquetipoComponent } from "./components/titulo-arquetipo/titulo-arquetipo.component";// :)
 import { DynamicFieldDirective } from "./components/dynamic-field/dynamic-field.directive";
 import { DynamicFormComponent } from "./components/dynamic-form/dynamic-form.component";
 
@@ -52,6 +53,7 @@ const routes: Routes = [
     DateComponent,
     RadiobuttonComponent,
     CheckboxComponent,
+    TituloArquetipoComponent,
     DynamicFieldDirective,
     DynamicFormComponent
   ],
@@ -74,7 +76,8 @@ const routes: Routes = [
     SelectComponent,
     DateComponent,
     RadiobuttonComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    TituloArquetipoComponent
   ]
 })
 export class AppModule { }

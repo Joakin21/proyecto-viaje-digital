@@ -7,11 +7,9 @@
         <div id="panelFiguras">
             <!--aqui se irán agregando los campos-->
             <div class="form">
-              <div style="text-align:center">
-                <h4>
-                  Información Basica
-                </h4>
-              </div>
+              <h5 class="text-center">
+                Información Basica
+              </h5>
               <dynamic-form [fields]="regConfig" (submit)="submit($event)">
               </dynamic-form>
               <!--<button (click)="agregarBoton()">add field test!</button>-->

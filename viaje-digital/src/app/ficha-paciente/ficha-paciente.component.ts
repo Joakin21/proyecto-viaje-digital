@@ -176,6 +176,9 @@ export class FichaPacienteComponent implements OnInit {
         options: ["Yes", "No"]
       }
     }
+    /*else if(tipo == "estructural"){
+      alert("llego un estructural!")
+    }*/
     else{
       //puede ser un dv_text, careflow step, event, cluster
       elemento = {
@@ -200,9 +203,16 @@ export class FichaPacienteComponent implements OnInit {
     for (var k in arquetipo)
     {    
         if (typeof arquetipo[k] == "object" && arquetipo[k] !== null && !Array.isArray(arquetipo[k])){
-            if(arquetipo[k]["tipo"] != "estructural" && arquetipo[k]["tipo"] != "info"){
-              //los agragamos al formulario
-              //console.log(arquetipo[k])
+            //para agregar titulos
+            /*if(arquetipo[k]["tipo"] == "estructural" && arquetipo[k]["text"] == "items"){
+              
+              var formulario = document.getElementById("myForm")
+              var titulo_estructural = document.createElement("h4")
+              titulo_estructural.innerText = arquetipo["text"]
+              formulario.appendChild(titulo_estructural)
+            }*/
+            //Para agregar campos:
+            if(/*arquetipo[k]["tipo"] != "estructural" && */arquetipo[k]["tipo"] != "info"){
               this.agregarCampo(arquetipo[k])
             }
             
@@ -211,14 +221,35 @@ export class FichaPacienteComponent implements OnInit {
     }
 
   }
-  recibirArquetipoId(arquetipo_id: string){
 
+  asignarBotonTitulo(arquetipo:any){
+
+    var nombre_arquetipo = arquetipo["text"]
+    var elemento = {
+      type: "titulo_arquetipo",
+      label: "Arquetipo",
+      inputType: "text",
+      name: nombre_arquetipo,
+      validations: [
+        {
+          name: "required",
+          validator: Validators.required,
+          message: nombre_arquetipo + " es obligarorio"
+        }
+      ]
+    }
+    this.form.agregarBoton(elemento)
+  }
+
+  recibirArquetipoId(arquetipo_id: string){
     console.log("ID Recibido prro!")
     console.log(arquetipo_id)
 
     if(arquetipo_id){
       this.conexBack.getArquetipoById(arquetipo_id).subscribe(arquetipo =>{
+        this.asignarBotonTitulo(arquetipo),
         this.agregarAlHistorial(arquetipo)
+        
       })
     }
     
