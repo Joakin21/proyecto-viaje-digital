@@ -50,7 +50,7 @@ export class FichaPacienteComponent implements OnInit {
       ]
     },
     {
-      type: "input",
+      type: "textarea",
       label: "Dirección",
       inputType: "text",
       name: "direccion",
@@ -113,18 +113,46 @@ export class FichaPacienteComponent implements OnInit {
     var tipo = datos_campo.tipo
     //console.log(datos_campo.contenido.lengt)
     if((tipo == "DV_CODED_TEXT" || tipo == "CHOICE") && datos_campo.contenido.length > 0){
-      //creamos el radio button
-      var myOptions = []
-      for(const opt of datos_campo.contenido){
-        myOptions.push(opt.text)
+      //Si es de tipo choice, eliminamos contenido no deseado
+      if (tipo == "CHOICE"){
+        for(let i = 0; i < datos_campo.contenido.length; i++){
+          var text = datos_campo.contenido[i]["text"]
+          if(text == "DV_TEXT" || text == "DV_CODED_TEXT" || text == "DV_COUNT" ||
+          text == "DV_QUANTITY" || text == "DV_INTERVAL<DV_QUANTITY>" || text == "DV_URI" ||
+          text == "DV_DURATION" || text == "DV_IDENTIFIER" || text == "ELEMENT" || text == "CLUSTER" || 
+          text == "DV_DATE_TIME" || text == "DV_INTERVAL<DV_DATE_TIME>"){
+            datos_campo.contenido.splice(i, 1)
+            i--
+          }
+        }
       }
-      elemento = {
-        type: "radiobutton",
-        label: nombre,
-        name: nombre,
-        options: myOptions
+      if (datos_campo.contenido.length == 0){//si nos quedamos sin contenido para los radio buttons
+        elemento = {
+          type: "input",
+          label: nombre,
+          inputType: "text",
+          name: nombre,
+          validations: [
+            {
+              name: "required",
+              validator: Validators.required,
+              message: nombre + " es obligarorio"
+            }
+          ]
+        }
       }
-      console.log("Es choice, hay que hacer radio buttons")
+      else{
+        var myOptions = []
+        for(const opt of datos_campo.contenido){
+          myOptions.push(opt.text)
+        }
+        elemento = {
+          type: "radiobutton",
+          label: nombre,
+          name: nombre,
+          options: myOptions
+        }
+      }
     }
 
     else if(tipo == "DV_QUANTITY" || tipo == "DV_COUNT"){
@@ -182,7 +210,8 @@ export class FichaPacienteComponent implements OnInit {
     else{
       //puede ser un dv_text, careflow step, event, cluster
       elemento = {
-        type: "input",
+        //type: "input",
+        type: "textarea",
         label: nombre,
         inputType: "text",
         name: nombre,
@@ -212,7 +241,7 @@ export class FichaPacienteComponent implements OnInit {
               formulario.appendChild(titulo_estructural)
             }*/
             //Para agregar campos:
-            if(/*arquetipo[k]["tipo"] != "estructural" && */arquetipo[k]["tipo"] != "info"){
+            if(arquetipo[k]["tipo"] != "estructural" && arquetipo[k]["tipo"] != "info"){
               this.agregarCampo(arquetipo[k])
             }
             
@@ -242,9 +271,6 @@ export class FichaPacienteComponent implements OnInit {
   }
 
   recibirArquetipoId(arquetipo_id: string){
-    console.log("ID Recibido prro!")
-    console.log(arquetipo_id)
-
     if(arquetipo_id){
       this.conexBack.getArquetipoById(arquetipo_id).subscribe(arquetipo =>{
         this.asignarBotonTitulo(arquetipo),

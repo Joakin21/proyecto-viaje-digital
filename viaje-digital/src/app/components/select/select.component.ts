@@ -9,6 +9,7 @@ import { FieldConfig } from "../../field.interface";
 <mat-option *ngFor="let item of field.options" [value]="item">{{item}}</mat-option>
 </mat-select>
 </mat-form-field>
+<br>
 `,
   styles: []
 })

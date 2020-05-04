@@ -30,11 +30,8 @@
           </div>
         </div>
         <div class="col-8">
-          <div class="tab-content" id="nav-tabContent">
+          <div class="tab-content overflow-auto" id="nav-tabContent" style="height: 100vh">
             <div class="tab-pane fade show active" id="cluster" role="tabpanel" aria-labelledby="my-cluster">
-                <!--<ul class="list-group">
-                  <li *ngFor="let arq of cluster" class="list-group-item"> {{arq["nombre"]}}</li>
-                </ul>-->
                 <div class="list-group">
                   <a [routerLink]="" *ngFor="let arq of cluster" (click)="seleccionarArquetipo(arq)" class="list-group-item list-group-item-action">{{arq["nombre"]}}</a>
                 </div>
@@ -83,6 +80,36 @@
       <h3>Mi lista de arquetipos</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
       <!-- <h3 class="text-center">Arquetipos de la ckm de OpenEHR</h3> -->
+      <div class="row">
+
+        <div class="col-4">
+          <div class="list-group" id="list-tab" role="tablist">
+            
+            <a class="list-group-item list-group-item-action active" id="my-enHistorial" data-toggle="list" href="#enHistorial" role="tab" aria-controls="enHistorial">En el historial clinico</a>
+            <a class="list-group-item list-group-item-action" id="my-List" data-toggle="list" href="#myList" role="tab" aria-controls="myList">Lista personalizada</a>
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="tab-content overflow-auto" id="nav-tabContent" style="height: 100vh">
+            <div class="tab-pane fade show active" id="enHistorial" role="tabpanel" aria-labelledby="my-enHistorial">
+              <div *ngIf="en_historial_clinico.length == 0" class="text-center">
+                <p >Historial clinico sin arquetipos</p>
+              </div>
+              <div *ngIf="en_historial_clinico.length > 0">
+                <div class="list-group">
+                  <a [routerLink]="" *ngFor="let arq of en_historial_clinico" (click)="seleccionarArquetipo(arq)" class="list-group-item list-group-item-action">{{arq["nombre"]}}</a>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="myList" role="tabpanel" aria-labelledby="my-List">
+              <p class="text-center">En construcción...</p>
+            </div>
+          </div>
+          
+        </div>
+
+
+      </div>
       
     </div>
 

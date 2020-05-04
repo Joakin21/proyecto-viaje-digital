@@ -10,6 +10,7 @@ import { FieldConfig } from "../../field.interface";
 <mat-error *ngIf="group.get(field.name).hasError(validation.name)">{{validation.message}}</mat-error>
 </ng-container>
 </mat-form-field>
+<br>
 `,
   styles: []
 })

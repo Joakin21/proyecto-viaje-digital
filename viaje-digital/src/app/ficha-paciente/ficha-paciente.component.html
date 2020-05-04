@@ -1,15 +1,15 @@
 
 <div class="row">
-
+    <!--class="pre-scrollable" style="height: 100vh"-->
     <div class="col-md-6">
-        <h1>Patient Journey</h1>
+      <!--<h1>Patient Journey</h1>-->
+      
         <!--Aqui va la ficha-->
-        <div id="panelFiguras">
+        <div id="panelFiguras" class="overflow-auto" style="height: 100vh">
+            <h5 class="text-center">  Información Basica</h5>
             <!--aqui se irán agregando los campos-->
             <div class="form">
-              <h5 class="text-center">
-                Información Basica
-              </h5>
+              
               <dynamic-form [fields]="regConfig" (submit)="submit($event)">
               </dynamic-form>
               <!--<button (click)="agregarBoton()">add field test!</button>-->

@@ -2,6 +2,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {ConexionBackendService} from '../servicios/conexion-backend.service'
 import {SeleccionarArquetipoService} from '../servicios/seleccionar-arquetipo.service'
 
+declare var $:any;
+
 @Component({
   selector: 'app-lista-arquetipos',
   templateUrl: './lista-arquetipos.component.html',
@@ -16,8 +18,34 @@ export class ListaArquetiposComponent implements OnInit {
   ngOnInit(): void {
 
     this.conexBack.getArquetipos().subscribe(resp => this.arquetiposFromDB(resp));
-  }
+    //que tipo de arquetipos mostrar?: los que el usuario anteriormente estaba viendo
+    var tipo_arquetipo = this.elegirArquetipo.getTipo_arquetipo()
+    /*
+    tipos = "CLUSTER", "COMPOSITION", "ACTION", "ADMIN_ENTRY", "EVALUATION", "INSTRUCTION", "OBSERVATION", "SECTION"
+    */
+    if(tipo_arquetipo == "CLUSTER"){
+      $('#list-tab a[href="#cluster"]').tab('show') 
+    }else if(tipo_arquetipo == "COMPOSITION"){
+      $('#list-tab a[href="#composition"]').tab('show') 
+    }else if(tipo_arquetipo == "ACTION"){
+      $('#list-tab a[href="#action"]').tab('show') 
+    }else if(tipo_arquetipo == "ADMIN_ENTRY"){
+      $('#list-tab a[href="#admin_entry"]').tab('show') 
+    }else if(tipo_arquetipo == "EVALUATION"){
+      $('#list-tab a[href="#evaluation"]').tab('show') 
+    }else if(tipo_arquetipo == "INSTRUCTION"){
+      $('#list-tab a[href="#instruction"]').tab('show') 
+    }else if(tipo_arquetipo == "OBSERVATION"){
+      $('#list-tab a[href="#observation"]').tab('show') 
+    }else if(tipo_arquetipo == "SECTION"){
+      $('#list-tab a[href="#section"]').tab('show') 
+    }
 
+    //Arquetipos que actualmente estan en el diagrama
+    this.en_historial_clinico = this.elegirArquetipo.getArquetipos_en_historial()
+    //console.log(this.en_historial_clinico)
+  }
+  //para repositorio openehr
   cluster:any[] = []
   composition:any[] = []
   action:any[] = []
@@ -27,7 +55,8 @@ export class ListaArquetiposComponent implements OnInit {
   observation:any[] = []
   section:any[] = []
 
-  
+  //para mis arquetipos
+  en_historial_clinico:any[] = []
 
   arquetiposFromDB(arquetipos:any[]){
     
@@ -63,7 +92,8 @@ export class ListaArquetiposComponent implements OnInit {
   seleccionarArquetipo(arquetipo:any){
     //console.log(arquetipo)
     this.elegirArquetipo.asignar(arquetipo["id"])
-
+    this.elegirArquetipo.setTipo_arquetipo(arquetipo["tipo_arquetipo"])
     this.mostrar_diagrama_arquetipos.emit(true)
+
   }
 }

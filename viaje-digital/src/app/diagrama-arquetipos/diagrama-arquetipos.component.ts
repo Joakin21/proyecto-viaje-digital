@@ -149,7 +149,7 @@ export class DiagramaArquetiposComponent implements OnInit,AfterViewInit {
     if(this.arquetipo_id==null){
       //volver a inicio
       //this.router.navigateByUrl('/visualizador')
-      console.log("chapalapachala")
+      console.log("test!")
     }
     else if(this.arquetipo_id=="nuevo arquetipo"){
       console.log(this.arquetipo_id)
@@ -209,7 +209,7 @@ export class DiagramaArquetiposComponent implements OnInit,AfterViewInit {
                   this.info_text = arquetipo[k]["text"]
                   this.info_value = arquetipo[k]["value"]
                   this.info_is_lista = Array.isArray(arquetipo[k]["value"]) 
-            
+                  this._jm.select_clear()
                   $('#modalTipoInfo').modal('show');
 
                 }
@@ -258,5 +258,6 @@ export class DiagramaArquetiposComponent implements OnInit,AfterViewInit {
   }
   agregarAlHistorial(){
     this.emitir_id_arquetipo.emit(this.arquetipo_id)
+    this.elegirArquetipo.agregarAlHistorial(this.arquetipo)
   }
 }

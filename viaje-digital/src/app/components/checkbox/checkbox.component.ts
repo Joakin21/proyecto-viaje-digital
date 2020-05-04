@@ -7,6 +7,7 @@ import { FieldConfig } from "../../field.interface";
 <div class="demo-full-width margin-top" [formGroup]="group" >
 <mat-checkbox [formControlName]="field.name">{{field.label}}</mat-checkbox>
 </div>
+<br>
 `,
   styles: []
 })
