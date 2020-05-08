@@ -1,29 +1,49 @@
 
 <div class="row">
     <!--class="pre-scrollable" style="height: 100vh"-->
-    <div class="col-md-6">
+    <div class="col-md-5">
       <!--<h1>Patient Journey</h1>-->
       
         <!--Aqui va la ficha-->
-        <div id="panelFiguras" class="overflow-auto" style="height: 100vh">
-            <h5 class="text-center">  Información Basica</h5>
+        <div id="panelFiguras" class="overflow-auto mt-4 ml-4" style="height: 100vh;">
+            <!--Info basica-->
+            <div class="text-center">
+                <mat-form-field class="example-full-width w-50">
+                  <input matInput value="Información Básica" class="text-center" style="color:DarkOrange" readonly>
+                </mat-form-field>
+            </div>
+          
             <!--aqui se irán agregando los campos-->
             <div class="form">
-              
+              <!--Formulario-->
               <dynamic-form [fields]="regConfig" (submit)="submit($event)">
               </dynamic-form>
+              <!--Boton de mensaje al enviar formularip
+              <div *ngIf="datos_historial_correctos" class="mt-2 mr-4">
+       
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  Historial guardado correctamente
+                </div>
+              </div>-->
+             
               <!--<button (click)="agregarBoton()">add field test!</button>-->
               <br>
+
               <div class="margin-top">
                 {{ form.value | json }}
               </div>
+
               <br>
             </div>
             <!--------------------------------------------->
   
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-7">
+      <div class="mt-4 mr-4">
         <div *ngIf="!mostrar_diagrama_arquetipos">
             <app-lista-arquetipos
             (mostrar_diagrama_arquetipos)="cambiarComponente($event)">
@@ -34,5 +54,6 @@
             (mostrar_diagrama_arquetipos)="cambiarComponente($event)" (emitir_id_arquetipo)="recibirArquetipoId($event)">
             </app-diagrama-arquetipos>
         </div>
+      </div>
     </div>
 </div>

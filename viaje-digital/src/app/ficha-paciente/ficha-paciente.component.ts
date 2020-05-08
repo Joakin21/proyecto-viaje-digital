@@ -6,6 +6,8 @@ import { Validators } from "@angular/forms";
 import {FieldConfig} from '../field.interface'
 import { DynamicFormComponent } from "../components/dynamic-form/dynamic-form.component";
 
+declare var $:any;
+
 @Component({
   selector: 'app-ficha-paciente',
   templateUrl: './ficha-paciente.component.html',
@@ -18,6 +20,7 @@ export class FichaPacienteComponent implements OnInit {
 
   @ViewChild(DynamicFormComponent, {static: true}) form: DynamicFormComponent;
   regConfig: FieldConfig[] = [
+
     {
       type: "input",
       label: "Nombre",
@@ -98,14 +101,17 @@ export class FichaPacienteComponent implements OnInit {
    
   ];
 
+  //datos_historial_correctos:boolean = false
   submit(value: any) {
 
     console.log(value)
+    //this.datos_historial_correctos = true
+    $(".alert").alert()
 
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
+
   agregarCampo(datos_campo:any){
     var elemento
     
