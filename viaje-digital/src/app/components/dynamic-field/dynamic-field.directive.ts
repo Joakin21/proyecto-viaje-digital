@@ -14,8 +14,9 @@ import { SelectComponent } from "../select/select.component";
 import { DateComponent } from "../date/date.component";
 import { RadiobuttonComponent } from "../radiobutton/radiobutton.component";
 import { CheckboxComponent } from "../checkbox/checkbox.component";
-import { TituloArquetipoComponent } from "../titulo-arquetipo/titulo-arquetipo.component"
-import { TextareaComponent } from "../textarea/textarea.component"
+import { TituloArquetipoComponent } from "../titulo-arquetipo/titulo-arquetipo.component";
+import { TextareaComponent } from "../textarea/textarea.component";
+import { TituloEstructuralComponent } from "../titulo-estructural/titulo-estructural.component"
 
 
 const componentMapper = {
@@ -26,7 +27,8 @@ const componentMapper = {
   radiobutton: RadiobuttonComponent,
   checkbox: CheckboxComponent,
   titulo_arquetipo: TituloArquetipoComponent,
-  textarea: TextareaComponent
+  textarea: TextareaComponent,
+  titulo_estructural: TituloEstructuralComponent
 };
 @Directive({
   selector: "[dynamicField]"

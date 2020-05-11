@@ -210,9 +210,21 @@ export class FichaPacienteComponent implements OnInit {
         options: ["Yes", "No"]
       }
     }
-    /*else if(tipo == "estructural"){
-      alert("llego un estructural!")
-    }*/
+    else if(tipo == "estructural"){
+      elemento = {
+        type: "titulo_estructural",
+        label: nombre,
+        inputType: "text",
+        name: nombre,
+        validations: [
+          {
+            name: "required",
+            validator: Validators.required,
+            message: nombre + " es obligarorio"
+          }
+        ]
+      }
+    }
     else{
       //puede ser un dv_text, careflow step, event, cluster
       elemento = {
@@ -248,6 +260,8 @@ export class FichaPacienteComponent implements OnInit {
             }*/
             //Para agregar campos:
             if(arquetipo[k]["tipo"] != "estructural" && arquetipo[k]["tipo"] != "info"){
+              this.agregarCampo(arquetipo[k])
+            }else if (arquetipo[k]["tipo"] == "estructural"){
               this.agregarCampo(arquetipo[k])
             }
             
