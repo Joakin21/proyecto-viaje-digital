@@ -17,7 +17,7 @@ import { CheckboxComponent } from "../checkbox/checkbox.component";
 import { TituloArquetipoComponent } from "../titulo-arquetipo/titulo-arquetipo.component";
 import { TextareaComponent } from "../textarea/textarea.component";
 import { TituloEstructuralComponent } from "../titulo-estructural/titulo-estructural.component"
-
+import { TituloClusterComponent } from "../titulo-cluster/titulo-cluster.component"
 
 const componentMapper = {
   input: InputComponent,
@@ -28,7 +28,8 @@ const componentMapper = {
   checkbox: CheckboxComponent,
   titulo_arquetipo: TituloArquetipoComponent,
   textarea: TextareaComponent,
-  titulo_estructural: TituloEstructuralComponent
+  titulo_estructural: TituloEstructuralComponent,
+  titulo_cluster: TituloClusterComponent
 };
 @Directive({
   selector: "[dynamicField]"

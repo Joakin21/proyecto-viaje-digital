@@ -4,7 +4,7 @@ import { FieldConfig } from "../../field.interface";
 @Component({
   selector: "app-select",
   template: `
-<mat-form-field class="demo-full-width margin-topn ml-2" [formGroup]="group">
+<mat-form-field class="demo-full-width margin-topn ml-2 w-50" [formGroup]="group">
 <mat-select [placeholder]="field.label" [formControlName]="field.name">
 <mat-option *ngFor="let item of field.options" [value]="item">{{item}}</mat-option>
 </mat-select>

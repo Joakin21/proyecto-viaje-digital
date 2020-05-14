@@ -23,7 +23,8 @@ import { RadiobuttonComponent } from "./components/radiobutton/radiobutton.compo
 import { CheckboxComponent } from "./components/checkbox/checkbox.component";
 import { TituloArquetipoComponent } from "./components/titulo-arquetipo/titulo-arquetipo.component";// :)
 import { TextareaComponent } from "./components/textarea/textarea.component";
-import { TituloEstructuralComponent} from "./components/titulo-estructural/titulo-estructural.component"
+import { TituloEstructuralComponent} from "./components/titulo-estructural/titulo-estructural.component";
+import { TituloClusterComponent } from "./components/titulo-cluster/titulo-cluster.component"
 import { DynamicFieldDirective } from "./components/dynamic-field/dynamic-field.directive";
 import { DynamicFormComponent } from "./components/dynamic-form/dynamic-form.component";
 
@@ -58,6 +59,7 @@ const routes: Routes = [
     TituloArquetipoComponent,
     TextareaComponent,
     TituloEstructuralComponent,
+    TituloClusterComponent,
     DynamicFieldDirective,
     DynamicFormComponent
   ],
@@ -83,7 +85,8 @@ const routes: Routes = [
     CheckboxComponent,
     TituloArquetipoComponent,
     TextareaComponent,
-    TituloEstructuralComponent
+    TituloEstructuralComponent,
+    TituloClusterComponent
   ]
 })
 export class AppModule { }

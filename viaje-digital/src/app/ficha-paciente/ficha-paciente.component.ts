@@ -225,6 +225,45 @@ export class FichaPacienteComponent implements OnInit {
         ]
       }
     }
+    else if(tipo == "CLUSTER"){
+      var contiene_otros_nodos = false
+      for(var k in datos_campo){
+        if (typeof datos_campo[k] == "object" && datos_campo[k] !== null && !Array.isArray(datos_campo[k])){
+          contiene_otros_nodos = true
+        }
+      }
+      if (contiene_otros_nodos){
+        elemento = {
+          type: "titulo_estructural",
+          label: nombre,
+          inputType: "text",
+          name: nombre,
+          validations: [
+            {
+              name: "required",
+              validator: Validators.required,
+              message: nombre + " es obligarorio"
+            }
+          ]
+        }
+      }else{
+        elemento = {
+          //type: "input",
+          type: "textarea",
+          label: nombre,
+          inputType: "text",
+          name: nombre,
+          validations: [
+            {
+              name: "required",
+              validator: Validators.required,
+              message: nombre + " es obligarorio"
+            }
+          ]
+        }
+      }
+
+    }
     else{
       //puede ser un dv_text, careflow step, event, cluster
       elemento = {
@@ -262,7 +301,19 @@ export class FichaPacienteComponent implements OnInit {
             if(arquetipo[k]["tipo"] != "estructural" && arquetipo[k]["tipo"] != "info"){
               this.agregarCampo(arquetipo[k])
             }else if (arquetipo[k]["tipo"] == "estructural"){
-              this.agregarCampo(arquetipo[k])
+              //volover recorrer con el for
+              var es_nodo_info = false
+              for (var nodo_siguiente in arquetipo[k]){
+                if (typeof arquetipo[k][nodo_siguiente] == "object" && arquetipo[k][nodo_siguiente] !== null && !Array.isArray(arquetipo[k][nodo_siguiente])){
+                  if(arquetipo[k][nodo_siguiente]["tipo"] == "info"){
+                    es_nodo_info = true
+                  }
+                }
+              }
+              if (!es_nodo_info){
+                this.agregarCampo(arquetipo[k])
+              }
+              
             }
             
             this.agregarAlHistorial(arquetipo[k]); 
