@@ -34,8 +34,8 @@ const routes: Routes = [
   //{path:'inicio', component: InicioComponent},
   {path:'ficha-paciente', component: FichaPacienteComponent},
   //{path:'diagrama', component: DiagramaArquetiposComponent},
-  //{path: '', component: LoginComponent, pathMatch: 'full'},
-  {path: '', component: FichaPacienteComponent, pathMatch: 'full'},
+  {path: '', component: LoginComponent, pathMatch: 'full'},
+  //{path: '', component: FichaPacienteComponent, pathMatch: 'full'},
   {path: '**', redirectTo: '/', pathMatch: 'full' },
 ]
 

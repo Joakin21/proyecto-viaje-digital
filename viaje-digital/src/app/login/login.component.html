@@ -1,33 +1,21 @@
-
-<h2 class="text-center mt-5">Login</h2>
-<div class="row d-flex justify-content-center">
-    
-    <!--Grid column-->
-    <div class="col-md-3 p-5 bg-secondary">
-  
-        <form>
-            <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
-            <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-
-        <div class="text-center">
-            <button type="button" (click)="entrarInicio()"class="btn btn-danger">Hackear</button>
+<div id="myLogin"class="text-center">
+    <form #credenciales="ngForm" (ngSubmit)="login(credenciales)" class="form-signin">
+        <img class="mb-4" src="assets/imagenes/logo.png" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" name="username" class="form-control" ngModel placeholder="Email address" required #email="ngModel" autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" name="password" class="form-control" ngModel placeholder="Password" required>
+        <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" value="remember-me"> Remember me
+        </label>
         </div>
-    </div>
-    <!--Grid column-->
-    
-  
+        <div *ngIf="mostrar_error">
+            <p class="text-danger">{{mensaje_login}}</p>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
+    </form>
 </div>
 
