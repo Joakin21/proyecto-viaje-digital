@@ -28,6 +28,9 @@ import { TituloClusterComponent } from "./components/titulo-cluster/titulo-clust
 import { DynamicFieldDirective } from "./components/dynamic-field/dynamic-field.directive";
 import { DynamicFormComponent } from "./components/dynamic-form/dynamic-form.component";
 
+import { CookieService } from 'ngx-cookie-service';
+import { HeaderComponent } from './header/header.component';
+
 const routes: Routes = [
 
   //{path:'login', component: LoginComponent},
@@ -61,7 +64,8 @@ const routes: Routes = [
     TituloEstructuralComponent,
     TituloClusterComponent,
     DynamicFieldDirective,
-    DynamicFormComponent
+    DynamicFormComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +78,7 @@ const routes: Routes = [
 
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent],
   entryComponents: [
     InputComponent,

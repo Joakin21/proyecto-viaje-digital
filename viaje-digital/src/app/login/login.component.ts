@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import { UserService } from '../servicios/user.service';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,6 +16,9 @@ export class LoginComponent implements OnInit {
   mensaje_login:string
 
   ngOnInit(): void {
+    if(this.userService.getToken()){//si tiene el token de sesion
+      this.router.navigateByUrl('/ficha-paciente')
+    }
   }
   login(credenciales: NgForm){
     var credenciales_ingresadas = credenciales.valid
@@ -25,7 +29,10 @@ export class LoginComponent implements OnInit {
       this.userService.login(credenciales.value).subscribe(
         data => {
           console.log(data),
-          this.mostrar_error = false
+          this.mostrar_error = false,
+          this.userService.setToken(data.token),
+          this.userService.setIdUser(data.user_id.toString())
+          this.entrarInicio()
         },
         error => {
           console.log('error', error),
@@ -42,6 +49,6 @@ export class LoginComponent implements OnInit {
     console.log(credenciales.valid);
   }
   entrarInicio(): void{
-    this.router.navigateByUrl('/ficha-paciente')
+    this.router.navigateByUrl('/ficha-paciente')//luego cambiar por pagina de inicio
   }
 }

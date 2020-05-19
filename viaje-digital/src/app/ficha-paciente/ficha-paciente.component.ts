@@ -5,6 +5,8 @@ import {NgForm, FormGroup} from '@angular/forms';
 import { Validators } from "@angular/forms";
 import {FieldConfig} from '../field.interface'
 import { DynamicFormComponent } from "../components/dynamic-form/dynamic-form.component";
+import {Router} from '@angular/router';
+import { UserService } from '../servicios/user.service';
 
 declare var $:any;
 
@@ -15,7 +17,7 @@ declare var $:any;
 })
 export class FichaPacienteComponent implements OnInit {
 
-  constructor(private conexBack: ConexionBackendService) { }
+  constructor(private conexBack: ConexionBackendService, private router: Router, private userService: UserService) { }
   mostrar_diagrama_arquetipos:boolean = false
 
   @ViewChild(DynamicFormComponent, {static: true}) form: DynamicFormComponent;
@@ -109,8 +111,23 @@ export class FichaPacienteComponent implements OnInit {
     $(".alert").alert()
 
   }
-
-  ngOnInit(): void {}
+  usuario_logeado:string = ""
+  ngOnInit(): void {
+    if(!this.userService.getToken()){//si no hay token
+      this.router.navigateByUrl('')
+    }
+    
+    //Apenas inicia el componente obtenemos el usuario
+    this.userService.getUser(parseInt(this.userService.getIdUser())).subscribe(
+      data => {
+        this.usuario_logeado = data.username
+        console.log(data)
+      },
+      error => {
+        console.log('error', error)
+      }
+    );
+  }
 
   agregarCampo(datos_campo:any){
     var elemento
