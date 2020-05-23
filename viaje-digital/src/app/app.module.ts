@@ -34,7 +34,7 @@ import { HeaderComponent } from './header/header.component';
 const routes: Routes = [
 
   //{path:'login', component: LoginComponent},
-  //{path:'inicio', component: InicioComponent},
+  {path:'inicio', component: InicioComponent},
   {path:'ficha-paciente', component: FichaPacienteComponent},
   //{path:'diagrama', component: DiagramaArquetiposComponent},
   {path: '', component: LoginComponent, pathMatch: 'full'},

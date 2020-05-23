@@ -7,6 +7,7 @@ import {FieldConfig} from '../field.interface'
 import { DynamicFormComponent } from "../components/dynamic-form/dynamic-form.component";
 import {Router} from '@angular/router';
 import { UserService } from '../servicios/user.service';
+import { SeleccionarPacienteService } from '../servicios/seleccionar-paciente.service'
 
 declare var $:any;
 
@@ -17,7 +18,7 @@ declare var $:any;
 })
 export class FichaPacienteComponent implements OnInit {
 
-  constructor(private conexBack: ConexionBackendService, private router: Router, private userService: UserService) { }
+  constructor(private conexBack: ConexionBackendService, private router: Router, private userService: UserService, private seleccionarPacienteService: SeleccionarPacienteService) { }
   mostrar_diagrama_arquetipos:boolean = false
 
   @ViewChild(DynamicFormComponent, {static: true}) form: DynamicFormComponent;
@@ -120,13 +121,30 @@ export class FichaPacienteComponent implements OnInit {
     //Apenas inicia el componente obtenemos el usuario
     this.userService.getUser(parseInt(this.userService.getIdUser())).subscribe(
       data => {
-        this.usuario_logeado = data.username
-        console.log(data)
+        this.usuario_logeado = data.user.username
+        //console.log(data)
       },
       error => {
         console.log('error', error)
       }
     );
+
+    //obtener rut del paciente seleccionado
+    this.seleccionarPacienteService.currentPaciente.subscribe(
+      rut => {
+        if(rut == null){
+          this.router.navigateByUrl('/inicio')
+        }
+        if(rut == "new_patient"){
+          //alert("crear nuevo paciente")
+          console.log("Crear paciente desde 0")
+        }
+        else{//rut normal validado que existe
+          //alert(rut)
+          console.log("modificar paciente:",rut)
+        }
+        
+    })
   }
 
   agregarCampo(datos_campo:any){

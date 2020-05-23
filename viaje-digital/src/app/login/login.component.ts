@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.userService.getToken()){//si tiene el token de sesion
-      this.router.navigateByUrl('/ficha-paciente')
+      //this.router.navigateByUrl('/ficha-paciente')
+      this.router.navigateByUrl('/inicio')
     }
   }
   login(credenciales: NgForm){
@@ -49,6 +50,7 @@ export class LoginComponent implements OnInit {
     console.log(credenciales.valid);
   }
   entrarInicio(): void{
-    this.router.navigateByUrl('/ficha-paciente')//luego cambiar por pagina de inicio
+    //this.router.navigateByUrl('/ficha-paciente')//luego cambiar por pagina de inicio
+    this.router.navigateByUrl('/inicio')
   }
 }
