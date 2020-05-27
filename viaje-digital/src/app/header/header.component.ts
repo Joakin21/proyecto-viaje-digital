@@ -20,5 +20,7 @@ export class HeaderComponent implements OnInit {
     this.userService.logout()
     this.router.navigateByUrl('')
   }
-
+  goHome(){
+    this.router.navigateByUrl('/inicio')
+  }
 }

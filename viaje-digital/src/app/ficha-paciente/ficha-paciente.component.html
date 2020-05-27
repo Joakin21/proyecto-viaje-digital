@@ -6,32 +6,20 @@
       <!--<h1>Patient Journey</h1>-->
       
         <!--Aqui va la ficha-->
-        <div id="panelFiguras" class="overflow-auto mt-4 ml-4" style="height: 100vh;">
-            <!--Info basica-->
+        <div id="panelFiguras" class="overflow-auto mt-4 ml-1" style="height: 100vh;">
+            <!--Titulo-->
+            <!--
             <div class="text-center">
                 <mat-form-field class="example-full-width w-50">
                   <input matInput value="Información Básica" class="text-center" style="color:DarkOrange" readonly>
                 </mat-form-field>
             </div>
-          
-            <!--aqui se irán agregando los campos-->
+            -->
+            <!--Formulario-->
+            <!--
             <div class="form">
-              <!--Formulario-->
               <dynamic-form [fields]="regConfig" (submit)="submit($event)">
-              </dynamic-form>
-              <!--Boton de mensaje al enviar formularip
-              <div *ngIf="datos_historial_correctos" class="mt-2 mr-4">
-       
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  Historial guardado correctamente
-                </div>
-              </div>-->
-             
-              <!--<button (click)="agregarBoton()">add field test!</button>-->
-              
+              </dynamic-form>              
               <br>
               
               <div class="margin-top">
@@ -40,12 +28,134 @@
               
               <br>
             </div>
+            -->
             <!--------------------------------------------->
+          <!--Si creamos un paciente desde cero, habilitamos formulario para crear datos base-->
+          <div *ngIf="habilitar_form_datos_base">
+            <form #datos_base="ngForm" (ngSubmit)="crearPaciente(datos_base)" class="form-search">
+              <div class="form-group">
+                <label for="formNombre">Name</label>
+                <input type="text" class="form-control" ngModel name="nombre" id="formNombre" placeholder="Write patient name..." required>
+              </div>
+              <div class="form-group">
+                <label for="formApellido">Last name</label>
+                <input type="text" class="form-control" ngModel name="apellidos" id="formApellido" placeholder="Write patient last name..." required>
+              </div>
+              <div class="form-group">
+                <label for="formRut">Rut</label>
+                <input type="text" class="form-control" ngModel name="rut" id="formRut" placeholder="Write patient rut..." required>
+              </div>
+              <div class="form-group">
+                <label for="formDireccion">Address</label>
+                <input type="text" class="form-control" ngModel name="direccion" id="formDireccion" placeholder="Write patient address..."required>
+              </div>
+              <div class="form-group">
+                <label for="formFecha_nacimiento">Birthday</label>
+                <input type="date" class="form-control" ngModel name="fecha_nacimiento" id="formFecha_nacimiento" placeholder="Write patient birthday..." required>
+              </div>
+              <div class="form-group">
+                <label for="formCity">City</label>
+                <select class="form-control" ngModel name="ciudad" id="formCity" placeholder="Write patient city..." required> 
+                  <option>Iquique</option>
+                  <option>Antofagasta</option>
+                  <option>Copiapó</option>
+                  <option>Arica</option>
+                  <option>Coyhaique</option>
+                  <option>Concepción</option>
+                  <option>La Serena</option>
+                  <option>Temuco</option>
+                  <option>Puerto Montt</option>
+                  <option>Valdivia</option>
+                  <option>Punta Arenas</option>
+                  <option>Talca</option>
+                  <option>Santiago</option>
+                  <option>Chillán</option>
+                  <option>Rancagua</option>
+                  <option>Valparaíso</option>
+                </select>
+              </div>
+              <div *ngIf="mostrar_error">
+                <p class="text-danger">Por favor, ingresar todos los campos</p>
+              </div>
+              <button type="submit" class="btn btn-primary">Create Patient</button>
+            </form>
+          </div>
+          <!--Si vamos a mostrar el historial de un paciente-->
+          <div *ngIf="mostrar_historial" >
+            <!--<h3 class="text-center">Medical History</h3>-->
+              <h4 class="text-center">Patient information</h4>
+              <p>
+                <b>Name:</b> {{patient_journey['nombre']}}<br>
+                <b>Last name:</b> {{patient_journey['apellidos']}}<br>
+                <b>Rut:</b> {{patient_journey['rut']}}<br>
+                <b>Address:</b> {{patient_journey['direccion']}}<br>
+                <b>Birthday:</b> {{patient_journey['fecha_nacimiento']}}<br>
+                <b>City:</b> {{patient_journey['ciudad']}}
+              </p>
+              <!--Iteramos cada sesion medica-->
+              <div *ngFor="let sesion_medica of patient_journey['sesiones_medica']">
+                <h4 class="text-center">Sesion: {{sesion_medica['nombre_sesion']}}</h4>
+                <!--<p class="text-center">Datos del profesional</p>-->
+                <p>
+                  <b>Nombre:</b> {{sesion_medica["nombre_profesional"]}}<br>
+                  <b>Profesion:</b> {{sesion_medica["profesion"]}}<br>
+                  <b>Centro de salud:</b> {{sesion_medica["centro_salud"]}}<br>
+                  <b>Fecha:</b> {{sesion_medica["fecha"]}}
+                </p>
+                <!--Iteramos cada arquetipo en la sesion-->
+                <div *ngFor="let arquetipo of sesion_medica['arquetipos']">
+                  <div *ngFor="let nodo of arquetipo">
+                    
+                    <!--<p class="text-center" *ngIf="nodo['tipo']==1"><u><b>{{nodo['valor']}}</b></u></p>-->
+                    <h5 class="text-center" *ngIf="nodo['tipo']==1">{{nodo['valor']}}</h5>
+                    <p class="text-center" *ngIf="nodo['tipo']==2"><b>{{nodo['valor']}}:</b></p>
+                    <p class="m-0 p-0" *ngIf="nodo['tipo']==3"><b>{{nodo['valor']}}:</b></p>
+                    <p class="m-0 p-0" *ngIf="nodo['tipo']==4"><b>{{nodo['clave']}}:</b> {{nodo['valor']}} </p>
+                  </div>
+                  
+                </div>
+              </div>
+
+             
+              <div *ngIf="habilitar_creacion_nueva_sesion" class="text-center">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSetMedicalSesionName">New medical sesion</button>
+              </div>
+
+              
+          </div>
+          <!--Si ya creamos una nueva sesion medica, mostramos los datos al final del historial clinico-->
+          <div *ngIf="!habilitar_creacion_nueva_sesion" class="border  border-dark p-2 mt-2 mr-2" > 
+            <h5 class="text-center">Nueva sesión medica: {{current_medical_sesion["nombre_sesion"]}}</h5>
+              <p>
+                <b>Persona atendiendo:</b> {{current_medical_sesion["nombre_profesional"]}}<br>
+                <b>Profesion:</b> {{current_medical_sesion["profesion"]}}<br>
+                <b>Centro de salud:</b> {{current_medical_sesion["centro_salud"]}}<br>
+                <b>Fecha:</b> {{current_medical_sesion["fecha"]}}
+              </p>
+            <!--<p class="text-center text-primary"> Comienza agregar arquetipos a la consulta...</p>-->
+            <!--<div class="form">
+              <dynamic-form [fields]="regConfig" (submit)="submit($event)">
+              </dynamic-form>              
+              <br>
+              
+              <div class="margin-top">
+                {{ form.value | json }}
+              </div>
+              
+              <br>
+            </div>-->
+            <div class="form">
+              <dynamic-form [fields]="regConfig" (submit)="submit($event)">
+              </dynamic-form>              
+            
+            </div>
+
+          </div>
   
         </div>
     </div>
     <div class="col-md-7">
-      <div class="mt-4 mr-4">
+      <div class="mt-4 mr-1">
         <div *ngIf="!mostrar_diagrama_arquetipos">
             <app-lista-arquetipos
             (mostrar_diagrama_arquetipos)="cambiarComponente($event)">
@@ -58,4 +168,35 @@
         </div>
       </div>
     </div>
+</div>
+
+<!-- Modal para setear el nombre de una nueva sesion medica-->
+<div class="modal fade" id="modalSetMedicalSesionName" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New medical sesion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <form #sesion_name="ngForm" (ngSubmit)="createNewMedicalSesion(sesion_name)">
+          <div class="form-group">
+            <label for="formSesion_name">Name</label>
+            <input type="text" class="form-control" ngModel name="name" id="formSesion_name" placeholder="Medical sesion name..." required>
+          </div>
+          <!--<div *ngIf="mostrar_error">
+            <p class="text-danger">Por favor, ingresar todos los campos</p>
+          </div>-->
+          <button type="submit" class="btn btn-primary">Add to History</button>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
 </div>

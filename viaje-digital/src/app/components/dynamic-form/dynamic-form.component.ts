@@ -31,6 +31,7 @@ export class DynamicFormComponent implements OnInit {
   @Output() submit: EventEmitter<any> = new EventEmitter<any>();
 
   form: FormGroup;
+  nodos_agregados_al_historial = []
 
   get value() {
     return this.form.value;
@@ -40,6 +41,23 @@ export class DynamicFormComponent implements OnInit {
   ngOnInit() {
     this.form = this.createControl();
   }
+  verificarRepeticionNombre(nombre:string, forlulario:any):string{//borrar esta wea
+    var claves_nodos_forlulario = Object.keys(forlulario)
+    for(const clave of claves_nodos_forlulario){
+      if(nombre == clave){
+        console.log(nombre + " se repite")
+        nombre = nombre + " I"
+      }
+    }
+    return nombre
+
+  }
+  resetDatosCurrentSesionMedica(){
+    //this.fields = []
+    this.form = this.createControl();
+    this.nodos_agregados_al_historial = []
+  }
+  
   agregarBoton(elemento:any){
     //agrear al control
     //agegar a fields
@@ -72,9 +90,20 @@ export class DynamicFormComponent implements OnInit {
         }
       ]
     }*/
+    //intentar verificar si la clave ya existe en el form
+    //elemento.name = elemento.name + " 1"
+    /*console.log(elemento.name)
+    console.log(this.form.value)
+    console.log("----------------------------------------------------------------")*/
+
+    //no sirve!!
+    //posible solucion: que la key sea un valor unico como un numero y el valor mantenerlo
+    //elemento.name = this.verificarRepeticionNombre(elemento.name, this.form.value)
+    this.nodos_agregados_al_historial.push(elemento.label)//prueba
+
     var boton_final = {
       type: "button",
-      label: "Save"
+      label: "Guardar y salir"
     }
     var last_of_fields = this.fields.length - 1
     this.fields[last_of_fields] = elemento
@@ -85,14 +114,17 @@ export class DynamicFormComponent implements OnInit {
       this.bindValidations(this.fields[last_of_fields].validations || [])
     );
     this.form.addControl(elemento.name, control1)
-
+    this.form.controls[elemento.name].setValue(elemento.label)
     //this.form = this.createControl()
   }
   onSubmit(event: Event) {
+    console.log(this.form.value)
     event.preventDefault();
     event.stopPropagation();
     if (this.form.valid) {
-      this.submit.emit(this.form.value);
+      //this.submit.emit(this.nodos_agregados_al_historial)
+      var datos = {"nombre_campos": this.nodos_agregados_al_historial, "valor_campos": this.form.value}
+      this.submit.emit(datos);
     } else {
       this.validateAllFormFields(this.form);
     }

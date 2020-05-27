@@ -1,10 +1,10 @@
 <app-header [userName]="usuario_logeado"></app-header>
-
+<h3 class="text-center mt-4">Search Patient</h3>
 <div id="buscador" class="text-center">
     <form #paciente="ngForm" (ngSubmit)="buscarPaciente(paciente)" class="form-search">
         <div class="form-group">
         <label for="formRut">Rut</label>
-        <input type="text" class="form-control" ngModel name="rut" id="formRut" placeholder="Escribir rut del paciente...">
+        <input type="text" class="form-control text-center" ngModel name="rut" id="formRut" placeholder="Escribir rut del paciente...">
         </div>
         <div *ngIf="mostrar_error">
             <p class="text-danger">{{mensaje_respuesta}}</p>
@@ -14,12 +14,12 @@
     </form>
     
 </div>
-<div *ngIf="mostrar_paciente" class="text-center">
+<div *ngIf="mostrar_paciente" class="text-center mb-2">
     <h5>Patient found</h5>
     <p>Rut: {{rut}} <br> Name: {{nombre}} {{apellidos}} </p>
     <button type="button" (click)="goToHistory()" class="btn btn-primary">Go to medical history</button>
-    
 </div>
+
 <div class="text-center">
     <p>or</p>
     <button type="button" (click)="createNewPatient()" class="btn btn-primary">Create a new patient</button>

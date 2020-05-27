@@ -7,6 +7,7 @@ import {FieldConfig} from '../field.interface'
 import { DynamicFormComponent } from "../components/dynamic-form/dynamic-form.component";
 import {Router} from '@angular/router';
 import { UserService } from '../servicios/user.service';
+import { PacienteService } from '../servicios/paciente.service'
 import { SeleccionarPacienteService } from '../servicios/seleccionar-paciente.service'
 
 declare var $:any;
@@ -18,13 +19,25 @@ declare var $:any;
 })
 export class FichaPacienteComponent implements OnInit {
 
-  constructor(private conexBack: ConexionBackendService, private router: Router, private userService: UserService, private seleccionarPacienteService: SeleccionarPacienteService) { }
+  constructor(private conexBack: ConexionBackendService, private router: Router, private userService: UserService, private patientService: PacienteService, private seleccionarPacienteService: SeleccionarPacienteService) { }
   mostrar_diagrama_arquetipos:boolean = false
 
-  @ViewChild(DynamicFormComponent, {static: true}) form: DynamicFormComponent;
-  regConfig: FieldConfig[] = [
+  patient_journey:any = {}
 
-    {
+  current_medical_sesion:any = {}
+  arquetipos_medical_sesion:any[] = []
+  arquetipo_agregado_historial:any = []//se ira insertando al array arquetipos_medical_sesion
+  n:number = 0
+
+  user:any = {}
+  habilitar_form_datos_base:boolean = false
+  habilitar_creacion_nueva_sesion:boolean = true
+
+
+  @ViewChild(DynamicFormComponent, {static: false}) form: DynamicFormComponent;
+  regConfig: FieldConfig[] = [//Nos ayudara para agregar nuevas sesiones medicas a la estructura
+
+    /*{
       type: "input",
       label: "Nombre",
       inputType: "text",
@@ -68,13 +81,6 @@ export class FichaPacienteComponent implements OnInit {
         }
       ]
     },
-    /*{
-      type: "radiobutton",
-      label: "Gender",
-      name: "gender",
-      options: ["Male", "Female"],
-      value: "Male"
-    },*/
     {
       type: "date",
       label: "Fecha de nacimiento",
@@ -96,7 +102,7 @@ export class FichaPacienteComponent implements OnInit {
                 "Coyhaique","Concepción"," La Serena","Temuco",
                 "Puerto Montt","Valdivia","Punta Arenas","Talca",
                 "Santiago","Chillán","Rancagua","Valparaíso", "Santiago"]
-    },
+    },*/
     {
       type: "button",
       label: "Save"
@@ -104,15 +110,53 @@ export class FichaPacienteComponent implements OnInit {
    
   ];
 
-  //datos_historial_correctos:boolean = false
-  submit(value: any) {
-
-    console.log(value)
-    //this.datos_historial_correctos = true
-    $(".alert").alert()
-
+  mostrar_error:boolean = false
+  crearPaciente(datos_base: NgForm){
+    var all_datos_ingresados = datos_base.valid
+    if(all_datos_ingresados){
+      this.mostrar_error = false
+      this.patient_journey = datos_base.value
+      this.patient_journey["sesiones_medica"] = []
+      //console.log(this.patient_journey)
+      this.showPatientJourney()
+    }else{
+      this.mostrar_error = true
+    }
   }
-  usuario_logeado:string = ""
+  mostrar_historial:boolean = false
+  showPatientJourney(){
+    console.log("Se mostrará el historial del paciente!!")
+    console.log(this.patient_journey)
+    this.habilitar_form_datos_base = false
+    this.mostrar_historial = true
+  }
+  createNewMedicalSesion(sesion_name: NgForm){
+    $('#modalSetMedicalSesionName').modal('toggle');
+    //agregamos datos base de una sesion medica
+    this.current_medical_sesion["nombre_sesion"] = sesion_name.value.name
+    this.current_medical_sesion["fecha"] = this.obtenerFechaActual()
+    this.current_medical_sesion["nombre_profesional"] = this.user.user.first_name + " " + this.user.user.last_name
+    this.current_medical_sesion["profesion"] = this.user.profesion
+    this.current_medical_sesion["centro_salud"] = this.user.centro_salud
+    /*
+    this.patient_journey["sesiones_medica"].push(this.current_medical_sesion)
+    console.log(this.patient_journey)
+    */
+    console.log(this.current_medical_sesion)
+    this.habilitar_creacion_nueva_sesion = false
+    //dibujamos nuevamente el patient journey
+  }
+  obtenerFechaActual():string{
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    var my_current_date = mm + '/' + dd + '/' + yyyy;
+    return my_current_date
+  }
+  usuario_logeado:string = ""//para pasar al header
+  
   ngOnInit(): void {
     if(!this.userService.getToken()){//si no hay token
       this.router.navigateByUrl('')
@@ -122,6 +166,7 @@ export class FichaPacienteComponent implements OnInit {
     this.userService.getUser(parseInt(this.userService.getIdUser())).subscribe(
       data => {
         this.usuario_logeado = data.user.username
+        this.user = data
         //console.log(data)
       },
       error => {
@@ -138,22 +183,43 @@ export class FichaPacienteComponent implements OnInit {
         if(rut == "new_patient"){
           //alert("crear nuevo paciente")
           console.log("Crear paciente desde 0")
+          console.log(this.patient_journey)
+          this.habilitar_form_datos_base = true
         }
         else{//rut normal validado que existe
           //alert(rut)
           console.log("modificar paciente:",rut)
+          this.patientService.getPatient(rut).subscribe(
+            data => {
+              this.patient_journey = data
+              this.showPatientJourney()
+              //console.log(this.patient_journey)
+            },
+            error => {
+              console.log('error', error)
+            }
+          );
+          
         }
         
     })
   }
-
+  
   agregarCampo(datos_campo:any){
     var elemento
     
-    var nombre = datos_campo.text
+    var nombre = this.n.toString()//datos_campo.text
+    var mylabel = datos_campo.text
     var tipo = datos_campo.tipo
+
+    var nodo_arquetipos_medical_sesion = {}
+    //1.- titulo ; 2.- estructural ; 3.- cluster ; 4.- datos paciente
+    var tipo_nodo_arquetipos_medical_sesion
+
     //console.log(datos_campo.contenido.lengt)
     if((tipo == "DV_CODED_TEXT" || tipo == "CHOICE") && datos_campo.contenido.length > 0){
+
+      tipo_nodo_arquetipos_medical_sesion = 4
       //Si es de tipo choice, eliminamos contenido no deseado
       if (tipo == "CHOICE"){
         for(let i = 0; i < datos_campo.contenido.length; i++){
@@ -170,7 +236,7 @@ export class FichaPacienteComponent implements OnInit {
       if (datos_campo.contenido.length == 0){//si nos quedamos sin contenido para los radio buttons
         elemento = {
           type: "input",
-          label: nombre,
+          label: mylabel,
           inputType: "text",
           name: nombre,
           validations: [
@@ -189,7 +255,7 @@ export class FichaPacienteComponent implements OnInit {
         }
         elemento = {
           type: "radiobutton",
-          label: nombre,
+          label: mylabel,
           name: nombre,
           options: myOptions
         }
@@ -197,9 +263,12 @@ export class FichaPacienteComponent implements OnInit {
     }
 
     else if(tipo == "DV_QUANTITY" || tipo == "DV_COUNT"){
+
+      tipo_nodo_arquetipos_medical_sesion = 4
+
       elemento = {
         type: "input",
-        label: nombre,
+        label: mylabel,
         inputType: "number",
         name: nombre,
         validations: [
@@ -212,21 +281,27 @@ export class FichaPacienteComponent implements OnInit {
       }
     }
     else if(tipo == "DV_ORDINAL"){
+
+      tipo_nodo_arquetipos_medical_sesion = 4
+
       var myOptions = []
       for(const opt of datos_campo.contenido){
         myOptions.push(opt.numero + ": " + opt.text)
       }
       elemento = {
         type: "select",
-        label: nombre,
+        label: mylabel,
         name: nombre,
         options: myOptions
       }
     }
     else if(tipo == "DV_DATE_TIME" || tipo == "DV_DATE"){
+
+      tipo_nodo_arquetipos_medical_sesion = 4
+
       elemento = {
         type: "date",
-        label: nombre,
+        label: mylabel,
         name: nombre,
         validations: [
           {
@@ -238,17 +313,23 @@ export class FichaPacienteComponent implements OnInit {
       }
     }
     else if(tipo == "DV_BOOLEAN"){
+
+      tipo_nodo_arquetipos_medical_sesion = 4
+
       elemento = {
         type: "select",
-        label: nombre,
+        label: mylabel,
         name: nombre,
         options: ["Yes", "No"]
       }
     }
     else if(tipo == "estructural"){
+
+      tipo_nodo_arquetipos_medical_sesion = 2
+
       elemento = {
         type: "titulo_estructural",
-        label: nombre,
+        label: mylabel,
         inputType: "text",
         name: nombre,
         validations: [
@@ -268,9 +349,12 @@ export class FichaPacienteComponent implements OnInit {
         }
       }
       if (contiene_otros_nodos){
+
+        tipo_nodo_arquetipos_medical_sesion = 3
+
         elemento = {
           type: "titulo_estructural",
-          label: nombre,
+          label: mylabel,
           inputType: "text",
           name: nombre,
           validations: [
@@ -282,10 +366,13 @@ export class FichaPacienteComponent implements OnInit {
           ]
         }
       }else{
+
+        tipo_nodo_arquetipos_medical_sesion = 4
+
         elemento = {
           //type: "input",
           type: "textarea",
-          label: nombre,
+          label: mylabel,
           inputType: "text",
           name: nombre,
           validations: [
@@ -301,10 +388,13 @@ export class FichaPacienteComponent implements OnInit {
     }
     else{
       //puede ser un dv_text, careflow step, event, cluster
+
+      tipo_nodo_arquetipos_medical_sesion = 4
+
       elemento = {
         //type: "input",
         type: "textarea",
-        label: nombre,
+        label: mylabel,
         inputType: "text",
         name: nombre,
         validations: [
@@ -318,7 +408,9 @@ export class FichaPacienteComponent implements OnInit {
       
     }
     this.form.agregarBoton(elemento)
-
+    nodo_arquetipos_medical_sesion["tipo"] = tipo_nodo_arquetipos_medical_sesion
+    this.arquetipo_agregado_historial.push(nodo_arquetipos_medical_sesion)
+    this.n = this.n+1
   }
   agregarAlHistorial(arquetipo){ 
     for (var k in arquetipo)
@@ -358,13 +450,13 @@ export class FichaPacienteComponent implements OnInit {
   }
 
   asignarBotonTitulo(arquetipo:any){
-
+    alert("Hola!")
     var nombre_arquetipo = arquetipo["text"]
     var elemento = {
       type: "titulo_arquetipo",
-      label: "Arquetipo",
+      label: nombre_arquetipo,
       inputType: "text",
-      name: nombre_arquetipo,
+      name: this.n.toString(),
       validations: [
         {
           name: "required",
@@ -374,17 +466,83 @@ export class FichaPacienteComponent implements OnInit {
       ]
     }
     this.form.agregarBoton(elemento)
-  }
+    this.arquetipo_agregado_historial.push({"tipo":1})
+    this.n = this.n+1
+  } 
 
   recibirArquetipoId(arquetipo_id: string){
     if(arquetipo_id){
       this.conexBack.getArquetipoById(arquetipo_id).subscribe(arquetipo =>{
         this.asignarBotonTitulo(arquetipo),
         this.agregarAlHistorial(arquetipo)
-        
+        //console.log(this.arquetipo_agregado_historial)
+        //luego de las dos funciones anteriores, el tipo de nodo esta seteado
+        this.arquetipos_medical_sesion.push(this.arquetipo_agregado_historial)
+        console.log(this.arquetipos_medical_sesion)
+        this.arquetipo_agregado_historial = []
       })
     }
     
+  }
+  //datos_historial_correctos:boolean = false
+  submit(datos_form: any) {
+    console.log("Wenaaas sabandijas")
+    //console.log(datos_form)
+    //this.datos_historial_correctos = true
+    //$(".alert").alert() length
+    var i = 0
+    for(let arquetipo_in_historial of this.arquetipos_medical_sesion){
+      for(let nodo of arquetipo_in_historial){
+        var nombre_campo = datos_form["nombre_campos"][i]
+        var valor_campo = datos_form["valor_campos"][i.toString()]
+        //nodo[nombre_campo] = valor_campo
+        nodo["clave"] = nombre_campo
+        nodo["valor"] = valor_campo
+        i = i + 1
+      }
+      console.log(arquetipo_in_historial)
+    }
+    this.current_medical_sesion["arquetipos"] = this.arquetipos_medical_sesion
+    this.patient_journey["sesiones_medica"].push(this.current_medical_sesion)
+    console.log(this.patient_journey)
+    this.resetDatosCurrentSesionMedica()
+
+    if(this.patient_journey["_id"]){//Si hay que actualizar uno ya existente
+      this.patientService.putPatient(this.patient_journey).subscribe(
+        data => {
+          console.log(data)
+        },
+        error => {
+          console.log('error', error)
+        }
+      );
+    }else{
+      this.patientService.postPatient(this.patient_journey).subscribe(
+        data => {
+          this.patient_journey["_id"] = data["_id"]
+        },
+        error => {
+          console.log('error', error)
+        }
+      );
+    }
+    
+    
+
+  }
+  resetDatosCurrentSesionMedica(){
+    this.current_medical_sesion = {}
+    this.arquetipos_medical_sesion= []
+    this.arquetipo_agregado_historial = []//se ira insertando al array arquetipos_medical_sesion
+    this.n = 0
+    this.regConfig = [{
+      type: "button",
+      label: "Save"
+    }]
+    this.form.resetDatosCurrentSesionMedica()
+    this.habilitar_creacion_nueva_sesion = true
+    //insertar/ actualizar paciente en DB
+
   }
 
   cambiarComponente(mensaje: boolean){
