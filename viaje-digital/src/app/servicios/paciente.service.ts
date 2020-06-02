@@ -17,25 +17,20 @@ const httpOptions = {
 export class PacienteService {
 
   url_pacientes = 'http://127.0.0.1:8000/pacientes/'
-
+  url_pacientes_atendidos = 'http://127.0.0.1:8000/pacientes_atendidos/'
   constructor(private httpClient:HttpClient, private cookies: CookieService) { }
 
   getPatient(rut:string): Observable<any>{
     httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
     return this.httpClient.get(this.url_pacientes+rut+"/", httpOptions);
   }
-  /* 
-  updateArquetipo(arquetipo:any): Observable<any>{
-    return this.httpClient.put<any>(this.url_import+arquetipo["_id"]+"/", arquetipo);
+  getAttendedPatients(id_profesional: number): Observable<any>{
+    httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
+    return this.httpClient.get(this.url_pacientes_atendidos+id_profesional+"/", httpOptions);
   }
-  login(user: any): Observable<any> {
-    return this.httpClient.post(this.url_import, user);
-  }
-  */
-
   putPatient(patient_journey:any): Observable<any>{
     httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
-    delete patient_journey["_id"]
+    //delete patient_journey["_id"]
     return this.httpClient.put(this.url_pacientes + patient_journey["rut"] + "/", patient_journey, httpOptions )
   }
   postPatient(patient_journey:any): Observable<any>{

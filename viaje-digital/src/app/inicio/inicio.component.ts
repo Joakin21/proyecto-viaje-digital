@@ -19,6 +19,7 @@ export class InicioComponent implements OnInit {
   mostrar_error:boolean = false
 
   usuario_logeado:string = ""
+  pacientes_atendidos:any = []
   ngOnInit(): void {
     if(!this.userService.getToken()){//si no hay token
       this.router.navigateByUrl('')
@@ -29,6 +30,17 @@ export class InicioComponent implements OnInit {
       data => {
         this.usuario_logeado = data.user.username
         //console.log(data)
+        var id_profesional = data.user.id
+        this.patientService.getAttendedPatients(id_profesional).subscribe(
+          data => {
+            
+            this.pacientes_atendidos = data["pacientes_atendidos"]
+            console.log(this.pacientes_atendidos)
+          },
+          error => {
+            console.log('error', error)
+          }
+        );
       },
       error => {
         console.log('error', error)
@@ -68,6 +80,11 @@ export class InicioComponent implements OnInit {
     //alert("ir a ficha!")
     this.seleccionarPacienteService.asignar(this.rut)
     this.router.navigateByUrl('/ficha-paciente')
+  }
+
+  seleccionarDesdeLista(paciente:any){
+    this.rut = paciente["rut"]
+    this.goToHistory()
   }
 
   createNewPatient(){

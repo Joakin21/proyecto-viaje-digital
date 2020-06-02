@@ -33,6 +33,8 @@ export class FichaPacienteComponent implements OnInit {
   habilitar_form_datos_base:boolean = false
   habilitar_creacion_nueva_sesion:boolean = true
 
+  mensaje_error2:string = ""
+  mostrar_mensaje_error2:boolean = false
 
   @ViewChild(DynamicFormComponent, {static: false}) form: DynamicFormComponent;
   regConfig: FieldConfig[] = [//Nos ayudara para agregar nuevas sesiones medicas a la estructura
@@ -116,8 +118,9 @@ export class FichaPacienteComponent implements OnInit {
     if(all_datos_ingresados){
       this.mostrar_error = false
       this.patient_journey = datos_base.value
+      this.patient_journey["profesionales_que_atendieron"] = []
       this.patient_journey["sesiones_medica"] = []
-      //console.log(this.patient_journey)
+      //console.log(this.patient  _journey)
       this.showPatientJourney()
     }else{
       this.mostrar_error = true
@@ -138,6 +141,7 @@ export class FichaPacienteComponent implements OnInit {
     this.current_medical_sesion["nombre_profesional"] = this.user.user.first_name + " " + this.user.user.last_name
     this.current_medical_sesion["profesion"] = this.user.profesion
     this.current_medical_sesion["centro_salud"] = this.user.centro_salud
+    console.log(this.user)
     /*
     this.patient_journey["sesiones_medica"].push(this.current_medical_sesion)
     console.log(this.patient_journey)
@@ -145,6 +149,7 @@ export class FichaPacienteComponent implements OnInit {
     console.log(this.current_medical_sesion)
     this.habilitar_creacion_nueva_sesion = false
     //dibujamos nuevamente el patient journey
+    this.mostrar_mensaje_error2 = false
   }
   obtenerFechaActual():string{
     var today = new Date();
@@ -450,7 +455,6 @@ export class FichaPacienteComponent implements OnInit {
   }
 
   asignarBotonTitulo(arquetipo:any){
-    alert("Hola!")
     var nombre_arquetipo = arquetipo["text"]
     var elemento = {
       type: "titulo_arquetipo",
@@ -471,62 +475,95 @@ export class FichaPacienteComponent implements OnInit {
   } 
 
   recibirArquetipoId(arquetipo_id: string){
-    if(arquetipo_id){
-      this.conexBack.getArquetipoById(arquetipo_id).subscribe(arquetipo =>{
-        this.asignarBotonTitulo(arquetipo),
-        this.agregarAlHistorial(arquetipo)
-        //console.log(this.arquetipo_agregado_historial)
-        //luego de las dos funciones anteriores, el tipo de nodo esta seteado
-        this.arquetipos_medical_sesion.push(this.arquetipo_agregado_historial)
-        console.log(this.arquetipos_medical_sesion)
-        this.arquetipo_agregado_historial = []
-      })
+    if(!this.habilitar_creacion_nueva_sesion){
+      if(arquetipo_id){
+        this.conexBack.getArquetipoById(arquetipo_id).subscribe(arquetipo =>{
+          this.asignarBotonTitulo(arquetipo),
+          this.agregarAlHistorial(arquetipo)
+          //console.log(this.arquetipo_agregado_historial)
+          //luego de las dos funciones anteriores, el tipo de nodo esta seteado
+          this.arquetipos_medical_sesion.push(this.arquetipo_agregado_historial)
+          console.log(this.arquetipos_medical_sesion)
+          this.arquetipo_agregado_historial = []
+        })
+      }
+      this.mostrar_mensaje_error2 = false
+    }else{
+      //alert("Para agregar un arquetipo debe crear una sesion primero")
+      this.mensaje_error2 = "To add an archetype you must create a session first"
+      this.mostrar_mensaje_error2 = true
     }
+    
     
   }
   //datos_historial_correctos:boolean = false
   submit(datos_form: any) {
-    console.log("Wenaaas sabandijas")
-    //console.log(datos_form)
-    //this.datos_historial_correctos = true
-    //$(".alert").alert() length
-    var i = 0
-    for(let arquetipo_in_historial of this.arquetipos_medical_sesion){
-      for(let nodo of arquetipo_in_historial){
-        var nombre_campo = datos_form["nombre_campos"][i]
-        var valor_campo = datos_form["valor_campos"][i.toString()]
-        //nodo[nombre_campo] = valor_campo
-        nodo["clave"] = nombre_campo
-        nodo["valor"] = valor_campo
-        i = i + 1
-      }
-      console.log(arquetipo_in_historial)
-    }
-    this.current_medical_sesion["arquetipos"] = this.arquetipos_medical_sesion
-    this.patient_journey["sesiones_medica"].push(this.current_medical_sesion)
-    console.log(this.patient_journey)
-    this.resetDatosCurrentSesionMedica()
 
-    if(this.patient_journey["_id"]){//Si hay que actualizar uno ya existente
-      this.patientService.putPatient(this.patient_journey).subscribe(
-        data => {
-          console.log(data)
-        },
-        error => {
-          console.log('error', error)
+    if(this.arquetipos_medical_sesion.length > 0){
+      console.log("Patient Journey:")
+      var i = 0
+      for(let arquetipo_in_historial of this.arquetipos_medical_sesion){
+        for(let nodo of arquetipo_in_historial){
+          var nombre_campo = datos_form["nombre_campos"][i]
+          var valor_campo = datos_form["valor_campos"][i.toString()]
+          if(typeof valor_campo == "object"){
+            var fecha = valor_campo["_i"]["date"]+"/"+valor_campo["_i"]["month"]+"/"+valor_campo["_i"]["year"]
+            valor_campo = fecha
+          }
+
+          //nodo[nombre_campo] = valor_campo
+          nodo["clave"] = nombre_campo
+          nodo["valor"] = valor_campo
+          i = i + 1
         }
-      );
+        //console.log(arquetipo_in_historial)
+      }
+      this.current_medical_sesion["arquetipos"] = this.arquetipos_medical_sesion
+      this.patient_journey["sesiones_medica"].push(this.current_medical_sesion)
+      //agrego el profesional que atendio solo si nunca habia atendido al paciente
+      var atendio_al_paciente_antes = false
+      for(let id_profesional of this.patient_journey["profesionales_que_atendieron"]){
+        if(this.user.user.id == id_profesional){
+          atendio_al_paciente_antes = true
+        }
+      }
+      if(!atendio_al_paciente_antes){
+        this.patient_journey["profesionales_que_atendieron"].push(this.user.user.id)
+      }
+      
+
+      
+      this.resetDatosCurrentSesionMedica()
+      console.log(this.patient_journey["_id"])
+      console.log(this.patient_journey)
+
+      if(this.patient_journey["_id"]){//Si hay que actualizar uno ya existente
+        //alert("Se actualizara el paciente")
+        this.patientService.putPatient(this.patient_journey).subscribe(
+          data => {
+            console.log(data)
+          },
+          error => {
+            console.log('error', error)
+          }
+        );
+      }else{
+        //alert("Se creara el paciente")
+        this.patientService.postPatient(this.patient_journey).subscribe(
+          data => {
+            this.patient_journey["_id"] = data["_id"]
+          },
+          error => {
+            console.log('error', error)
+          }
+        );
+      }
+      this.mostrar_mensaje_error2 = false
     }else{
-      this.patientService.postPatient(this.patient_journey).subscribe(
-        data => {
-          this.patient_journey["_id"] = data["_id"]
-        },
-        error => {
-          console.log('error', error)
-        }
-      );
+      //alert("Debes agregar almenos un arquetipo a la sesion")
+      this.mensaje_error2 = "You must add at least one archetype to the session"
+      this.mostrar_mensaje_error2 = true
     }
-    
     
 
   }

@@ -6,7 +6,7 @@
       <!--<h1>Patient Journey</h1>-->
       
         <!--Aqui va la ficha-->
-        <div id="panelFiguras" class="overflow-auto mt-4 ml-1" style="height: 100vh;">
+        <div id="panelFiguras" class="overflow-auto mt-4 ml-1" style="max-height: 100vh;">
             <!--Titulo-->
             <!--
             <div class="text-center">
@@ -32,30 +32,31 @@
             <!--------------------------------------------->
           <!--Si creamos un paciente desde cero, habilitamos formulario para crear datos base-->
           <div *ngIf="habilitar_form_datos_base">
-            <form #datos_base="ngForm" (ngSubmit)="crearPaciente(datos_base)" class="form-search">
+            <h4 class="text-center text-primary">Required information</h4>
+            <form #datos_base="ngForm" (ngSubmit)="crearPaciente(datos_base)" class="form-search mr-3">
               <div class="form-group">
                 <label for="formNombre">Name</label>
-                <input type="text" class="form-control" ngModel name="nombre" id="formNombre" placeholder="Write patient name..." required>
+                <input type="text" class="form-control" ngModel name="nombre" id="formNombre" placeholder="patient name..." required>
               </div>
               <div class="form-group">
                 <label for="formApellido">Last name</label>
-                <input type="text" class="form-control" ngModel name="apellidos" id="formApellido" placeholder="Write patient last name..." required>
+                <input type="text" class="form-control" ngModel name="apellidos" id="formApellido" placeholder="patient last name..." required>
               </div>
               <div class="form-group">
                 <label for="formRut">Rut</label>
-                <input type="text" class="form-control" ngModel name="rut" id="formRut" placeholder="Write patient rut..." required>
+                <input type="text" class="form-control" ngModel name="rut" id="formRut" placeholder="patient rut..." required>
               </div>
               <div class="form-group">
                 <label for="formDireccion">Address</label>
-                <input type="text" class="form-control" ngModel name="direccion" id="formDireccion" placeholder="Write patient address..."required>
+                <input type="text" class="form-control" ngModel name="direccion" id="formDireccion" placeholder="patient address..."required>
               </div>
               <div class="form-group">
                 <label for="formFecha_nacimiento">Birthday</label>
-                <input type="date" class="form-control" ngModel name="fecha_nacimiento" id="formFecha_nacimiento" placeholder="Write patient birthday..." required>
+                <input type="date" class="form-control" ngModel name="fecha_nacimiento" id="formFecha_nacimiento" placeholder="patient birthday..." required>
               </div>
               <div class="form-group">
                 <label for="formCity">City</label>
-                <select class="form-control" ngModel name="ciudad" id="formCity" placeholder="Write patient city..." required> 
+                <select class="form-control" ngModel name="ciudad" id="formCity" placeholder="patient city..." required> 
                   <option>Iquique</option>
                   <option>Antofagasta</option>
                   <option>Copiapó</option>
@@ -75,7 +76,7 @@
                 </select>
               </div>
               <div *ngIf="mostrar_error">
-                <p class="text-danger">Por favor, ingresar todos los campos</p>
+                <p class="text-danger">Please enter all fields</p>
               </div>
               <button type="submit" class="btn btn-primary">Create Patient</button>
             </form>
@@ -83,7 +84,7 @@
           <!--Si vamos a mostrar el historial de un paciente-->
           <div *ngIf="mostrar_historial" >
             <!--<h3 class="text-center">Medical History</h3>-->
-              <h4 class="text-center">Patient information</h4>
+              <h4 class="text-center text-info">Patient information</h4>
               <p>
                 <b>Name:</b> {{patient_journey['nombre']}}<br>
                 <b>Last name:</b> {{patient_journey['apellidos']}}<br>
@@ -94,7 +95,7 @@
               </p>
               <!--Iteramos cada sesion medica-->
               <div *ngFor="let sesion_medica of patient_journey['sesiones_medica']">
-                <h4 class="text-center">Sesion: {{sesion_medica['nombre_sesion']}}</h4>
+                <h4 class="text-center text-info">Sesion: {{sesion_medica['nombre_sesion']}}</h4>
                 <!--<p class="text-center">Datos del profesional</p>-->
                 <p>
                   <b>Nombre:</b> {{sesion_medica["nombre_profesional"]}}<br>
@@ -107,30 +108,30 @@
                   <div *ngFor="let nodo of arquetipo">
                     
                     <!--<p class="text-center" *ngIf="nodo['tipo']==1"><u><b>{{nodo['valor']}}</b></u></p>-->
-                    <h5 class="text-center" *ngIf="nodo['tipo']==1">{{nodo['valor']}}</h5>
+                    <h5 class="text-center text-secondary" *ngIf="nodo['tipo']==1">{{nodo['valor']}}</h5>
                     <p class="text-center" *ngIf="nodo['tipo']==2"><b>{{nodo['valor']}}:</b></p>
-                    <p class="m-0 p-0" *ngIf="nodo['tipo']==3"><b>{{nodo['valor']}}:</b></p>
-                    <p class="m-0 p-0" *ngIf="nodo['tipo']==4"><b>{{nodo['clave']}}:</b> {{nodo['valor']}} </p>
+                    <p *ngIf="nodo['tipo']==3"><b>{{nodo['valor']}}:</b></p>
+                    <p *ngIf="nodo['tipo']==4"><b>{{nodo['clave']}}:</b> {{nodo['valor']}} </p>
                   </div>
                   
                 </div>
               </div>
 
-             
+              <!--
               <div *ngIf="habilitar_creacion_nueva_sesion" class="text-center">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSetMedicalSesionName">New medical sesion</button>
               </div>
-
+              -->
               
           </div>
           <!--Si ya creamos una nueva sesion medica, mostramos los datos al final del historial clinico-->
           <div *ngIf="!habilitar_creacion_nueva_sesion" class="border  border-dark p-2 mt-2 mr-2" > 
-            <h5 class="text-center">Nueva sesión medica: {{current_medical_sesion["nombre_sesion"]}}</h5>
+            <h5 class="text-center">New medical session: {{current_medical_sesion["nombre_sesion"]}}</h5>
               <p>
-                <b>Persona atendiendo:</b> {{current_medical_sesion["nombre_profesional"]}}<br>
-                <b>Profesion:</b> {{current_medical_sesion["profesion"]}}<br>
-                <b>Centro de salud:</b> {{current_medical_sesion["centro_salud"]}}<br>
-                <b>Fecha:</b> {{current_medical_sesion["fecha"]}}
+                <b>Person attending:</b> {{current_medical_sesion["nombre_profesional"]}}<br>
+                <b>Profession:</b> {{current_medical_sesion["profesion"]}}<br>
+                <b>Clinic:</b> {{current_medical_sesion["centro_salud"]}}<br>
+                <b>Date:</b> {{current_medical_sesion["fecha"]}}
               </p>
             <!--<p class="text-center text-primary"> Comienza agregar arquetipos a la consulta...</p>-->
             <!--<div class="form">
@@ -147,11 +148,17 @@
             <div class="form">
               <dynamic-form [fields]="regConfig" (submit)="submit($event)">
               </dynamic-form>              
-            
+              
+            </div>
+            <div *ngIf="mostrar_mensaje_error2">
+              <p class="text-danger mt-2">{{mensaje_error2}}</p>
             </div>
 
           </div>
   
+        </div>
+        <div *ngIf="habilitar_creacion_nueva_sesion && mostrar_historial" class="text-center">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSetMedicalSesionName">New medical sesion</button>
         </div>
     </div>
     <div class="col-md-7">
@@ -162,6 +169,9 @@
             </app-lista-arquetipos>
         </div>
         <div *ngIf="mostrar_diagrama_arquetipos">
+            <div *ngIf="mostrar_mensaje_error2 && habilitar_creacion_nueva_sesion">
+              <p class="text-danger mb-0">{{mensaje_error2}}</p>
+            </div>
             <app-diagrama-arquetipos
             (mostrar_diagrama_arquetipos)="cambiarComponente($event)" (emitir_id_arquetipo)="recibirArquetipoId($event)">
             </app-diagrama-arquetipos>
