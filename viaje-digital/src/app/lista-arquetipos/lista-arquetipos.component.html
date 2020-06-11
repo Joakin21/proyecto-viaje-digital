@@ -13,61 +13,72 @@
   <div>
   <!-- Tab panes -->
   <div class="tab-content">
-    <div id="menu1" class="container tab-pane active"><br>
+    <div id="menu1" class="container tab-pane active">
+      <!--My Filter-->
+      <form>
+        <div class="form-group">
+          <label for="filter_name">Topic</label><br>
+          <!--<button (click) = "testTipoArquetipo()">Test tipo arquetipo</button>-->
+          <select class="form-control" id="filter_name">
+            <option *ngFor="let nombre_filtro of nombres_filtros" (click)="seleccionarFiltro(nombre_filtro)" [value]="nombre_filtro"> {{nombre_filtro}}</option>
+          </select>
+        </div>
+      </form>
       <div class="row">
+        
         <div class="col-4">
           <div class="list-group" id="list-tab" role="tablist">
-            <a class="list-group-item list-group-item-action active" id="my-cluster" data-toggle="list" href="#cluster" role="tab" aria-controls="home">cluster</a>
-            <a class="list-group-item list-group-item-action" id="my-composition" data-toggle="list" href="#composition" role="tab" aria-controls="profile">composition</a>
-            <a class="list-group-item list-group-item-action" id="my-action" data-toggle="list" href="#action" role="tab" aria-controls="messages">action</a>
-            <a class="list-group-item list-group-item-action" id="my-admin_entry" data-toggle="list" href="#admin_entry" role="tab" aria-controls="settings">admin_entry</a>
+            <a *ngIf="cluster.length > 0" class="list-group-item list-group-item-action" id="my-cluster" data-toggle="list" href="#cluster" role="tab" aria-controls="home">cluster</a>
+            <a *ngIf="composition.length > 0" class="list-group-item list-group-item-action" id="my-composition" data-toggle="list" href="#composition" role="tab" aria-controls="profile">composition</a>
+            <a *ngIf="action.length > 0" class="list-group-item list-group-item-action" id="my-action" data-toggle="list" href="#action" role="tab" aria-controls="messages">action</a>
+            <a *ngIf="admin_entry.length > 0" class="list-group-item list-group-item-action" id="my-admin_entry" data-toggle="list" href="#admin_entry" role="tab" aria-controls="settings">admin_entry</a>
             
-            <a class="list-group-item list-group-item-action" id="my-evaluation" data-toggle="list" href="#evaluation" role="tab" aria-controls="settings">evaluation</a>
-            <a class="list-group-item list-group-item-action" id="my-instruction" data-toggle="list" href="#instruction" role="tab" aria-controls="settings">instruction</a>
-            <a class="list-group-item list-group-item-action" id="my-observation" data-toggle="list" href="#observation" role="tab" aria-controls="settings">observation</a>
-            <a class="list-group-item list-group-item-action" id="my-section" data-toggle="list" href="#section" role="tab" aria-controls="settings">section</a>
+            <a *ngIf="evaluation.length > 0" class="list-group-item list-group-item-action" id="my-evaluation" data-toggle="list" href="#evaluation" role="tab" aria-controls="settings">evaluation</a>
+            <a *ngIf="instruction.length > 0" class="list-group-item list-group-item-action" id="my-instruction" data-toggle="list" href="#instruction" role="tab" aria-controls="settings">instruction</a>
+            <a *ngIf="observation.length > 0" class="list-group-item list-group-item-action" id="my-observation" data-toggle="list" href="#observation" role="tab" aria-controls="settings">observation</a>
+            <a *ngIf="section.length > 0" class="list-group-item list-group-item-action" id="my-section" data-toggle="list" href="#section" role="tab" aria-controls="settings">section</a>
 
           </div>
         </div>
         <div class="col-8">
           <div class="tab-content overflow-auto" id="nav-tabContent" style="height: 100vh">
-            <div class="tab-pane fade show active" id="cluster" role="tabpanel" aria-labelledby="my-cluster">
+            <div *ngIf="cluster.length > 0" class="tab-pane fade" id="cluster" role="tabpanel" aria-labelledby="my-cluster">
                 <div class="list-group">
                   <a [routerLink]="" *ngFor="let arq of cluster" (click)="seleccionarArquetipo(arq)" class="list-group-item list-group-item-action">{{arq["nombre"]}}</a>
                 </div>
             </div>
-            <div class="tab-pane fade" id="composition" role="tabpanel" aria-labelledby="my-composition">
+            <div *ngIf="composition.length > 0" class="tab-pane fade" id="composition" role="tabpanel" aria-labelledby="my-composition">
               <div class="list-group">
                 <a [routerLink]="" *ngFor="let arq of composition" (click)="seleccionarArquetipo(arq)" class="list-group-item list-group-item-action">{{arq["nombre"]}}</a>
               </div>
             </div>
-            <div class="tab-pane fade" id="action" role="tabpanel" aria-labelledby="my-action">
+            <div *ngIf="action.length > 0" class="tab-pane fade" id="action" role="tabpanel" aria-labelledby="my-action">
               <div class="list-group">
                 <a [routerLink]="" *ngFor="let arq of action" (click)="seleccionarArquetipo(arq)" class="list-group-item list-group-item-action">{{arq["nombre"]}}</a>
               </div>
             </div>
-            <div class="tab-pane fade" id="admin_entry" role="tabpanel" aria-labelledby="my-admin_entry">
+            <div *ngIf="admin_entry.length > 0" class="tab-pane fade" id="admin_entry" role="tabpanel" aria-labelledby="my-admin_entry">
               <div class="list-group">
                 <a [routerLink]="" *ngFor="let arq of admin_entry" (click)="seleccionarArquetipo(arq)" class="list-group-item list-group-item-action">{{arq["nombre"]}}</a>
               </div>
             </div>
-            <div class="tab-pane fade" id="evaluation" role="tabpanel" aria-labelledby="my-evaluation">
+            <div *ngIf="evaluation.length > 0" class="tab-pane fade" id="evaluation" role="tabpanel" aria-labelledby="my-evaluation">
 
               <div class="list-group">
                 <a [routerLink]="" *ngFor="let arq of evaluation" (click)="seleccionarArquetipo(arq)" class="list-group-item list-group-item-action">{{arq["nombre"]}}</a>
               </div>
             </div>
-            <div class="tab-pane fade" id="instruction" role="tabpanel" aria-labelledby="my-instruction">
+            <div *ngIf="instruction.length > 0" class="tab-pane fade" id="instruction" role="tabpanel" aria-labelledby="my-instruction">
               <div class="list-group">
                 <a [routerLink]="" *ngFor="let arq of instruction" (click)="seleccionarArquetipo(arq)" class="list-group-item list-group-item-action">{{arq["nombre"]}}</a>
               </div>
             </div>
-            <div class="tab-pane fade" id="observation" role="tabpanel" aria-labelledby="my-observation">
+            <div *ngIf="observation.length > 0" class="tab-pane fade" id="observation" role="tabpanel" aria-labelledby="my-observation">
               <div class="list-group">
                 <a [routerLink]="" *ngFor="let arq of observation" (click)="seleccionarArquetipo(arq)" class="list-group-item list-group-item-action">{{arq["nombre"]}}</a>
               </div>
             </div>
-            <div class="tab-pane fade" id="section" role="tabpanel" aria-labelledby="my-section">
+            <div *ngIf="section.length > 0" class="tab-pane fade" id="section" role="tabpanel" aria-labelledby="my-section">
               <div class="list-group">
                 <a [routerLink]="" *ngFor="let arq of section" (click)="seleccionarArquetipo(arq)" class="list-group-item list-group-item-action">{{arq["nombre"]}}</a>
               </div>
