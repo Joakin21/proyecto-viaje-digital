@@ -30,6 +30,7 @@ import { DynamicFormComponent } from "./components/dynamic-form/dynamic-form.com
 
 import { CookieService } from 'ngx-cookie-service';
 import { HeaderComponent } from './header/header.component';
+import { BuscadorPipe } from './pipes/buscador.pipe';
 
 const routes: Routes = [
 
@@ -65,7 +66,8 @@ const routes: Routes = [
     TituloClusterComponent,
     DynamicFieldDirective,
     DynamicFormComponent,
-    HeaderComponent
+    HeaderComponent,
+    BuscadorPipe
   ],
   imports: [
     BrowserModule,

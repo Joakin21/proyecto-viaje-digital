@@ -32,9 +32,14 @@ export class ListaArquetiposComponent implements OnInit,AfterViewInit  {
 
   filtros = FILTROS
   nombres_filtros:string[] = []
+
+  buscarArquetipo = ''
+  placeholder_buscador = '';
+
   ngOnInit(): void {
     this.nombres_filtros = Object.keys(this.filtros)
     this.nombres_filtros.unshift("All")
+    //this.placeholder_buscador = this.placeholder_buscador + " All"
     //console.log(this.nombres_filtros)
 
     this.conexBack.getArquetipos().subscribe(resp => this.arquetiposFromDB(resp));
@@ -175,9 +180,11 @@ export class ListaArquetiposComponent implements OnInit,AfterViewInit  {
     this.observation = this.arquetipos["observation"]
     this.section = this.arquetipos["section"]
   }
+  
   seleccionarFiltro(nombre_filtro){
     this.reestablecerArquetipos()
     //$('#list-tab a[href="#action"]').tab('show') 
+    this.placeholder_buscador = "Search in" + " " + nombre_filtro + " ..."
     this.elegirArquetipo.setNombre_filtro(nombre_filtro)
     if(nombre_filtro!="All"){
       if(this.filtros[nombre_filtro]["cluster"]){
@@ -250,6 +257,7 @@ export class ListaArquetiposComponent implements OnInit,AfterViewInit  {
         i ++
       }
     }
+    //console.log(aux_array)
     return aux_array
   }
 }
