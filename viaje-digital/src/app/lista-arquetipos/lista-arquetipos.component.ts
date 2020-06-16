@@ -2,6 +2,7 @@ import { Component, OnInit,AfterViewInit, Output, EventEmitter } from '@angular/
 import {ConexionBackendService} from '../servicios/conexion-backend.service'
 import {SeleccionarArquetipoService} from '../servicios/seleccionar-arquetipo.service'
 import {FILTROS} from '../filtro-arquetipos'
+import {TranslateService} from '.../../node_modules/@ngx-translate/core'
 
 declare var $:any;
 
@@ -14,7 +15,7 @@ export class ListaArquetiposComponent implements OnInit,AfterViewInit  {
 
   @Output() mostrar_diagrama_arquetipos = new EventEmitter<boolean>();
 
-  constructor(private conexBack: ConexionBackendService, private elegirArquetipo:SeleccionarArquetipoService) { }
+  constructor(private conexBack: ConexionBackendService, private elegirArquetipo:SeleccionarArquetipoService, public translate: TranslateService) { }
   //ngAfterViewInit(){}
   //para repositorio openehr
   cluster:any[] = []
@@ -184,7 +185,20 @@ export class ListaArquetiposComponent implements OnInit,AfterViewInit  {
   seleccionarFiltro(nombre_filtro){
     this.reestablecerArquetipos()
     //$('#list-tab a[href="#action"]').tab('show') 
-    this.placeholder_buscador = "Search in" + " " + nombre_filtro + " ..."
+    //console.log("")
+    var idioma_buscar
+    if(this.translate.currentLang == "en")
+      idioma_buscar = "Search in"
+    if(this.translate.currentLang == "es")
+      idioma_buscar = "Buscar en"
+    this.translate.get("nombre-filtros."+nombre_filtro).subscribe(res => {
+      //console.log("traduccion:", res)
+      var nombre_filtro_traducido = res
+      this.placeholder_buscador = idioma_buscar + " " + nombre_filtro_traducido + " ..."
+    })
+    
+
+    //this.placeholder_buscador = "Search in" + " " + nombre_filtro + " ..."
     this.elegirArquetipo.setNombre_filtro(nombre_filtro)
     if(nombre_filtro!="All"){
       if(this.filtros[nombre_filtro]["cluster"]){

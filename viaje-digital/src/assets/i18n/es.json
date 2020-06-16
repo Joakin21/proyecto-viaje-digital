@@ -1,0 +1,120 @@
+{
+    "barra":{
+        "Patient Journey": "Viaje del paciente",
+        "Home": "Inicio",
+        "New": "Nuevo",
+        "User": "Usuario",
+        "Logout":"Salir",
+        "Language": "Idioma",
+        "English": "Ingles",
+        "Spanish": "Español"
+    },
+    "inicio":{
+        "Search Patient": "Buscar Paciente",
+        "Rut": "Rut",
+        "Place_rut_paciente": "Escribir rut del paciente...",
+        "Patient not found":"Paciente no encontrado",
+        "Search": "Buscar",
+        "or":"o",
+        "Create a new patient":"Crear nuevo paciente",
+        "Patient found":"Paciente encontrado",
+        "Name":"Nombre",
+        "Go to medical history": "Ir a historial medico",
+        "Recently attended": "Atendidos recientemente",
+        "No patient attended":"Aun no hay pacientes atendidos"
+    },
+    "ficha-paciente":{
+        "Required information":"Información Básica",
+        "Name":"Nombre",
+        "Last name":"Apellidos",
+        "Rut":"Rut",
+        "Address":"Dirección",
+        "Birthday":"Fecha de nacimiento",
+        "City":"Ciudad",
+        "Please enter all fields":"Por favor llenar todos los campos",
+        "Create Patient": "Crear paciente",
+
+        "Place_patient_name":"Nombre del paciente...",
+        "Place_patient_lastname":"Apellido del paciente...",
+        "Place_patient_rut":"Rut del paciente...",
+        "Place_patient_address":"Dirección del paciente...",
+        "Place_patient_birthday":"Fecha de nacimiento del paciente...",
+        "Place_patient_city":"Ciudad del paciente...",
+
+        "Patient information":"Información básica",
+
+        "Person attending":"Nombre",
+        "Profession":"Profesion",
+        "Clinic":"Centro de salud",
+        "Date":"Fecha",
+
+        "You must add at least one archetype to the session":"Para guardar debe al menos haber un arquetipo en la nueva sesión",
+        "To add an archetype you must create a session first":"Debes crear una nueva sesión médica para garegar arquetipos",
+
+        "New medical sesion":"Nueva sesión médica",
+        "Place_new_medical_sesion":"Nombre de la nueva sesión médica...",
+        "Add to History":"Agregar al historial",
+        "Cancel":"Cancelar"
+    },
+    "diagrama-arquetipos":{
+        "Add to History":"Agregar al historial",
+        "Field information":"Información del campo",
+        "Back":"Volver",
+
+        "Field type":"Tipo de campo",
+        "Name":"Nombre",
+        "Description":"Descripción",
+        "Comments":"Comentarios",
+        "Source":"Fuente",
+        "Selection options":"Opciones de selección",
+        "Close":"Cerrar"
+    },
+    "lista-arquetipos":{
+        "OpenEHR repository":"Repositorio OpenEHR",
+        "My Archetypes":"Mis Arquetipos",
+        "Topic":"Tema",
+
+        "In the clinical history":"En el historial médico",
+        "Custom list":"Lista personalizada",
+        "Clinical history without archetypes":"Historial médico sin arquetipos",
+        "In construction":"En construcción ..."
+
+    },
+    "nombre-filtros":{
+        "All":"Todos",
+        "Anaesthesia and ventilation":"Anestesia y ventilación",
+        "Anthropometry":"Antropometría",
+        "Cancer reporting":"Informe de cáncer",
+        "COVID-19 incubator":"incubadora COVID-19",
+        "COVID-19 project":"proyecto COVID-19",
+        "Dentistry Incubator":"Incubadora de Odontología",
+        "Fluid balance":"Balance de fluidos",
+        "Genomics":"Genómica",
+        "Health Assessment scores":"Puntajes de evaluación de salud",
+        "Hearing":"Audición",
+        "Laboratory and pathology testing":"Pruebas de laboratorio y patología",
+        "Lifestyle factors":"Factores de estilo de vida",
+        "Medication family of archetypes":"Familia de arquetipos de medicamentos",
+        "Multiple Sclerosis Functional Composite (MSFC)":"Compuesto funcional de esclerosis múltiple (MSFC)",
+        "Nutrition":"Nutrición",
+        "Obstetrics/Gynaecology":"Obstetricia / Ginecología",
+        "Oedema":"Edema",
+        "Operative notes":"Notas operativas",
+        "Operative Procedures":"Procedimientos operativos",
+        "Ophthalmology":"Oftalmología",
+        "Pathology Synoptic reporting":"Informe sinóptico de patología",
+        "Phenopacket demonstrator":"Phenopacket demostrado",
+        "Physical Examination findings":"Hallazgos del examen físico",
+        "Problem/Diagnosis family of archetypes":"familia de arquetipos de Problema / diagnóstico",
+        "PRSB Section headings":"Encabezados de sección PRSB",
+        "RCPA Cancer reporting protocols":"Protocolos de notificación de cáncer RCPA",
+        "Scores and Scales":"Puntuaciones y escalas",
+        "Screening questionnaire project":"Proyecto de cuestionario de cribado",
+        "Social context projec":"Proyecto de contexto social",
+        "Social determinants of health":"Determinantes sociales de la salud",
+        "Therapeutic precautions":"Precauciones terapéuticas",
+        "Vital signs":"Signos vitales"
+        
+    }
+
+}

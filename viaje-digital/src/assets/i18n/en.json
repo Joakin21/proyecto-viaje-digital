@@ -1,0 +1,120 @@
+{
+    "barra":{
+        "Patient Journey": "Patient Journey",
+        "Home": "Home",
+        "New": "New",
+        "User": "User",
+        "Logout": "Logout",
+        "Language": "language",
+        "English": "English",
+        "Spanish": "Spanish"
+    },
+    "inicio":{
+        "Search Patient": "Search Patient",
+        "Rut": "Rut",
+        "Place_rut_paciente": "Write rut patient...",
+        "Patient not found":"Patient not found",
+        "Search": "Search",
+        "or":"or",
+        "Create a new patient":"Create a new patient",
+        "Patient found":"Patient found",
+        "Name":"Name",
+        "Go to medical history": "Go to medical history",
+        "Recently attended": "Recently attended",
+        "No patient attended":"No patient attended"
+    },
+    "ficha-paciente":{
+        "Required information":"Required information",
+        "Name":"Name",
+        "Last name":"Last name",
+        "Rut":"Rut",
+        "Address":"Address",
+        "Birthday":"Birthday",
+        "City":"City",
+        "Please enter all fields":"Please enter all fields",
+        "Create Patient": "Create Patient",
+
+        "Place_patient_name":"patient name...",
+        "Place_patient_lastname":"patient last name...",
+        "Place_patient_rut":"patient rut...",
+        "Place_patient_address":"patient address...",
+        "Place_patient_birthday":"patient birthday...",
+        "Place_patient_city":"patient city...",
+
+        "Patient information":"Patient information",
+
+        "Person attending":"Person attending",
+        "Profession":"Profession",
+        "Clinic":"Clinic",
+        "Date":"Date",
+
+        "You must add at least one archetype to the session":"You must add at least one archetype to the session",
+        "To add an archetype you must create a session first":"To add an archetype you must create a session first",
+
+        "New medical sesion":"New medical sesion",
+        "Place_new_medical_sesion":"Medical sesion name...",
+        "Add to History":"Add to History",
+        "Cancel":"Cancel"
+    },
+    "diagrama-arquetipos":{
+        "Add to History":"Add to history",
+        "Field information":"Field information",
+        "Back":"Back",
+
+        "Field type":"Field type",
+        "Name":"Name",
+        "Description":"Description",
+        "Comments":"Comments",
+        "Source":"Source",
+        "Selection options":"Selection options",
+        "Close":"Close"
+    },
+    "lista-arquetipos":{
+        "OpenEHR repository":"OpenEHR repository",
+        "My Archetypes":"My Archetypes",
+        "Topic":"Topic",
+        
+        "In the clinical history":"In the clinical history",
+        "Custom list":"Custom list",
+        "Clinical history without archetypes":"Clinical history without archetypes",
+        "In construction":"In construction ..."
+    },
+    "nombre-filtros":{
+        "All":"All",
+        "Anaesthesia and ventilation":"Anaesthesia and ventilation",
+        "Anthropometry":"Anthropometry",
+        "Cancer reporting":"Cancer reporting",
+        "COVID-19 incubator":"COVID-19 incubator",
+        "COVID-19 project":"COVID-19 project",
+        "Dentistry Incubator":"Dentistry Incubator",
+        "Fluid balance":"Fluid balance",
+        "Genomics":"Genomics",
+        "Health Assessment scores":"Health Assessment scores",
+        "Hearing":"Hearing",
+        "Laboratory and pathology testing":"Laboratory and pathology testing",
+        "Lifestyle factors":"Lifestyle factors",
+        "Medication family of archetypes":"Medication family of archetypes",
+        "Multiple Sclerosis Functional Composite (MSFC)":"Multiple Sclerosis Functional Composite (MSFC)",
+        "Nutrition":"Nutrition",
+        "Obstetrics/Gynaecology":"Obstetrics/Gynaecology",
+        "Oedema":"Oedema",
+        "Operative notes":"Operative notes",
+        "Operative Procedures":"Operative Procedures",
+        "Ophthalmology":"Ophthalmology",
+        "Pathology Synoptic reporting":"Pathology Synoptic reporting",
+        "Phenopacket demonstrator":"Phenopacket demonstrator",
+        "Physical Examination findings":"Physical Examination findings",
+        "Problem/Diagnosis family of archetypes":"Problem/Diagnosis family of archetypes",
+        "PRSB Section headings":"PRSB Section headings",
+        "RCPA Cancer reporting protocols":"RCPA Cancer reporting protocols",
+        "Scores and Scales":"Scores and Scales",
+        "Screening questionnaire project":"Screening questionnaire project",
+        "Social context projec":"Social context projec",
+        "Social determinants of health":"Social determinants of health",
+        "Therapeutic precautions":"Therapeutic precautions",
+        "Vital signs":"Vital signs"
+        
+        
+    }
+
+}

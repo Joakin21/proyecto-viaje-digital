@@ -1,44 +1,40 @@
 
   <nav class="navbar navbar-expand-md navbar-light bg-light">
-    <a [routerLink]="" class="navbar-brand">Patient Journey</a>
+    <a [routerLink]="" class="navbar-brand">{{"barra.Patient Journey" | translate}}</a>
     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div id="navbarCollapse" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
             <li class="nav-item">
-                <a [routerLink]="" (click)="goHome()" class="nav-link">Home</a>
+                <a [routerLink]="" (click)="goHome()" class="nav-link">{{"barra.Home" | translate}}</a>
             </li>
             <li class="nav-item">
-                <a [routerLink]="" class="nav-link">New</a>
+                <a [routerLink]="" class="nav-link">{{"barra.New" | translate}}</a>
             </li>
-            <!--
-            <li class="nav-item">
-                <a [routerLink]="" class="nav-link" data-toggle="modal" data-target="#modalShowMyPatients">My patients</a>
-            </li>
-            -->
-            <!--
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Messages</a>
-                <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">Inbox</a>
-                    <a href="#" class="dropdown-item">Drafts</a>
-                    <a href="#" class="dropdown-item">Sent Items</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#"class="dropdown-item">Trash</a>
-                </div>
-            </li>
-            -->
         </ul>
         <ul class="nav navbar-nav ml-auto">
             <li class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User</a>
+              <!--<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{"barra.Language" | translate}}</a>-->
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><img src="assets/iconos_idioma/icon1.png" alt="" width="20" height="20"></a>
+              
+              <div class="dropdown-menu dropdown-menu-right">
+                  <!--<a href="#" class="dropdown-item">Reports</a>
+                  <a href="#" class="dropdown-item">Settings</a>-->
+                  <div class="dropdown-divider"></div>
+                  <a [routerLink]="" class="dropdown-item" (click)="cambiarIdioma('en')">{{"barra.English" | translate}}</a>
+                  <a [routerLink]="" class="dropdown-item" (click)="cambiarIdioma('es')">{{"barra.Spanish" | translate}}</a>
+                  
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{"barra.User" | translate}}</a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <!--<a href="#" class="dropdown-item">Reports</a>
                     <a href="#" class="dropdown-item">Settings</a>-->
                     <div class="dropdown-divider"></div>
                     <a [routerLink]="" class="dropdown-item">{{userName}}</a>
-                    <a [routerLink]="" (click)="logout()" class="dropdown-item">Logout</a>
+                    <a [routerLink]="" (click)="logout()" class="dropdown-item">{{"barra.Logout" | translate}}</a>
                     
                 </div>
             </li>

@@ -1,6 +1,6 @@
-<button (click)="agregarAlHistorial()" class="btn btn-light m-2">Add to history</button>
-<button (click)="mostrarNodo()" class="btn btn-light m-2">Field information</button>
-<button (click)="volverToListaArquetipos()" class="btn btn-light m-2">Back</button>
+<button (click)="agregarAlHistorial()" class="btn btn-light m-2">{{"diagrama-arquetipos.Add to History" | translate}}</button>
+<button (click)="mostrarNodo()" class="btn btn-light m-2">{{"diagrama-arquetipos.Field information" | translate}}</button>
+<button (click)="volverToListaArquetipos()" class="btn btn-light m-2">{{"diagrama-arquetipos.Back" | translate}}</button>
 
 <div id="editor">
     <div class="row">
@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{"diagrama-arquetipos.Close" | translate}}</button>
       </div>
     </div>
   </div>
@@ -54,27 +54,27 @@
       </div>
       <div class="modal-body">
         <div *ngIf="tipo">
-          <h5>Tipo</h5>
+          <h5>{{"diagrama-arquetipos.Field type" | translate}}</h5>
           <p>{{tipo}}</p>
         </div>
         <div *ngIf="text">
-          <h5>Nombre</h5>
+          <h5>{{"diagrama-arquetipos.Name" | translate}}</h5>
           <p>{{text}}</p>
         </div>
         <div *ngIf="description">
-          <h5>Description</h5>
+          <h5>{{"diagrama-arquetipos.Description" | translate}}</h5>
           <p>{{description}}</p>
         </div>
         <div *ngIf="comment">
-          <h5>Comentarios</h5>
+          <h5>{{"diagrama-arquetipos.Comments" | translate}}</h5>
           <p>{{comment}}</p>
         </div>
         <div *ngIf="source">
-          <h5>Source</h5>
+          <h5>{{"diagrama-arquetipos.Source" | translate}}</h5>
           <p>{{source}}</p>
         </div>
         <div *ngIf="contenido.length > 0">
-          <h5>Opciones de selección: </h5>
+          <h5>{{"diagrama-arquetipos.Selection options" | translate}}:</h5>
           <ul>
             <div *ngIf="tipo_nodo_elegido!='DV_ORDINAL'">
               <li *ngFor="let nodo of contenido"><label> <b>{{nodo["text"]}}</b>{{" ["+nodo["description"]+"]"}}</label> </li>
@@ -86,7 +86,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{"diagrama-arquetipos.Close" | translate}}</button>
       </div>
     </div>
   </div>

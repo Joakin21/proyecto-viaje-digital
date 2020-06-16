@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+//import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -31,6 +31,14 @@ import { DynamicFormComponent } from "./components/dynamic-form/dynamic-form.com
 import { CookieService } from 'ngx-cookie-service';
 import { HeaderComponent } from './header/header.component';
 import { BuscadorPipe } from './pipes/buscador.pipe';
+
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {HttpClientModule, HttpClient} from '@angular/common/http';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 const routes: Routes = [
 
@@ -77,6 +85,15 @@ const routes: Routes = [
 
     BrowserAnimationsModule,
     MaterialModule,
+
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+    }),
 
     RouterModule.forRoot(routes)
   ],

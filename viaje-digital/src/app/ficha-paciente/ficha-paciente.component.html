@@ -32,31 +32,31 @@
             <!--------------------------------------------->
           <!--Si creamos un paciente desde cero, habilitamos formulario para crear datos base-->
           <div *ngIf="habilitar_form_datos_base">
-            <h4 class="text-center text-primary">Required information</h4>
+            <h4 class="text-center text-primary">{{"ficha-paciente.Required information" | translate}}</h4>
             <form #datos_base="ngForm" (ngSubmit)="crearPaciente(datos_base)" class="form-search mr-3">
               <div class="form-group">
-                <label for="formNombre">Name</label>
-                <input type="text" class="form-control" ngModel name="nombre" id="formNombre" placeholder="patient name..." required>
+                <label for="formNombre">{{"ficha-paciente.Name" | translate}}</label>
+                <input type="text" class="form-control" ngModel name="nombre" id="formNombre" placeholder="{{'ficha-paciente.Place_patient_name' | translate}}" required>
               </div>
               <div class="form-group">
-                <label for="formApellido">Last name</label>
-                <input type="text" class="form-control" ngModel name="apellidos" id="formApellido" placeholder="patient last name..." required>
+                <label for="formApellido">{{"ficha-paciente.Last name" | translate}}</label>
+                <input type="text" class="form-control" ngModel name="apellidos" id="formApellido" placeholder="{{'ficha-paciente.Place_patient_lastname' | translate}}" required>
               </div>
               <div class="form-group">
-                <label for="formRut">Rut</label>
-                <input type="text" class="form-control" ngModel name="rut" id="formRut" placeholder="patient rut..." required>
+                <label for="formRut">{{"ficha-paciente.Rut" | translate}}</label>
+                <input type="text" class="form-control" ngModel name="rut" id="formRut" placeholder="{{'ficha-paciente.Place_patient_rut' | translate}}" required>
               </div>
               <div class="form-group">
-                <label for="formDireccion">Address</label>
-                <input type="text" class="form-control" ngModel name="direccion" id="formDireccion" placeholder="patient address..."required>
+                <label for="formDireccion">{{"ficha-paciente.Address" | translate}}</label>
+                <input type="text" class="form-control" ngModel name="direccion" id="formDireccion" placeholder="{{'ficha-paciente.Place_patient_address' | translate}}" required>
               </div>
               <div class="form-group">
-                <label for="formFecha_nacimiento">Birthday</label>
-                <input type="date" class="form-control" ngModel name="fecha_nacimiento" id="formFecha_nacimiento" placeholder="patient birthday..." required>
+                <label for="formFecha_nacimiento">{{"ficha-paciente.Birthday" | translate}}</label>
+                <input type="date" class="form-control" ngModel name="fecha_nacimiento" id="formFecha_nacimiento" placeholder="{{'ficha-paciente.Place_patient_birthday' | translate}}" required>
               </div>
               <div class="form-group">
-                <label for="formCity">City</label>
-                <select class="form-control" ngModel name="ciudad" id="formCity" placeholder="patient city..." required> 
+                <label for="formCity">{{"ficha-paciente.City" | translate}}</label>
+                <select class="form-control" ngModel name="ciudad" id="formCity" required> 
                   <option>Iquique</option>
                   <option>Antofagasta</option>
                   <option>Copiapó</option>
@@ -76,32 +76,33 @@
                 </select>
               </div>
               <div *ngIf="mostrar_error">
-                <p class="text-danger">Please enter all fields</p>
+                <p class="text-danger">{{"ficha-paciente.Please enter all fields" | translate}}</p>
               </div>
-              <button type="submit" class="btn btn-primary">Create Patient</button>
+              <button type="submit" class="btn btn-primary">{{"ficha-paciente.Create Patient" | translate}}</button>
             </form>
           </div>
           <!--Si vamos a mostrar el historial de un paciente-->
           <div *ngIf="mostrar_historial" >
             <!--<h3 class="text-center">Medical History</h3>-->
-              <h4 class="text-center text-info">Patient information</h4>
+              <h4 class="text-center text-info">{{"ficha-paciente.Patient information" | translate}}</h4>
               <p>
-                <b>Name:</b> {{patient_journey['nombre']}}<br>
-                <b>Last name:</b> {{patient_journey['apellidos']}}<br>
-                <b>Rut:</b> {{patient_journey['rut']}}<br>
-                <b>Address:</b> {{patient_journey['direccion']}}<br>
-                <b>Birthday:</b> {{patient_journey['fecha_nacimiento']}}<br>
-                <b>City:</b> {{patient_journey['ciudad']}}
+                <b>{{"ficha-paciente.Name" | translate}}:</b> {{patient_journey['nombre']}}<br>
+                <b>{{"ficha-paciente.Last name" | translate}}:</b> {{patient_journey['apellidos']}}<br>
+                <b>{{"ficha-paciente.Rut" | translate}}:</b> {{patient_journey['rut']}}<br>
+                <b>{{"ficha-paciente.Address" | translate}}:</b> {{patient_journey['direccion']}}<br>
+                <b>{{"ficha-paciente.Birthday" | translate}}:</b> {{patient_journey['fecha_nacimiento']}}<br>
+                <b>{{"ficha-paciente.City" | translate}}:</b> {{patient_journey['ciudad']}}
               </p>
               <!--Iteramos cada sesion medica-->
               <div *ngFor="let sesion_medica of patient_journey['sesiones_medica']">
                 <h4 class="text-center text-info">Sesion: {{sesion_medica['nombre_sesion']}}</h4>
                 <!--<p class="text-center">Datos del profesional</p>-->
                 <p>
-                  <b>Nombre:</b> {{sesion_medica["nombre_profesional"]}}<br>
-                  <b>Profesion:</b> {{sesion_medica["profesion"]}}<br>
-                  <b>Centro de salud:</b> {{sesion_medica["centro_salud"]}}<br>
-                  <b>Fecha:</b> {{sesion_medica["fecha"]}}
+
+                  <b>{{"ficha-paciente.Person attending" | translate}}:</b> {{sesion_medica["nombre_profesional"]}}<br>
+                  <b>{{"ficha-paciente.Profession" | translate}}:</b> {{sesion_medica["profesion"]}}<br>
+                  <b>{{"ficha-paciente.Clinic" | translate}}:</b> {{sesion_medica["centro_salud"]}}<br>
+                  <b>{{"ficha-paciente.Date" | translate}}:</b> {{sesion_medica["fecha"]}}
                 </p>
                 <!--Iteramos cada arquetipo en la sesion-->
                 <div *ngFor="let arquetipo of sesion_medica['arquetipos']">
@@ -128,10 +129,10 @@
           <div *ngIf="!habilitar_creacion_nueva_sesion" class="border  border-dark p-2 mt-2 mr-2" > 
             <h5 class="text-center">New medical session: {{current_medical_sesion["nombre_sesion"]}}</h5>
               <p>
-                <b>Person attending:</b> {{current_medical_sesion["nombre_profesional"]}}<br>
-                <b>Profession:</b> {{current_medical_sesion["profesion"]}}<br>
-                <b>Clinic:</b> {{current_medical_sesion["centro_salud"]}}<br>
-                <b>Date:</b> {{current_medical_sesion["fecha"]}}
+                <b>{{"ficha-paciente.Person attending" | translate}}:</b> {{current_medical_sesion["nombre_profesional"]}}<br>
+                <b>{{"ficha-paciente.Profession" | translate}}:</b> {{current_medical_sesion["profesion"]}}<br>
+                <b>{{"ficha-paciente.Clinic" | translate}}:</b> {{current_medical_sesion["centro_salud"]}}<br>
+                <b>{{"ficha-paciente.Date" | translate}}:</b> {{current_medical_sesion["fecha"]}}
               </p>
             <!--<p class="text-center text-primary"> Comienza agregar arquetipos a la consulta...</p>-->
             <!--<div class="form">
@@ -151,14 +152,14 @@
               
             </div>
             <div *ngIf="mostrar_mensaje_error2">
-              <p class="text-danger mt-2">{{mensaje_error2}}</p>
+              <p class="text-danger mt-2">{{"ficha-paciente."+mensaje_error2 | translate}}</p>
             </div>
 
           </div>
   
         </div>
         <div *ngIf="habilitar_creacion_nueva_sesion && mostrar_historial" class="text-center">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSetMedicalSesionName">New medical sesion</button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSetMedicalSesionName">{{"ficha-paciente.New medical sesion" | translate}}</button>
         </div>
     </div>
     <div class="col-md-7">
@@ -170,7 +171,7 @@
         </div>
         <div *ngIf="mostrar_diagrama_arquetipos">
             <div *ngIf="mostrar_mensaje_error2 && habilitar_creacion_nueva_sesion">
-              <p class="text-danger mb-0">{{mensaje_error2}}</p>
+              <p class="text-danger mb-0">{{"ficha-paciente."+mensaje_error2 | translate}}</p>
             </div>
             <app-diagrama-arquetipos
             (mostrar_diagrama_arquetipos)="cambiarComponente($event)" (emitir_id_arquetipo)="recibirArquetipoId($event)">
@@ -185,7 +186,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New medical sesion</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{"ficha-paciente.New medical sesion" | translate}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -194,19 +195,19 @@
         
         <form #sesion_name="ngForm" (ngSubmit)="createNewMedicalSesion(sesion_name)">
           <div class="form-group">
-            <label for="formSesion_name">Name</label>
-            <input type="text" class="form-control" ngModel name="name" id="formSesion_name" placeholder="Medical sesion name..." required>
+            <label for="formSesion_name">{{"ficha-paciente.Name" | translate}}</label>
+            <input type="text" class="form-control" ngModel name="name" id="formSesion_name" placeholder="{{'ficha-paciente.Place_new_medical_sesion' | translate}}" required>
           </div>
           <!--<div *ngIf="mostrar_error">
             <p class="text-danger">Por favor, ingresar todos los campos</p>
           </div>-->
-          <button type="submit" class="btn btn-primary">Add to History</button>
+          <button type="submit" class="btn btn-primary">{{"ficha-paciente.Add to History" | translate}}</button>
         </form>
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      </div>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{"ficha-paciente.Cancel" | translate}}</button>
+      </div> 
     </div>
   </div>
 </div>

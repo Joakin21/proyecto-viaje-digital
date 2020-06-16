@@ -2,41 +2,42 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-search mt-3">
-            <h3 class="text-center text-primary">Search Patient</h3>
+            <h3 class="text-center text-primary">{{"inicio.Search Patient" | translate}}</h3>
+            <!--{{"HELLO" | translate}}-->
             <div id="buscador">
                 <form #paciente="ngForm" (ngSubmit)="buscarPaciente(paciente)">
                     <div class="form-group">
-                    <label for="formRut">Rut</label>
-                    <input type="text" class="form-control" ngModel name="rut" id="formRut" placeholder="Escribir rut del paciente...">
+                    <label for="formRut">{{"inicio.Rut" | translate}}</label>
+                    <input type="text" class="form-control" ngModel name="rut" id="formRut" placeholder="{{'inicio.Place_rut_paciente' | translate}}">
                     </div>
                     <div *ngIf="mostrar_error">
-                        <p class="text-danger">{{mensaje_respuesta}}</p>
+                        <p class="text-danger">{{"inicio."+mensaje_respuesta | translate}}</p>
                     </div>
-                    <button type="submit" class="btn btn-primary">Search</button>
+                    <button type="submit" class="btn btn-primary">{{"inicio.Search" | translate}}</button>
 
                 </form>
                 
             </div>
-            <p class="mt-1 mb-1">or</p>
+            <p class="mt-1 mb-1">{{"inicio.or" | translate}}</p>
             <div>
                 
-                <button type="button" (click)="createNewPatient()" class="btn btn-primary">Create a new patient</button>
+                <button type="button" (click)="createNewPatient()" class="btn btn-primary">{{"inicio.Create a new patient" | translate}}</button>
             </div>
         </div>
     </div>
     <div class="col-md-6">
         <div class="mt-4">
             <div *ngIf="mostrar_paciente">
-                <h5 class="text-secondary">Patient found</h5>
-                <p>Rut: {{rut}} <br> Name: {{nombre}} {{apellidos}} </p>
-                <button type="button" (click)="goToHistory()" class="btn btn-primary">Go to medical history</button>
+                <h5 class="text-secondary">{{"inicio.Patient found" | translate}}</h5>
+                <p>{{"inicio.Rut" | translate}}: {{rut}} <br> {{"inicio.Name" | translate}}: {{nombre}} {{apellidos}} </p>
+                <button type="button" (click)="goToHistory()" class="btn btn-primary">{{"inicio.Go to medical history" | translate}}</button>
             </div>
         
 
             <div class="list-group w-75 mt-2">
-                <h5 class="text-secondary">Recently attended</h5>
+                <h5 class="text-secondary">{{"inicio.Recently attended" | translate}}</h5>
                 <a [routerLink]="" *ngFor="let paciente of pacientes_atendidos" (click)="seleccionarDesdeLista(paciente)" class="list-group-item list-group-item-action">{{paciente["nombre"]}} {{paciente["apellidos"]}}</a>
-                <p *ngIf="pacientes_atendidos.length == 0" class="text-info"> No patient attended</p>
+                <p *ngIf="pacientes_atendidos.length == 0" class="text-info">{{"inicio.No patient attended" | translate}}</p>
             </div>
         </div>
     </div>
