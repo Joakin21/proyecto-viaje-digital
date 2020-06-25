@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../servicios/user.service';
 import {Router} from '@angular/router';
 import {TranslateService} from '.../../node_modules/@ngx-translate/core'
+import {ConexionBackendService} from '../servicios/conexion-backend.service'
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,9 @@ export class HeaderComponent implements OnInit {
 
   @Input() userName: string;
 
-  constructor(private router: Router, private userService: UserService, public translate: TranslateService) { }
+  //@Output() mostrar_diagrama_arquetipos = new EventEmitter<boolean>();
+
+  constructor(private router: Router, private userService: UserService, public translate: TranslateService, private conexBack: ConexionBackendService) { }
 
   ngOnInit(): void {
   }
@@ -24,9 +27,20 @@ export class HeaderComponent implements OnInit {
   goHome(){
     this.router.navigateByUrl('/inicio')
   }
-  cambiarIdioma(language:string){
+  //NO BORRAR
+  /*
+  cambiarIdioma(language:string){//La debe usar el admin
     //alert("Se cambiara a "+language)
     this.translate.use(language)
-    
-  }
+
+    this.conexBack.cambiarDataBase({"idioma":language}).subscribe(
+      resp => {
+        console.log(resp)
+      },
+      error => {
+        console.log('error', error)
+      }
+    );
+    //this.mostrar_diagrama_arquetipos.emit(false)
+  }*/
 }

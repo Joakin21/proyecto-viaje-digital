@@ -430,7 +430,7 @@ export class FichaPacienteComponent implements OnInit {
               formulario.appendChild(titulo_estructural)
             }*/
             //Para agregar campos:
-            if(arquetipo[k]["tipo"] != "estructural" && arquetipo[k]["tipo"] != "info"){
+            if(arquetipo[k]["tipo"] != "estructural" && arquetipo[k]["tipo"] != "info" && arquetipo[k]["text"]){
               this.agregarCampo(arquetipo[k])
             }else if (arquetipo[k]["tipo"] == "estructural"){
               //volover recorrer con el for
@@ -587,4 +587,11 @@ export class FichaPacienteComponent implements OnInit {
     console.log("mensaje recibido :)")
     console.log( this.mostrar_diagrama_arquetipos)
   }
+  //@ViewChild('myChild') private myChild: MyChildComponent;
+  /*actualizarListaAndDiagramaArquetipos(mensaje: boolean){
+
+  this.mostrar_diagrama_arquetipos = true
+  this.mostrar_diagrama_arquetipos = false
+
+  }*/
 }
