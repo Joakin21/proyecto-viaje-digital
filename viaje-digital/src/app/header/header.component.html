@@ -10,8 +10,11 @@
                 <a [routerLink]="" (click)="goHome()" class="nav-link">{{"barra.Home" | translate}}</a>
             </li>
             <li class="nav-item">
-                <a [routerLink]="" class="nav-link">{{"barra.New" | translate}}</a>
+                <a [routerLink]="" (click)="createNewPatient()" class="nav-link">{{"barra.New" | translate}}</a>
             </li>
+            <li class="nav-item">
+              <a [routerLink]="" (click)="goToArchetypeEditor()" class="nav-link">Archetype Editor</a>
+          </li>
         </ul>
         <ul class="nav navbar-nav ml-auto">
             <!--<li class="nav-item dropdown">

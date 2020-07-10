@@ -35,6 +35,7 @@ import { BuscadorPipe } from './pipes/buscador.pipe';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import { AdminMenuComponent } from './admin-menu/admin-menu.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -45,6 +46,7 @@ const routes: Routes = [
   //{path:'login', component: LoginComponent},
   {path:'inicio', component: InicioComponent},
   {path:'ficha-paciente', component: FichaPacienteComponent},
+  {path:'admin-menu', component: AdminMenuComponent},
   //{path:'diagrama', component: DiagramaArquetiposComponent},
   {path: '', component: LoginComponent, pathMatch: 'full'},
   //{path: '', component: FichaPacienteComponent, pathMatch: 'full'},
@@ -75,7 +77,8 @@ const routes: Routes = [
     DynamicFieldDirective,
     DynamicFormComponent,
     HeaderComponent,
-    BuscadorPipe
+    BuscadorPipe,
+    AdminMenuComponent
   ],
   imports: [
     BrowserModule,

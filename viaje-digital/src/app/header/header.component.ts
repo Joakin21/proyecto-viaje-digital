@@ -1,8 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../servicios/user.service';
 import {Router} from '@angular/router';
-import {TranslateService} from '.../../node_modules/@ngx-translate/core'
-import {ConexionBackendService} from '../servicios/conexion-backend.service'
+//import {TranslateService} from '.../../node_modules/@ngx-translate/core'
+//import {ConexionBackendService} from '../servicios/conexion-backend.service'
+import { SeleccionarPacienteService } from '../servicios/seleccionar-paciente.service'
+
 
 @Component({
   selector: 'app-header',
@@ -15,7 +17,8 @@ export class HeaderComponent implements OnInit {
 
   //@Output() mostrar_diagrama_arquetipos = new EventEmitter<boolean>();
 
-  constructor(private router: Router, private userService: UserService, public translate: TranslateService, private conexBack: ConexionBackendService) { }
+  //public translate: TranslateService, private conexBack: ConexionBackendService
+  constructor(private router: Router, private userService: UserService, private seleccionarPacienteService: SeleccionarPacienteService) { }
 
   ngOnInit(): void {
   }
@@ -26,6 +29,15 @@ export class HeaderComponent implements OnInit {
   }
   goHome(){
     this.router.navigateByUrl('/inicio')
+  }
+  createNewPatient(){
+    this.seleccionarPacienteService.asignar("new_patient")
+    this.router.navigateByUrl('/ficha-paciente')
+
+  }
+  goToArchetypeEditor(){
+    //alert("I will go to archetype editor :)")
+    window.open("http://localhost:4201/", '_blank');
   }
   //NO BORRAR
   /*

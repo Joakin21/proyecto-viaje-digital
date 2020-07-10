@@ -190,6 +190,8 @@ export class FichaPacienteComponent implements OnInit {
           console.log("Crear paciente desde 0")
           console.log(this.patient_journey)
           this.habilitar_form_datos_base = true
+          this.mostrar_historial = false
+          this.habilitar_creacion_nueva_sesion = true
         }
         else{//rut normal validado que existe
           //alert(rut)
@@ -271,10 +273,23 @@ export class FichaPacienteComponent implements OnInit {
 
       tipo_nodo_arquetipos_medical_sesion = 4
 
-      elemento = {
+      /*elemento = {
         type: "input",
         label: mylabel,
         inputType: "number",
+        name: nombre,
+        validations: [
+          {
+            name: "required",
+            validator: Validators.required,
+            message: nombre + " es obligarorio"
+          }
+        ]
+      }*/
+      elemento = {
+        type: "input",
+        label: mylabel,
+        inputType: "text",
         name: nombre,
         validations: [
           {

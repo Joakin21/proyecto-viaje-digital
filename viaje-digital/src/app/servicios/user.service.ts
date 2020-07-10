@@ -30,6 +30,7 @@ export class UserService {
   }
   logout(){
     this.cookies.delete("token");
+    this.cookies.delete("id_user");
   }
   setToken(token: string) {
     this.cookies.set("token", token);

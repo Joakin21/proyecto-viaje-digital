@@ -18,7 +18,15 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if(this.userService.getToken()){//si tiene el token de sesion
       //this.router.navigateByUrl('/ficha-paciente')
-      this.router.navigateByUrl('/inicio')
+      //si tiene el token con el id_user ir a inicio, si no lo tiene ir al adminMenu
+      //console.log("Token id_user:")
+      if(this.userService.getIdUser()){
+        this.goToInicio()
+      }
+      else{
+        this.goToAdminMenu()
+      }
+      
     }
   }
   login(credenciales: NgForm){
@@ -29,11 +37,18 @@ export class LoginComponent implements OnInit {
       console.log(credenciales.value)
       this.userService.login(credenciales.value).subscribe(
         data => {
-          console.log(data),
-          this.mostrar_error = false,
-          this.userService.setToken(data.token),
-          this.userService.setIdUser(data.user_id.toString())
-          this.entrarInicio()
+          console.log(data)
+          this.mostrar_error = false
+          this.userService.setToken(data.token)
+
+          var is_admin = data.is_admin
+          if (is_admin){
+            this.goToAdminMenu()
+          }
+          else{
+            this.userService.setIdUser(data.user_id.toString())
+            this.goToInicio()
+          }
         },
         error => {
           console.log('error', error),
@@ -49,8 +64,11 @@ export class LoginComponent implements OnInit {
     
     console.log(credenciales.valid);
   }
-  entrarInicio(): void{
+  goToInicio(): void{
     //this.router.navigateByUrl('/ficha-paciente')//luego cambiar por pagina de inicio
     this.router.navigateByUrl('/inicio')
+  }
+  goToAdminMenu():void{
+    this.router.navigateByUrl('/admin-menu')
   }
 }
