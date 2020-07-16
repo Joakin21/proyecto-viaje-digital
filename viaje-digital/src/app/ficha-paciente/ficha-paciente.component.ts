@@ -170,7 +170,7 @@ export class FichaPacienteComponent implements OnInit {
     //Apenas inicia el componente obtenemos el usuario
     this.userService.getUser(parseInt(this.userService.getIdUser())).subscribe(
       data => {
-        this.usuario_logeado = data.user.username
+        this.usuario_logeado = data.user.first_name + " " + data.user.last_name//data.user.username
         this.user = data
         //console.log(data)
       },

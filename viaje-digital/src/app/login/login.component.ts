@@ -1,21 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import { UserService } from '../servicios/user.service';
 
+//para cambiar el color de toda la pagina
+import { DOCUMENT } from '@angular/common';
+import { Inject } from '@angular/core';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService, @Inject(DOCUMENT) private _document) { }
   mostrar_error:boolean = false
   mensaje_login:string
 
   ngOnInit(): void {
+    this._document.body.style.background = '#FFFFFF';
     if(this.userService.getToken()){//si tiene el token de sesion
       //this.router.navigateByUrl('/ficha-paciente')
       //si tiene el token con el id_user ir a inicio, si no lo tiene ir al adminMenu
@@ -70,5 +75,9 @@ export class LoginComponent implements OnInit {
   }
   goToAdminMenu():void{
     this.router.navigateByUrl('/admin-menu')
+  }
+  ngOnDestroy() {
+    // remove the class form body tag
+    this._document.body.classList.add('bodybg-color');
   }
 }

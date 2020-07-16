@@ -23,9 +23,91 @@
     padding: 15px;
     margin: 0 auto;
   }*/
-.form-search {
-    width: 100%;
-    max-width: 330px;
-    
-    margin: 0 auto;
-  }
+#rut-label{
+  font-family: Raleway;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 25px;
+	color: rgba(72,72,75,1);
+}
+.fontAwesome{ font-family: 'Helvetica', FontAwesome, sans-serif; }
+
+#btn-newpatient{
+  color: white;
+  background-color: rgba(122,210,116,1);
+}
+#text-newpatient{
+  font-family: Lato;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 14px;
+	color: rgba(72,72,75,1);
+}
+.lightblue-button{
+  /*color: white;
+  background-color: rgba(89,176,243,1);*/
+  font-family: Avenir-Black;
+  background-color: #59b0f3;
+  color: white;
+  border-radius: 7px;
+}
+.search-and-attended-container{
+  
+  position: relative;
+  height: 85vh;
+}
+.center-container {
+  /*width: 100%;
+  max-width: 330px;
+  
+  margin: 0 auto;*/
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+td{
+  cursor: pointer;
+}
+tbody{
+  background-color: #f6f9fc;;
+}
+.container-mytable{
+  border-radius: 25px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.horizontal-center{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.attended-and-found-text{
+  font-family: Raleway;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 25px;
+	color: rgba(72,72,75,1);
+}
+#attended-table{
+  font-family: Lato;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 14px;
+	color: rgba(72,72,75,1);
+}
+.lightblue-text{
+  font-family: Lato;
+  font-style: normal;
+  
+	font-size: 18px;
+  color: rgba(89,176,243,1);;
+}
+.error-text{
+  font-family: Lato;
+  font-style: normal;
+  font-size: 18px;
+  color: #F32013;
+}
+/*.bodybg-color {
+  background-color: #f6f9fc;
+}*/

@@ -1,0 +1,39 @@
+nav{
+    background-color: white;
+}
+.container-header{
+    background-color: white;
+    font-family: Lato;
+}
+
+#help-text{
+    font-style: normal;
+	font-weight: bold;
+	font-size: 14px;
+	color: rgba(72,72,75,1);
+}
+
+#home-text{
+    font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	color: rgba(138,138,138,1);
+}
+#new-text{
+    font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	color: rgba(89,176,243,1);
+}
+#title-text{
+    font-style: normal;
+	font-weight: normal;
+	font-size: 25px;
+	color: rgba(72,72,75,1);
+}
+#user-text{
+    font-style: normal;
+	font-weight: bold;
+	font-size: 16px;
+	color: rgba(72,72,75,1);
+}

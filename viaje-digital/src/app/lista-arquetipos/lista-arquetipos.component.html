@@ -46,7 +46,7 @@
           </div>
         </div>
         <div class="col-8">
-          <div class="tab-content overflow-auto" id="nav-tabContent" style="height: 100vh">
+          <div class="tab-content overflow-auto" id="nav-tabContent" style="height: 68vh">
             <div *ngIf="cluster.length > 0" class="tab-pane fade" id="cluster" role="tabpanel" aria-labelledby="my-cluster">
                 <div class="list-group">
                   <a [routerLink]="" *ngFor="let arq of cluster | buscador:buscarArquetipo" (click)="seleccionarArquetipo(arq)" class="list-group-item list-group-item-action">{{arq["nombre"]}}</a>

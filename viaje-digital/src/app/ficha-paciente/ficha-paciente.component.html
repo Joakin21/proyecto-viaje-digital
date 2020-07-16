@@ -3,35 +3,10 @@
 <div class="row">
   
     <!--class="pre-scrollable" style="height: 100vh"-->
-    <div class="col-md-5">
-      <!--<h1>Patient Journey</h1>-->
-      
-        <!--Aqui va la ficha-->
-        <div id="panelFiguras" class="overflow-auto mt-4 ml-1" style="max-height: 100vh;">
-            <!--Titulo-->
-            <!--
-            <div class="text-center">
-                <mat-form-field class="example-full-width w-50">
-                  <input matInput value="Información Básica" class="text-center" style="color:DarkOrange" readonly>
-                </mat-form-field>
-            </div>
-            -->
-            <!--Formulario-->
-            <!--
-            <div class="form">
-              <dynamic-form [fields]="regConfig" (submit)="submit($event)">
-              </dynamic-form>              
-              <br>
-              
-              <div class="margin-top">
-                {{ form.value | json }}
-              </div>
-              
-              <br>
-            </div>
-            -->
-            <!--------------------------------------------->
-          <!--Si creamos un paciente desde cero, habilitamos formulario para crear datos base-->
+    <div class="col-md-6">
+
+      <div class="bg-white float-right mt-5 p-3 shadow extra-style" style="height: 100vh;">
+        <div class="overflow-auto" style="height: 88vh;">
           <div *ngIf="habilitar_form_datos_base">
             <h4 class="text-center text-primary">{{"ficha-paciente.Required information" | translate}}</h4>
             <form #datos_base="ngForm" (ngSubmit)="crearPaciente(datos_base)" class="form-search mr-3">
@@ -118,12 +93,6 @@
                   
                 </div>
               </div>
-
-              <!--
-              <div *ngIf="habilitar_creacion_nueva_sesion" class="text-center">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSetMedicalSesionName">New medical sesion</button>
-              </div>
-              -->
               
           </div>
           <!--Si ya creamos una nueva sesion medica, mostramos los datos al final del historial clinico-->
@@ -135,18 +104,7 @@
                 <b>{{"ficha-paciente.Clinic" | translate}}:</b> {{current_medical_sesion["centro_salud"]}}<br>
                 <b>{{"ficha-paciente.Date" | translate}}:</b> {{current_medical_sesion["fecha"]}}
               </p>
-            <!--<p class="text-center text-primary"> Comienza agregar arquetipos a la consulta...</p>-->
-            <!--<div class="form">
-              <dynamic-form [fields]="regConfig" (submit)="submit($event)">
-              </dynamic-form>              
-              <br>
-              
-              <div class="margin-top">
-                {{ form.value | json }}
-              </div>
-              
-              <br>
-            </div>-->
+       
             <div class="form">
               <dynamic-form [fields]="regConfig" (submit)="submit($event)">
               </dynamic-form>              
@@ -157,14 +115,15 @@
             </div>
 
           </div>
-  
         </div>
-        <div *ngIf="habilitar_creacion_nueva_sesion && mostrar_historial" class="text-center">
+        <div *ngIf="habilitar_creacion_nueva_sesion && mostrar_historial" class="text-center mt-2">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSetMedicalSesionName">{{"ficha-paciente.New medical sesion" | translate}}</button>
         </div>
+      </div>
+        
     </div>
-    <div class="col-md-7">
-      <div class="mt-4 mr-1">
+    <div class="col-md-6">
+      <div class="bg-white float-left mt-5 p-3 shadow extra-style" style="height: 100vh;">
         <div *ngIf="!mostrar_diagrama_arquetipos">
             <app-lista-arquetipos
             (mostrar_diagrama_arquetipos)="cambiarComponente($event)">
@@ -199,9 +158,6 @@
             <label for="formSesion_name">{{"ficha-paciente.Name" | translate}}</label>
             <input type="text" class="form-control" ngModel name="name" id="formSesion_name" placeholder="{{'ficha-paciente.Place_new_medical_sesion' | translate}}" required>
           </div>
-          <!--<div *ngIf="mostrar_error">
-            <p class="text-danger">Por favor, ingresar todos los campos</p>
-          </div>-->
           <button type="submit" class="btn btn-primary">{{"ficha-paciente.Add to History" | translate}}</button>
         </form>
 

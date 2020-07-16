@@ -1,8 +1,9 @@
 {
     "barra":{
-        "Patient Journey": "Patient Journey",
+        "Patient": "Patient",
+        "Journey": "Journey",
         "Home": "Home",
-        "New": "New",
+        "New patient": "New patient",
         "User": "User",
         "Logout": "Logout",
         "Language": "language",
@@ -12,7 +13,7 @@
     "inicio":{
         "Search Patient": "Search Patient",
         "Rut": "Rut",
-        "Place_rut_paciente": "Write rut patient...",
+        "Place_rut_paciente": "Write rut...",
         "Patient not found":"Patient not found",
         "Search": "Search",
         "or":"or",

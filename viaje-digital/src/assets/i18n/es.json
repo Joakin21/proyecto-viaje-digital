@@ -1,8 +1,9 @@
 {
     "barra":{
-        "Patient Journey": "Viaje del paciente",
+        "Patient": "Paciente",
+        "Journey": "Viaje",
         "Home": "Inicio",
-        "New": "Nuevo",
+        "New patient": "Nuevo paciente",
         "User": "Usuario",
         "Logout":"Salir",
         "Language": "Idioma",
@@ -12,7 +13,7 @@
     "inicio":{
         "Search Patient": "Buscar Paciente",
         "Rut": "Rut",
-        "Place_rut_paciente": "Escribir rut del paciente...",
+        "Place_rut_paciente": "Escribir rut...",
         "Patient not found":"Paciente no encontrado",
         "Search": "Buscar",
         "or":"o",

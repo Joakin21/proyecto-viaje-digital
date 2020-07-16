@@ -3,7 +3,7 @@
   }
   
   #myLogin {
-    display: -ms-flexbox;
+    /*display: -ms-flexbox;
     display: -webkit-box;
     display: flex;
     -ms-flex-align: center;
@@ -15,13 +15,23 @@
     padding-top: 40px;
     padding-bottom: 40px;
     /*background-color: #f5f5f5;*/
+    
   }
-  
+ 
   .form-signin {
     width: 100%;
-    max-width: 330px;
-    padding: 15px;
+    max-width: 200px;
+    
     margin: 0 auto;
+    /*background-color: aqua;
+    
+    margin: 0;*/
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-family: Lato;
   }
   .form-signin .checkbox {
     font-weight: 400;
@@ -46,3 +56,88 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
+
+  #btn_submit{
+    font-family: Avenir-Black;
+    background-color: #59b0f3;
+    color: white;
+    border-radius: 7px;
+  }
+  #inputEmail, #inputPassword{
+    background-color:#f4f4f4 ;
+    border-radius: 7px;
+  }
+  .checkbox-round {
+    width: 1.3em;
+    height: 1.3em;
+    background-color: #f4f4f4;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+  }
+  .checkbox-round:checked {
+    background-color: #59b0f3;
+  }
+
+/*Icono CIDLA*/
+/*
+.Elipse_129 {
+  filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.11));
+  position: absolute;
+	overflow: visible;
+	width: 174px;
+  height: 174px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  top: 50px;
+  
+}*/
+.myCircle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  top: 40px;
+  width: 150px;
+  height: 150px;
+  background-color: #59b0f3;
+}
+#Grupo_1702 {
+  position: absolute;
+  
+	width: 98.92px;
+	height: 94.898px;
+  overflow: visible;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  top: 70px;
+}
+.Trazado_115 {
+	overflow: visible;
+	
+	width: 50.869px;
+	height: 31.272px;
+	left: 24.012px;
+	top: 29.497px;
+	transform: matrix(1,0,0,1,0,0);
+}
+.Trazado_116 {
+	overflow: visible;
+
+	width: 98.92px;
+	height: 94.898px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+/*.bodybg-color {
+  background-color:red;
+}*/
