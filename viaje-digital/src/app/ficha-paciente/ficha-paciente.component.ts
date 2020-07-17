@@ -601,6 +601,11 @@ export class FichaPacienteComponent implements OnInit {
     this.mostrar_diagrama_arquetipos = mensaje
     console.log("mensaje recibido :)")
     console.log( this.mostrar_diagrama_arquetipos)
+
+    window.scroll(0,50);
+  }
+  closeDiagram(){
+    this.mostrar_diagrama_arquetipos = false
   }
   //@ViewChild('myChild') private myChild: MyChildComponent;
   /*actualizarListaAndDiagramaArquetipos(mensaje: boolean){

@@ -14,6 +14,7 @@ declare var $:any;
 export class ListaArquetiposComponent implements OnInit,AfterViewInit  {
 
   @Output() mostrar_diagrama_arquetipos = new EventEmitter<boolean>();
+  @Output() emitir_id_arquetipo = new EventEmitter<string>();
 
   constructor(private conexBack: ConexionBackendService, private elegirArquetipo:SeleccionarArquetipoService, public translate: TranslateService) { }
   //ngAfterViewInit(){}
@@ -274,4 +275,35 @@ export class ListaArquetiposComponent implements OnInit,AfterViewInit  {
     //console.log(aux_array)
     return aux_array
   }
+
+  agregarAlHistorial(arquetipo:any){
+    //imrimamos su id
+    //console.log(arquetipo)
+    
+    //MEJORAR LOGICA DE COMO SE TRANSFIERE ESTA INFORMACIÓN ENTRE COMPONENTES
+    this.conexBack.getArquetipoById(arquetipo["id"]).subscribe(arquetipo =>{
+      console.log(arquetipo)
+      this.emitir_id_arquetipo.emit(arquetipo["_id"])
+      this.elegirArquetipo.agregarAlHistorial(arquetipo)
+    })
+    //Obtener el arquetipo por id
+
+    //enviarlo al componente
+    /*alert("It's work!")
+    this.emitir_id_arquetipo.emit(this.arquetipo_id)
+    this.elegirArquetipo.agregarAlHistorial(this.arquetipo)*/
+  }
+  verArquetipo(arquetipo:any){
+    //alert("Comienza la fiesta") mostrar_diagrama:boolean = false
+    this.elegirArquetipo.asignar(arquetipo["id"])
+    this.elegirArquetipo.setTipo_arquetipo(arquetipo["tipo_arquetipo"])
+    this.mostrar_diagrama_arquetipos.emit(true)
+  }
+    /*seleccionarArquetipo(arquetipo:any){
+      //console.log(arquetipo)
+      this.elegirArquetipo.asignar(arquetipo["id"])
+      this.elegirArquetipo.setTipo_arquetipo(arquetipo["tipo_arquetipo"])
+      this.mostrar_diagrama_arquetipos.emit(true)
+
+  }*/
 }

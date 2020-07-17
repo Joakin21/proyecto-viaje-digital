@@ -1,7 +1,14 @@
 <app-header [userName]="usuario_logeado"></app-header>
 <!--(mostrar_diagrama_arquetipos)="actualizarListaAndDiagramaArquetipos($event)"-->
-<div class="row">
-  
+<div class="row" id="pagina-ficha-paciente">
+  <div class="col-md-12" *ngIf="mostrar_diagrama_arquetipos">
+    <div class="bg-white mt-5 p-3 shadow extra-style horizontal-center">
+      <button type="button" (click)="closeDiagram()" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <app-diagrama-arquetipos (emitir_id_arquetipo)="recibirArquetipoId($event)"></app-diagrama-arquetipos>
+    </div>
+  </div>
     <!--class="pre-scrollable" style="height: 100vh"-->
     <div class="col-md-6">
 
@@ -124,9 +131,17 @@
     </div>
     <div class="col-md-6">
       <div class="bg-white float-left mt-5 p-3 shadow extra-style" style="height: 100vh;">
+        <div *ngIf="mostrar_mensaje_error2 && habilitar_creacion_nueva_sesion">
+          <p class="text-danger mb-0">{{"ficha-paciente."+mensaje_error2 | translate}}</p>
+        </div>
+        <app-lista-arquetipos (mostrar_diagrama_arquetipos)="cambiarComponente($event)" (emitir_id_arquetipo)="recibirArquetipoId($event)"></app-lista-arquetipos>
+        <!--
         <div *ngIf="!mostrar_diagrama_arquetipos">
+            <div *ngIf="mostrar_mensaje_error2 && habilitar_creacion_nueva_sesion">
+              <p class="text-danger mb-0">{{"ficha-paciente."+mensaje_error2 | translate}}</p>
+            </div>
             <app-lista-arquetipos
-            (mostrar_diagrama_arquetipos)="cambiarComponente($event)">
+            (mostrar_diagrama_arquetipos)="cambiarComponente($event)" (emitir_id_arquetipo)="recibirArquetipoId($event)">
             </app-lista-arquetipos>
         </div>
         <div *ngIf="mostrar_diagrama_arquetipos">
@@ -137,6 +152,7 @@
             (mostrar_diagrama_arquetipos)="cambiarComponente($event)" (emitir_id_arquetipo)="recibirArquetipoId($event)">
             </app-diagrama-arquetipos>
         </div>
+        -->
       </div>
     </div>
 </div>

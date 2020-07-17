@@ -124,6 +124,9 @@ export class DiagramaArquetiposComponent implements OnInit,AfterViewInit {
   }
 
   dibujarArquetipoImportado(arquetipo){
+    //reset view area
+    document.getElementById("jsmind_container").innerHTML = ""
+    this.myData = []
     
     arquetipo["id_nodo"] ="nodo1"
     this.myData.push({"id":arquetipo["id_nodo"], "isroot":true, "topic":arquetipo["text"]})
@@ -139,14 +142,32 @@ export class DiagramaArquetiposComponent implements OnInit,AfterViewInit {
     //Obtengo id del arquetipo importado
     this.elegirArquetipo.currentArquetipo.subscribe(id_arq => {
       this.arquetipo_id = id_arq
+      
+      if(this.arquetipo_id==null){
+        //volver a inicio
+        //this.router.navigateByUrl('/visualizador')
+        console.log("test!")
+      }
+      else if(this.arquetipo_id=="nuevo arquetipo"){
+        console.log(this.arquetipo_id)
+        
+      }
+      else{
+        this.conexBack.getArquetipoById(this.arquetipo_id).subscribe(arquetipo =>{
+          this.dibujarArquetipoImportado(arquetipo),
+          this.nombre_arquetipo = arquetipo["text"]
+          //this.conexionesDiagramaImportado(jsPlumb,this.jsPlumbInstance,arquetipo,this.contador_nodos)
+        })
+      }
     })
     
-  }
+  }//SeleccionarArquetipoService
+  
 
   ngAfterViewInit(){
     //console.log("id: ",this.arquetipo_id)
     //this.jsPlumbInstance = jsPlumb.getInstance();
-    if(this.arquetipo_id==null){
+    /*if(this.arquetipo_id==null){
       //volver a inicio
       //this.router.navigateByUrl('/visualizador')
       console.log("test!")
@@ -161,7 +182,11 @@ export class DiagramaArquetiposComponent implements OnInit,AfterViewInit {
         this.nombre_arquetipo = arquetipo["text"]
         //this.conexionesDiagramaImportado(jsPlumb,this.jsPlumbInstance,arquetipo,this.contador_nodos)
       })
-    }
+    }*/
+
+    /*this.elegirArquetipo.currentArquetipo.subscribe(data => {
+      alert("Holaaaaaaa jiji horo :)")
+    })*/
 
   }
   insertarDatosNodoModal(arquetipo,id_nodo){//luego intentar mejorar num iteraciones 
@@ -253,9 +278,6 @@ export class DiagramaArquetiposComponent implements OnInit,AfterViewInit {
     }
   }
 
-  volverToListaArquetipos(){
-    this.mostrar_diagrama_arquetipos.emit(false)
-  }
   agregarAlHistorial(){
     this.emitir_id_arquetipo.emit(this.arquetipo_id)
     this.elegirArquetipo.agregarAlHistorial(this.arquetipo)
