@@ -1,160 +1,175 @@
 <app-header [userName]="usuario_logeado"></app-header>
 <!--(mostrar_diagrama_arquetipos)="actualizarListaAndDiagramaArquetipos($event)"-->
-<div class="row" id="pagina-ficha-paciente">
-  <div class="col-md-12" *ngIf="mostrar_diagrama_arquetipos">
-    <div class="bg-white mt-5 p-3 shadow extra-style horizontal-center">
-      <button type="button" (click)="closeDiagram()" class="close" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <app-diagrama-arquetipos (emitir_id_arquetipo)="recibirArquetipoId($event)"></app-diagrama-arquetipos>
+<div class="container">
+  <div class="row" id="pagina-ficha-paciente">
+    <div class="col-md-12" *ngIf="mostrar_diagrama_arquetipos">
+      <div class="bg-white mt-5 p-3 shadow extra-style horizontal-center">
+        <button type="button" (click)="closeDiagram()" class="close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div *ngIf="mostrar_mensaje_error2 && habilitar_creacion_nueva_sesion">
+          <p class="text-danger mb-0">{{"ficha-paciente."+mensaje_error2 | translate}}</p>
+        </div>
+        <app-diagrama-arquetipos (emitir_id_arquetipo)="recibirArquetipoId($event)"></app-diagrama-arquetipos>
+      </div>
     </div>
-  </div>
-    <!--class="pre-scrollable" style="height: 100vh"-->
-    <div class="col-md-6">
+      <!--class="pre-scrollable" style="height: 100vh"-->
+      <div class="col-md-6">
 
-      <div class="bg-white float-right mt-5 p-3 shadow extra-style" style="height: 100vh;">
-        <div class="overflow-auto" style="height: 88vh;">
-          <div *ngIf="habilitar_form_datos_base">
-            <h4 class="text-center text-primary">{{"ficha-paciente.Required information" | translate}}</h4>
-            <form #datos_base="ngForm" (ngSubmit)="crearPaciente(datos_base)" class="form-search mr-3">
-              <div class="form-group">
-                <label for="formNombre">{{"ficha-paciente.Name" | translate}}</label>
-                <input type="text" class="form-control" ngModel name="nombre" id="formNombre" placeholder="{{'ficha-paciente.Place_patient_name' | translate}}" required>
-              </div>
-              <div class="form-group">
-                <label for="formApellido">{{"ficha-paciente.Last name" | translate}}</label>
-                <input type="text" class="form-control" ngModel name="apellidos" id="formApellido" placeholder="{{'ficha-paciente.Place_patient_lastname' | translate}}" required>
-              </div>
-              <div class="form-group">
-                <label for="formRut">{{"ficha-paciente.Rut" | translate}}</label>
-                <input type="text" class="form-control" ngModel name="rut" id="formRut" placeholder="{{'ficha-paciente.Place_patient_rut' | translate}}" required>
-              </div>
-              <div class="form-group">
-                <label for="formDireccion">{{"ficha-paciente.Address" | translate}}</label>
-                <input type="text" class="form-control" ngModel name="direccion" id="formDireccion" placeholder="{{'ficha-paciente.Place_patient_address' | translate}}" required>
-              </div>
-              <div class="form-group">
-                <label for="formFecha_nacimiento">{{"ficha-paciente.Birthday" | translate}}</label>
-                <input type="date" class="form-control" ngModel name="fecha_nacimiento" id="formFecha_nacimiento" placeholder="{{'ficha-paciente.Place_patient_birthday' | translate}}" required>
-              </div>
-              <div class="form-group">
-                <label for="formCity">{{"ficha-paciente.City" | translate}}</label>
-                <select class="form-control" ngModel name="ciudad" id="formCity" required> 
-                  <option>Iquique</option>
-                  <option>Antofagasta</option>
-                  <option>Copiapó</option>
-                  <option>Arica</option>
-                  <option>Coyhaique</option>
-                  <option>Concepción</option>
-                  <option>La Serena</option>
-                  <option>Temuco</option>
-                  <option>Puerto Montt</option>
-                  <option>Valdivia</option>
-                  <option>Punta Arenas</option>
-                  <option>Talca</option>
-                  <option>Santiago</option>
-                  <option>Chillán</option>
-                  <option>Rancagua</option>
-                  <option>Valparaíso</option>
-                </select>
-              </div>
-              <div *ngIf="mostrar_error">
-                <p class="text-danger">{{"ficha-paciente.Please enter all fields" | translate}}</p>
-              </div>
-              <button type="submit" class="btn btn-primary">{{"ficha-paciente.Create Patient" | translate}}</button>
-            </form>
-          </div>
-          <!--Si vamos a mostrar el historial de un paciente-->
-          <div *ngIf="mostrar_historial" >
-            <!--<h3 class="text-center">Medical History</h3>-->
-              <h4 class="text-center text-info">{{"ficha-paciente.Patient information" | translate}}</h4>
-              <p>
-                <b>{{"ficha-paciente.Name" | translate}}:</b> {{patient_journey['nombre']}}<br>
-                <b>{{"ficha-paciente.Last name" | translate}}:</b> {{patient_journey['apellidos']}}<br>
-                <b>{{"ficha-paciente.Rut" | translate}}:</b> {{patient_journey['rut']}}<br>
-                <b>{{"ficha-paciente.Address" | translate}}:</b> {{patient_journey['direccion']}}<br>
-                <b>{{"ficha-paciente.Birthday" | translate}}:</b> {{patient_journey['fecha_nacimiento']}}<br>
-                <b>{{"ficha-paciente.City" | translate}}:</b> {{patient_journey['ciudad']}}
-              </p>
-              <!--Iteramos cada sesion medica-->
-              <div *ngFor="let sesion_medica of patient_journey['sesiones_medica']">
-                <h4 class="text-center text-info">Sesion: {{sesion_medica['nombre_sesion']}}</h4>
-                <!--<p class="text-center">Datos del profesional</p>-->
-                <p>
-
-                  <b>{{"ficha-paciente.Person attending" | translate}}:</b> {{sesion_medica["nombre_profesional"]}}<br>
-                  <b>{{"ficha-paciente.Profession" | translate}}:</b> {{sesion_medica["profesion"]}}<br>
-                  <b>{{"ficha-paciente.Clinic" | translate}}:</b> {{sesion_medica["centro_salud"]}}<br>
-                  <b>{{"ficha-paciente.Date" | translate}}:</b> {{sesion_medica["fecha"]}}
-                </p>
-                <!--Iteramos cada arquetipo en la sesion-->
-                <div *ngFor="let arquetipo of sesion_medica['arquetipos']">
-                  <div *ngFor="let nodo of arquetipo">
-                    
-                    <!--<p class="text-center" *ngIf="nodo['tipo']==1"><u><b>{{nodo['valor']}}</b></u></p>-->
-                    <h5 class="text-center text-secondary" *ngIf="nodo['tipo']==1">{{nodo['valor']}}</h5>
-                    <p class="text-center" *ngIf="nodo['tipo']==2"><b>{{nodo['valor']}}:</b></p>
-                    <p *ngIf="nodo['tipo']==3"><b>{{nodo['valor']}}:</b></p>
-                    <p *ngIf="nodo['tipo']==4"><b>{{nodo['clave']}}:</b> {{nodo['valor']}} </p>
-                  </div>
-                  
+        <div class="bg-white mt-5 p-3 shadow extra-style" style="height: 100vh;">
+          <div class="overflow-auto" style="height: 88vh;">
+            <div *ngIf="habilitar_form_datos_base">
+              <h4 class="text-center text-primary">{{"ficha-paciente.Required information" | translate}}</h4>
+              <form #datos_base="ngForm" (ngSubmit)="crearPaciente(datos_base)" class="form-search mr-3">
+                <div class="form-group">
+                  <label for="formNombre">{{"ficha-paciente.Name" | translate}}</label>
+                  <input type="text" class="form-control" ngModel name="nombre" id="formNombre" placeholder="{{'ficha-paciente.Place_patient_name' | translate}}" required>
                 </div>
-              </div>
-              
-          </div>
-          <!--Si ya creamos una nueva sesion medica, mostramos los datos al final del historial clinico-->
-          <div *ngIf="!habilitar_creacion_nueva_sesion" class="border  border-dark p-2 mt-2 mr-2" > 
-            <h5 class="text-center">New medical session: {{current_medical_sesion["nombre_sesion"]}}</h5>
-              <p>
-                <b>{{"ficha-paciente.Person attending" | translate}}:</b> {{current_medical_sesion["nombre_profesional"]}}<br>
-                <b>{{"ficha-paciente.Profession" | translate}}:</b> {{current_medical_sesion["profesion"]}}<br>
-                <b>{{"ficha-paciente.Clinic" | translate}}:</b> {{current_medical_sesion["centro_salud"]}}<br>
-                <b>{{"ficha-paciente.Date" | translate}}:</b> {{current_medical_sesion["fecha"]}}
-              </p>
-       
-            <div class="form">
-              <dynamic-form [fields]="regConfig" (submit)="submit($event)">
-              </dynamic-form>              
-              
+                <div class="form-group">
+                  <label for="formApellido">{{"ficha-paciente.Last name" | translate}}</label>
+                  <input type="text" class="form-control" ngModel name="apellidos" id="formApellido" placeholder="{{'ficha-paciente.Place_patient_lastname' | translate}}" required>
+                </div>
+                <div class="form-group">
+                  <label for="formRut">{{"ficha-paciente.Rut" | translate}}</label>
+                  <input type="text" class="form-control" ngModel name="rut" id="formRut" placeholder="{{'ficha-paciente.Place_patient_rut' | translate}}" required>
+                </div>
+                <div class="form-group">
+                  <label for="formDireccion">{{"ficha-paciente.Address" | translate}}</label>
+                  <input type="text" class="form-control" ngModel name="direccion" id="formDireccion" placeholder="{{'ficha-paciente.Place_patient_address' | translate}}" required>
+                </div>
+                <div class="form-group">
+                  <label for="formFecha_nacimiento">{{"ficha-paciente.Birthday" | translate}}</label>
+                  <input type="date" class="form-control" ngModel name="fecha_nacimiento" id="formFecha_nacimiento" placeholder="{{'ficha-paciente.Place_patient_birthday' | translate}}" required>
+                </div>
+                <div class="form-group">
+                  <label for="formCity">{{"ficha-paciente.City" | translate}}</label>
+                  <select class="form-control" ngModel name="ciudad" id="formCity" required> 
+                    <option>Iquique</option>
+                    <option>Antofagasta</option>
+                    <option>Copiapó</option>
+                    <option>Arica</option>
+                    <option>Coyhaique</option>
+                    <option>Concepción</option>
+                    <option>La Serena</option>
+                    <option>Temuco</option>
+                    <option>Puerto Montt</option>
+                    <option>Valdivia</option>
+                    <option>Punta Arenas</option>
+                    <option>Talca</option>
+                    <option>Santiago</option>
+                    <option>Chillán</option>
+                    <option>Rancagua</option>
+                    <option>Valparaíso</option>
+                  </select>
+                </div>
+                <div *ngIf="mostrar_error">
+                  <p class="text-danger">{{"ficha-paciente.Please enter all fields" | translate}}</p>
+                </div>
+                <button type="submit" class="btn btn-primary">{{"ficha-paciente.Create Patient" | translate}}</button>
+              </form>
             </div>
-            <div *ngIf="mostrar_mensaje_error2">
-              <p class="text-danger mt-2">{{"ficha-paciente."+mensaje_error2 | translate}}</p>
-            </div>
+            <!--Si vamos a mostrar el historial de un paciente-->
+            <div *ngIf="mostrar_historial" >
+              <!--<h3 class="text-center">Medical History</h3>-->
+                <!--<h4 class="text-center text-info">{{"ficha-paciente.Patient information" | translate}} text-right</h4>-->
+                <p id="text-patient-information">Medical History</p>
+                <div class="overflow-hidden">
+                  <p id="text-name-patient" class="d-inline text-basic-patient-data">{{patient_journey['nombre'] + ' ' + patient_journey['apellidos']}}</p>
+                  <p class="d-inline float-right mb-0 pr-2 text-basic-patient-data"><span class="text-basic-patient-data-blod">{{"ficha-paciente.Rut" | translate}}:</span> {{patient_journey['rut']}}<br><span class="text-basic-patient-data-blod">{{"ficha-paciente.Birthday" | translate}}:</span> {{patient_journey['fecha_nacimiento']}}</p>
+                </div>
+                <p class="text-basic-patient-data text-basic-patient-data-blod mb-0">{{patient_journey['ciudad']}}</p>
+                <p class="text-basic-patient-data">{{patient_journey['direccion']}}</p>
+                <!--
+                <p>
+                  <b>{{"ficha-paciente.Name" | translate}}:</b> {{patient_journey['nombre']}}<br>
+                  <b>{{"ficha-paciente.Last name" | translate}}:</b> {{patient_journey['apellidos']}}<br>
+                  <b>{{"ficha-paciente.Rut" | translate}}:</b> {{patient_journey['rut']}}<br>
+                  <b>{{"ficha-paciente.Address" | translate}}:</b> {{patient_journey['direccion']}}<br>
+                  <b>{{"ficha-paciente.Birthday" | translate}}:</b> {{patient_journey['fecha_nacimiento']}}<br>
+                  <b>{{"ficha-paciente.City" | translate}}:</b> {{patient_journey['ciudad']}}
+                </p>
+                -->
+                <!--Iteramos cada sesion medica-->
+                <div *ngFor="let sesion_medica of patient_journey['sesiones_medica']">
+                  <h4 class="text-center text-info">Sesion: {{sesion_medica['nombre_sesion']}}</h4>
+                  <!--<p class="text-center">Datos del profesional</p>-->
+                  <p>
 
+                    <b>{{"ficha-paciente.Person attending" | translate}}:</b> {{sesion_medica["nombre_profesional"]}}<br>
+                    <b>{{"ficha-paciente.Profession" | translate}}:</b> {{sesion_medica["profesion"]}}<br>
+                    <b>{{"ficha-paciente.Clinic" | translate}}:</b> {{sesion_medica["centro_salud"]}}<br>
+                    <b>{{"ficha-paciente.Date" | translate}}:</b> {{sesion_medica["fecha"]}}
+                  </p>
+                  <!--Iteramos cada arquetipo en la sesion-->
+                  <div *ngFor="let arquetipo of sesion_medica['arquetipos']">
+                    <div *ngFor="let nodo of arquetipo">
+                      
+                      <!--<p class="text-center" *ngIf="nodo['tipo']==1"><u><b>{{nodo['valor']}}</b></u></p>-->
+                      <h5 class="text-center text-secondary" *ngIf="nodo['tipo']==1">{{nodo['valor']}}</h5>
+                      <p class="text-center" *ngIf="nodo['tipo']==2"><b>{{nodo['valor']}}:</b></p>
+                      <p *ngIf="nodo['tipo']==3"><b>{{nodo['valor']}}:</b></p>
+                      <p *ngIf="nodo['tipo']==4"><b>{{nodo['clave']}}:</b> {{nodo['valor']}} </p>
+                    </div>
+                    
+                  </div>
+                </div>
+                
+            </div>
+            <!--Si ya creamos una nueva sesion medica, mostramos los datos al final del historial clinico-->
+            <div *ngIf="!habilitar_creacion_nueva_sesion" class="border  border-dark p-2 mt-2 mr-2" > 
+              <h5 class="text-center">New medical session: {{current_medical_sesion["nombre_sesion"]}}</h5>
+                <p>
+                  <b>{{"ficha-paciente.Person attending" | translate}}:</b> {{current_medical_sesion["nombre_profesional"]}}<br>
+                  <b>{{"ficha-paciente.Profession" | translate}}:</b> {{current_medical_sesion["profesion"]}}<br>
+                  <b>{{"ficha-paciente.Clinic" | translate}}:</b> {{current_medical_sesion["centro_salud"]}}<br>
+                  <b>{{"ficha-paciente.Date" | translate}}:</b> {{current_medical_sesion["fecha"]}}
+                </p>
+        
+              <div class="form">
+                <dynamic-form [fields]="regConfig" (submit)="submit($event)">
+                </dynamic-form>              
+                
+              </div>
+              <div *ngIf="mostrar_mensaje_error2">
+                <p class="text-danger mt-2">{{"ficha-paciente."+mensaje_error2 | translate}}</p>
+              </div>
+
+            </div>
           </div>
+          
         </div>
         <div *ngIf="habilitar_creacion_nueva_sesion && mostrar_historial" class="text-center mt-2">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSetMedicalSesionName">{{"ficha-paciente.New medical sesion" | translate}}</button>
         </div>
+          
       </div>
-        
-    </div>
-    <div class="col-md-6">
-      <div class="bg-white float-left mt-5 p-3 shadow extra-style" style="height: 100vh;">
-        <div *ngIf="mostrar_mensaje_error2 && habilitar_creacion_nueva_sesion">
-          <p class="text-danger mb-0">{{"ficha-paciente."+mensaje_error2 | translate}}</p>
+      <div class="col-md-6">
+        <div class="bg-white mt-5 p-3 shadow extra-style" style="height: 100vh;">
+          <div *ngIf="mostrar_mensaje_error2 && habilitar_creacion_nueva_sesion">
+            <p class="text-danger mb-0">{{"ficha-paciente."+mensaje_error2 | translate}}</p>
+          </div>
+          <app-lista-arquetipos (mostrar_diagrama_arquetipos)="cambiarComponente($event)" (emitir_id_arquetipo)="recibirArquetipoId($event)"></app-lista-arquetipos>
+          <!--
+          <div *ngIf="!mostrar_diagrama_arquetipos">
+              <div *ngIf="mostrar_mensaje_error2 && habilitar_creacion_nueva_sesion">
+                <p class="text-danger mb-0">{{"ficha-paciente."+mensaje_error2 | translate}}</p>
+              </div>
+              <app-lista-arquetipos
+              (mostrar_diagrama_arquetipos)="cambiarComponente($event)" (emitir_id_arquetipo)="recibirArquetipoId($event)">
+              </app-lista-arquetipos>
+          </div>
+          <div *ngIf="mostrar_diagrama_arquetipos">
+              <div *ngIf="mostrar_mensaje_error2 && habilitar_creacion_nueva_sesion">
+                <p class="text-danger mb-0">{{"ficha-paciente."+mensaje_error2 | translate}}</p>
+              </div>
+              <app-diagrama-arquetipos
+              (mostrar_diagrama_arquetipos)="cambiarComponente($event)" (emitir_id_arquetipo)="recibirArquetipoId($event)">
+              </app-diagrama-arquetipos>
+          </div>
+          -->
         </div>
-        <app-lista-arquetipos (mostrar_diagrama_arquetipos)="cambiarComponente($event)" (emitir_id_arquetipo)="recibirArquetipoId($event)"></app-lista-arquetipos>
-        <!--
-        <div *ngIf="!mostrar_diagrama_arquetipos">
-            <div *ngIf="mostrar_mensaje_error2 && habilitar_creacion_nueva_sesion">
-              <p class="text-danger mb-0">{{"ficha-paciente."+mensaje_error2 | translate}}</p>
-            </div>
-            <app-lista-arquetipos
-            (mostrar_diagrama_arquetipos)="cambiarComponente($event)" (emitir_id_arquetipo)="recibirArquetipoId($event)">
-            </app-lista-arquetipos>
-        </div>
-        <div *ngIf="mostrar_diagrama_arquetipos">
-            <div *ngIf="mostrar_mensaje_error2 && habilitar_creacion_nueva_sesion">
-              <p class="text-danger mb-0">{{"ficha-paciente."+mensaje_error2 | translate}}</p>
-            </div>
-            <app-diagrama-arquetipos
-            (mostrar_diagrama_arquetipos)="cambiarComponente($event)" (emitir_id_arquetipo)="recibirArquetipoId($event)">
-            </app-diagrama-arquetipos>
-        </div>
-        -->
       </div>
-    </div>
+  </div>
 </div>
 
 <!-- Modal para setear el nombre de una nueva sesion medica-->

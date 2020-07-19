@@ -1,6 +1,6 @@
-.btn-see{
+/*.btn-see{
     background-color: #59b0f3;
-}
+}*/
 #archetype-list-title{
     text-align: center;
 	font-family: Raleway;
@@ -9,3 +9,68 @@
 	font-size: 26px;
 	color: rgba(72,72,75,1);
 }
+
+.border-input{
+    border-radius: 7px;
+}
+.select-color{
+	background-color: #59b0f3;
+}
+.select-text{
+	font-family: Lato;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 16px;
+	color: rgba(246,249,252,1);
+}
+.search-text{
+	/*font-family: Lato;*/
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	color: rgba(154,154,154,1);
+}
+
+.my-list-group{
+	font-family: Lato;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	color: rgba(154,154,154,1);
+}
+
+.my-list-group:first-child{
+	border-radius: 12px 12px 0px 0px;
+}
+
+.my-list-group:last-child{
+	border-radius: 0px 0px 12px 12px;
+}
+.btn-add{
+	background-color: rgba(122,210,116,1);
+	color: #FFFFFF;
+}
+.btm-show-archetype{
+	background-color: lightgrey;
+	color: black;
+}
+.btn-circle{
+	border-radius: 50%;
+	height: 20px;
+	width: 20px;
+}
+.list-group-mine .list-group-item {
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 16px;
+}
+/*
+.list-group-mine .list-group-item {
+	background-color: gray;
+
+}
+.list-group-mine .list-group-item:hover {
+	background-color: red;
+}
+*/
