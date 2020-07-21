@@ -133,23 +133,32 @@ export class FichaPacienteComponent implements OnInit {
     this.habilitar_form_datos_base = false
     this.mostrar_historial = true
   }
+  mensaje_error_create_sesion:boolean = false
   createNewMedicalSesion(sesion_name: NgForm){
-    $('#modalSetMedicalSesionName').modal('toggle');
-    //agregamos datos base de una sesion medica
-    this.current_medical_sesion["nombre_sesion"] = sesion_name.value.name
-    this.current_medical_sesion["fecha"] = this.obtenerFechaActual()
-    this.current_medical_sesion["nombre_profesional"] = this.user.user.first_name + " " + this.user.user.last_name
-    this.current_medical_sesion["profesion"] = this.user.profesion
-    this.current_medical_sesion["centro_salud"] = this.user.centro_salud
-    console.log(this.user)
-    /*
-    this.patient_journey["sesiones_medica"].push(this.current_medical_sesion)
-    console.log(this.patient_journey)
-    */
-    console.log(this.current_medical_sesion)
-    this.habilitar_creacion_nueva_sesion = false
-    //dibujamos nuevamente el patient journey
-    this.mostrar_mensaje_error2 = false
+    var all_datos_ingresados = sesion_name.valid
+    if(all_datos_ingresados){
+      $('#modalSetMedicalSesionName').modal('toggle');
+      //agregamos datos base de una sesion medica
+      this.current_medical_sesion["nombre_sesion"] = sesion_name.value.name
+      this.current_medical_sesion["fecha"] = this.obtenerFechaActual()
+      this.current_medical_sesion["nombre_profesional"] = this.user.user.first_name + " " + this.user.user.last_name
+      this.current_medical_sesion["profesion"] = this.user.profesion
+      this.current_medical_sesion["centro_salud"] = this.user.centro_salud
+      console.log(this.user)
+      /*
+      this.patient_journey["sesiones_medica"].push(this.current_medical_sesion)
+      console.log(this.patient_journey)
+      */
+      console.log(this.current_medical_sesion)
+      this.habilitar_creacion_nueva_sesion = false
+      //dibujamos nuevamente el patient journey
+      this.mostrar_mensaje_error2 = false
+      this.mensaje_error_create_sesion = false
+    }
+    else{
+      this.mensaje_error_create_sesion = true
+    }
+    
   }
   obtenerFechaActual():string{
     var today = new Date();

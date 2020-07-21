@@ -6,7 +6,7 @@
     margin-left: auto;
     margin-right: auto;
   }
-#text-patient-information{
+.text-title-ficha-paciente{
     text-align: center;
 	font-family: Raleway;
 	font-style: normal;
@@ -21,7 +21,7 @@
 	font-size: 22px;
 	color: rgba(72,72,75,1);
 }
-.text-basic-patient-data{
+.text-basic{
     font-family: Lato;
 	font-style: normal;
 	/*font-weight: bold;*/
@@ -29,6 +29,49 @@
     color: rgba(72,72,75,1);
 	/*color: rgba(72,72,75,1);*/
 }
-.text-basic-patient-data-blod{
+.text-basic-blod{
     font-weight: bold;
+}
+.sesion-border{
+    border-radius: 12px;
+}
+.border-input{
+    border-radius: 7px;
+}
+.text-btn-open-sesion{
+	font-family: Lato;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 22px;
+	/*color: rgba(89,176,243,1);*/
+	color: #59b0f3;
+}
+
+.title-patient{
+	font-family: Lato;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 21px;
+	color: rgba(72,72,75,1);
+}
+
+.btn-new-sesion{
+	color: white;
+	background-color: #59b0f3;
+  }
+
+.text-new-sesion{
+	font-family: Lato;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 14px;
+	color: rgba(72,72,75,1);
+}
+.btn-new-patient-and-addhistory{
+	font-family: Lato;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 16px;
+	color: rgba(255,255,255,1);
+	background-color: #59b0f3;
 }

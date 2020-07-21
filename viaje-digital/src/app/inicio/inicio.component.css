@@ -46,7 +46,10 @@
 .lightblue-button{
   /*color: white;
   background-color: rgba(89,176,243,1);*/
-  font-family: Avenir-Black;
+  font-family: Lato;
+	font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
   background-color: #59b0f3;
   color: white;
   border-radius: 7px;
