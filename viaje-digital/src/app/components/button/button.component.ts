@@ -5,10 +5,22 @@ import { FieldConfig } from "../../field.interface";
   selector: "app-button",
   template: `
 <div class="demo-full-width margin-top ml-2" [formGroup]="group">
-<button type="submit" mat-raised-button color="primary">{{field.label}}</button>
+<button type="submit" class="lightblue-button" mat-raised-button color="primary">{{field.label}}</button>
 </div>
 `,
-  styles: []
+  styles: [
+    `
+    .lightblue-button{
+      font-family: Lato;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 16px;
+      background-color: #59b0f3;
+      color: white;
+      border-radius: 7px;
+    }
+    `
+  ]
 })
 export class ButtonComponent implements OnInit {
   field: FieldConfig;

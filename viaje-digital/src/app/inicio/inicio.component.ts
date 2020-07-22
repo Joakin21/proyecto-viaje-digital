@@ -36,6 +36,9 @@ export class InicioComponent implements OnInit {
     this.userService.getUser(parseInt(this.userService.getIdUser())).subscribe(
       data => {
         this.usuario_logeado = data.user.first_name + " " + data.user.last_name//data.user.username
+        //Si el usuario es admin, debe ser redirigido a una pagina que le corresponda, esta es para los usuarios finales
+        /*var is_admin = data.user.is_staff
+        console.log("Es admin: ",is_admin)*/
         console.log(data)
         var id_profesional = data.user.id
         this.patientService.getAttendedPatients(id_profesional).subscribe(
@@ -51,6 +54,7 @@ export class InicioComponent implements OnInit {
       },
       error => {
         console.log('error', error)
+        this.router.navigateByUrl('')
       }
     );
     

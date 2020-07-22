@@ -65,6 +65,13 @@
 	font-weight: bold;
 	font-size: 16px;
 }
+.text-nav{
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	color: rgba(154,154,154,1);
+  }
 /*
 .list-group-mine .list-group-item {
 	background-color: gray;

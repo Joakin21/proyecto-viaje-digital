@@ -5,11 +5,20 @@ import { FieldConfig } from "../../field.interface";
   selector: "app-checkbox",
   template: `
 <div class="demo-full-width margin-top ml-2" [formGroup]="group" >
-<mat-checkbox [formControlName]="field.name">{{field.label}}</mat-checkbox>
+<mat-checkbox class="text-basic" [formControlName]="field.name">{{field.label}}</mat-checkbox>
 </div>
 <br>
 `,
-  styles: []
+  styles: [
+    `
+    .text-basic{
+      font-family: Lato;
+      font-style: normal;
+      font-size: 16px;
+      color: rgba(72,72,75,1);
+    }
+    `
+  ]
 })
 export class CheckboxComponent implements OnInit {
   field: FieldConfig;
