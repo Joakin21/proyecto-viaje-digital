@@ -18,6 +18,7 @@ export class UserService {
 
   url_import = 'http://127.0.0.1:8000/auth/'
   url_users = 'http://127.0.0.1:8000/users/'
+  url_admin = 'http://127.0.0.1:8000/adminPatientJourney/'
 
   constructor(private httpClient:HttpClient, private cookies: CookieService) { }
   
@@ -28,6 +29,11 @@ export class UserService {
     httpOptions.headers = httpOptions.headers.set('Authorization', "token "+this.getToken());
     return this.httpClient.get(this.url_users+user+"/", httpOptions);
   }
+  getAdmin(user:number): Observable<any>{
+    httpOptions.headers = httpOptions.headers.set('Authorization', "token "+this.getToken());
+    return this.httpClient.get(this.url_admin+user+"/", httpOptions);
+  }
+
   logout(){
     this.cookies.delete("token");
     this.cookies.delete("id_user");

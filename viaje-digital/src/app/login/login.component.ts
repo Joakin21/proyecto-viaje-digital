@@ -21,16 +21,57 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this._document.body.style.background = '#FFFFFF';
-    if(this.userService.getToken()){//si tiene el token de sesion
-      //this.router.navigateByUrl('/ficha-paciente')
-      //si tiene el token con el id_user ir a inicio, si no lo tiene ir al adminMenu
-      //console.log("Token id_user:")
-      if(this.userService.getIdUser()){
+    if(this.userService.getToken() && this.userService.getIdUser()){//el usuario ya esta logeado
+
+      //Intentamos obtener al usuario profesional salud
+      var try_go_admin_menu = false
+      this.userService.getUser(parseInt(this.userService.getIdUser())).subscribe(
+        data => {
+          var is_admin = data.user.is_staff
+          if (!is_admin){
+            this.goToInicio()
+          }
+        },
+        error => {
+          try_go_admin_menu = true
+          this.userService.getAdmin(parseInt(this.userService.getIdUser())).subscribe(
+            data => {
+              //this.usuario_logeado = data.user.first_name + " " + data.user.last_name//data.user.username
+              //Si el usuario es admin, debe ser redirigido a una pagina que le corresponda, esta es para los usuarios finales
+              var is_admin = data.is_staff
+              if(is_admin){
+                this.goToAdminMenu()
+              }
+              //var id_profesional = data.user.id
+            },
+  
+          );
+        }
+      );
+      /*if(try_go_admin_menu){
+        this.userService.getAdmin(parseInt(this.userService.getIdUser())).subscribe(
+          data => {
+            //this.usuario_logeado = data.user.first_name + " " + data.user.last_name//data.user.username
+            //Si el usuario es admin, debe ser redirigido a una pagina que le corresponda, esta es para los usuarios finales
+            var is_admin = data.is_staff
+            if(is_admin){
+              this.goToAdminMenu()
+            }
+            //var id_profesional = data.user.id
+          },
+
+        );
+      }*/
+
+
+
+      /*if(this.userService.getIdUser()){
+        //obtenemos el id y obtenemos el usuario
         this.goToInicio()
       }
       else{
         this.goToAdminMenu()
-      }
+      }*/
       
     }
   }
@@ -47,11 +88,11 @@ export class LoginComponent implements OnInit {
           this.userService.setToken(data.token)
 
           var is_admin = data.is_admin
+          this.userService.setIdUser(data.user_id.toString())
           if (is_admin){
             this.goToAdminMenu()
           }
           else{
-            this.userService.setIdUser(data.user_id.toString())
             this.goToInicio()
           }
         },
