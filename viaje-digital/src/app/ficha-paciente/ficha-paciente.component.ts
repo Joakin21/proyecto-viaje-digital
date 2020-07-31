@@ -563,7 +563,7 @@ export class FichaPacienteComponent implements OnInit {
 
       if(this.patient_journey["_id"]){//Si hay que actualizar uno ya existente
         //alert("Se actualizara el paciente")
-        this.patientService.putPatient(this.patient_journey).subscribe(
+        this.patientService.putPatient(this.patient_journey["rut"], this.patient_journey).subscribe(
           data => {
             console.log(data)
           },

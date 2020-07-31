@@ -52,4 +52,27 @@ export class UserService {
     return this.cookies.get("id_user")
   }
 
+  //Para el CRUD de users
+  /*getUser(user:number): Observable<any>{
+    httpOptions.headers = httpOptions.headers.set('Authorization', "token "+this.getToken());
+    return this.httpClient.get(this.url_users+user+"/", httpOptions);
+  }*/
+  getAllUsers(): Observable<any>{
+    httpOptions.headers = httpOptions.headers.set('Authorization', "token "+this.getToken());
+    return this.httpClient.get(this.url_users, httpOptions);
+  }
+  createUser(new_user:any): Observable<any>{
+    httpOptions.headers = httpOptions.headers.set('Authorization', "token "+this.getToken());
+    return this.httpClient.post(this.url_users, new_user, httpOptions);
+  }
+  deleteUser(user_id:number): Observable<any>{
+    httpOptions.headers = httpOptions.headers.set('Authorization', "token "+this.getToken());
+    return this.httpClient.delete(this.url_users + user_id.toString() + "/", httpOptions);
+  }
+
+  updateUser(user_updated:any, user_id:number): Observable<any>{
+    httpOptions.headers = httpOptions.headers.set('Authorization', "token "+this.getToken());
+    return this.httpClient.put(this.url_users + user_id.toString() + "/", user_updated, httpOptions);
+  }
+
 }

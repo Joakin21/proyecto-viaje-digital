@@ -28,17 +28,26 @@ export class PacienteService {
     httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
     return this.httpClient.get(this.url_pacientes_atendidos+id_profesional+"/", httpOptions);
   }
-  putPatient(patient_journey:any): Observable<any>{
+  putPatient(rut:string, patient_journey:any): Observable<any>{
     httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
     //delete patient_journey["_id"]
-    return this.httpClient.put(this.url_pacientes + patient_journey["rut"] + "/", patient_journey, httpOptions )
+    return this.httpClient.put(this.url_pacientes + rut + "/", patient_journey, httpOptions )
   }
   postPatient(patient_journey:any): Observable<any>{
     httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
-    return this.httpClient.post(this.url_pacientes + patient_journey["rut"] + "/", patient_journey, httpOptions )
+    return this.httpClient.post(this.url_pacientes, patient_journey, httpOptions )
   }
   getToken() {
     return this.cookies.get("token");
+  }
+  //New http methods
+  getAllPatients(): Observable<any>{
+    httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
+    return this.httpClient.get(this.url_pacientes, httpOptions);
+  }
+  deletePatient(rut:string): Observable<any>{
+    httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
+    return this.httpClient.delete(this.url_pacientes+rut+"/", httpOptions);
   }
 
 }

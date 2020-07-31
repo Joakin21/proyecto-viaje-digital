@@ -36,6 +36,8 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import { AdminMenuComponent } from './admin-menu/admin-menu.component';
+import { CrudProfesionalesSaludComponent } from './crud-profesionales-salud/crud-profesionales-salud.component';
+import { CrudPacientesComponent } from './crud-pacientes/crud-pacientes.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -78,7 +80,9 @@ const routes: Routes = [
     DynamicFormComponent,
     HeaderComponent,
     BuscadorPipe,
-    AdminMenuComponent
+    AdminMenuComponent,
+    CrudProfesionalesSaludComponent,
+    CrudPacientesComponent
   ],
   imports: [
     BrowserModule,

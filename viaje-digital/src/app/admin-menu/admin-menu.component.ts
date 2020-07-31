@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { UserService } from '../servicios/user.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+
+declare var $:any;
 
 @Component({
   selector: 'app-admin-menu',
@@ -10,6 +13,12 @@ import { UserService } from '../servicios/user.service';
 export class AdminMenuComponent implements OnInit {
 
   constructor(private router: Router, private userService: UserService) { }
+
+  menu_abierto:boolean = true
+  admin = {}
+  option_selected = 1
+
+  language_form:FormGroup
 
   ngOnInit(): void {
     if(!this.userService.getToken()){//si no hay token
@@ -23,8 +32,8 @@ export class AdminMenuComponent implements OnInit {
         if(!is_admin){
           this.router.navigateByUrl('')
         }
-        console.log("Es admin: ",is_admin)
-        console.log(data)
+        this.admin = data
+        console.log(this.admin["first_name"] + " " + this.admin["last_name"])
         //var id_profesional = data.user.id
       },
       error => {
@@ -33,10 +42,20 @@ export class AdminMenuComponent implements OnInit {
       }
     );
 
+    $("#wrapper").toggleClass("toggled");
+
   }
-  //funcion momentanea, solo para hacer pruebas
+  
+  menuToggle(open:boolean){
+    this.menu_abierto = open
+    $("#wrapper").toggleClass("toggled");
+  }
+
+  optionMenu(option:number){
+    this.option_selected = option
+  }
+
   logout(){
-    //alert(this.userName)
     this.userService.logout()
     this.router.navigateByUrl('')
   }
