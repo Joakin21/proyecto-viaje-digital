@@ -6,7 +6,7 @@
     <div class="list-group list-group-flush">
       <a [routerLink]="" (click)="optionMenu(1)" class="list-group-item list-group-item-action bg-light">Healthcare Professionals</a>
       <a [routerLink]="" (click)="optionMenu(2)" class="list-group-item list-group-item-action bg-light">Patients</a>
-      <a [routerLink]="" (click)="optionMenu(3)" class="list-group-item list-group-item-action bg-light">Archetype editor</a>
+      <a [routerLink]="" (click)="goToArchetypeEditor()" class="list-group-item list-group-item-action bg-light">Archetype editor</a>
       <a [routerLink]="" (click)="optionMenu(4)" class="list-group-item list-group-item-action bg-light">Language</a>
     </div>
   </div>
@@ -50,12 +50,29 @@
       
       <app-crud-profesionales-salud *ngIf="option_selected == 1"></app-crud-profesionales-salud>
       <app-crud-pacientes *ngIf="option_selected == 2"></app-crud-pacientes>
-      <p *ngIf="option_selected == 3">opcion 3 seleccionada</p>
+      <!--<p *ngIf="option_selected == 3">opcion 3 seleccionada</p>-->
 
-      <div *ngIf="option_selected == 4">opcion 4 seleccionada
+      <!--Select language-->
+      <div *ngIf="option_selected == 4">
+        <p>Current application language: {{application_language}}</p>
+        <form [formGroup]="language_form" (ngSubmit)="changeLanguage()">
+          <div class="form-group">
+            <label for="language">Language:</label>
+            <select class="form-control" id="language" formControlName="language" required> 
+              <option value="en">English</option>
+              <option value="es">Spanish</option>
+            </select>
+          </div>
+          <div *ngIf="language_form.controls['language'].invalid && (language_form.controls['language'].dirty || language_form.controls['language'].touched)" class="alert alert-danger">
+            <div *ngIf="language_form.controls['language'].errors.required">
+              Language is required.
+            </div>
+          </div>
+          <button type="submit" [disabled]="language_form.pristine || language_form.invalid" class="btn btn-primary">Change</button>
+        </form>
 
       </div>
-      
+
     </div>
   </div>
   <!-- /#page-content-wrapper -->

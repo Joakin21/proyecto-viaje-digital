@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
+import {ConexionBackendService} from './servicios/conexion-backend.service'
 import {TranslateService} from '../../node_modules/@ngx-translate/core'
 
 @Component({
@@ -6,13 +7,26 @@ import {TranslateService} from '../../node_modules/@ngx-translate/core'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'viaje-digital';
 
-  constructor(public translate: TranslateService){
+  constructor(public translate: TranslateService, private conexBack: ConexionBackendService){
+  }
+  ngOnInit(): void {
+    //en el fututo, agregar idiomas desde la base de datos tambien
     this.translate.addLangs(['es','en'])
-    this.translate.setDefaultLang('es')
-    this.translate.use('en')
+    //Se debe obtener desde la db
+    this.conexBack.getCurrentLanguage().subscribe(
+      data => {
+        //console.log(data)
+        this.translate.setDefaultLang(data["language"])
+        this.translate.use(data["language"])
+      },
+      error => {
+        console.log('error', error)
+      }
+    );
+    console.log("Holaaaa")
     //this.translate.currentLang
   }
 }

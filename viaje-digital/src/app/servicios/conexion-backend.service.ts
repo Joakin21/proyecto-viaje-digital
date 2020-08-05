@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ConexionBackendService {
 
   url_import = 'http://127.0.0.1:8000/arquetipos/';
-  url_update_db = 'http://127.0.0.1:8000/configurarDataBase/';
+  url_language_configuration = 'http://127.0.0.1:8000/languageConfiguration/';
 
   constructor(private httpClient:HttpClient) { }
 
@@ -24,7 +24,10 @@ export class ConexionBackendService {
     //delete patient_journey["_id"]
     return this.httpClient.put(this.url_pacientes + patient_journey["rut"] + "/", patient_journey, httpOptions )
   }*/
-  cambiarDataBase(idioma:any): Observable<any>{
-    return this.httpClient.put(this.url_update_db, idioma);
+  changeLanguage(language:any): Observable<any>{
+    return this.httpClient.put(this.url_language_configuration, language);
+  }
+  getCurrentLanguage(): Observable<any>{
+    return this.httpClient.get(this.url_language_configuration);
   }
 }
