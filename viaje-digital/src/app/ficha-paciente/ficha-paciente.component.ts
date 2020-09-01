@@ -9,6 +9,7 @@ import {Router} from '@angular/router';
 import { UserService } from '../servicios/user.service';
 import { PacienteService } from '../servicios/paciente.service'
 import { SeleccionarPacienteService } from '../servicios/seleccionar-paciente.service'
+import { PdfService } from '../servicios/pdf.service'
 
 declare var $:any;
 
@@ -19,7 +20,7 @@ declare var $:any;
 })
 export class FichaPacienteComponent implements OnInit {
 
-  constructor(private conexBack: ConexionBackendService, private router: Router, private userService: UserService, private patientService: PacienteService, private seleccionarPacienteService: SeleccionarPacienteService) { }
+  constructor(private conexBack: ConexionBackendService, private router: Router, private userService: UserService, private patientService: PacienteService, private seleccionarPacienteService: SeleccionarPacienteService, private pdfService:PdfService) { }
   mostrar_diagrama_arquetipos:boolean = false
 
   patient_journey:any = {}
@@ -615,6 +616,12 @@ export class FichaPacienteComponent implements OnInit {
   }
   closeDiagram(){
     this.mostrar_diagrama_arquetipos = false
+  }
+
+  downloadPDF(){
+    //here will call the service
+    
+    this.pdfService.fichaPacienteToPdf(this.patient_journey)
   }
   //@ViewChild('myChild') private myChild: MyChildComponent;
   /*actualizarListaAndDiagramaArquetipos(mensaje: boolean){

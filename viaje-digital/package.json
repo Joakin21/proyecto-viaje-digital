@@ -28,6 +28,7 @@
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
     "ngx-cookie-service": "^3.0.4",
+    "pdfmake": "^0.1.68",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
