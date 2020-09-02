@@ -62,11 +62,6 @@ export class AdminMenuComponent implements OnInit {
       }
     );
 
-    //this.translate.currentLang
-  
-
-    
-
   }
   
   menuToggle(open:boolean){
@@ -76,8 +71,10 @@ export class AdminMenuComponent implements OnInit {
 
   optionMenu(option:number){
     this.option_selected = option
+
   }
   //change the default language from data base
+
   changeLanguage(){
     var language_selected = this.language_form.value
     console.log(language_selected)
@@ -86,10 +83,13 @@ export class AdminMenuComponent implements OnInit {
       resp => {
         this.translate.setDefaultLang(language_selected["language"])
         this.translate.use(language_selected["language"])
-
-        
         this.application_language = language_selected["language"]
-        console.log(resp)
+
+        $("#success-alert").show(); 
+        window.setTimeout(function() {
+          $("#success-alert").hide(); 
+        }, 4000);
+
       },
       error => {
         console.log('error', error)
