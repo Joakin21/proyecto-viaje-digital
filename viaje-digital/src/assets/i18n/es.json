@@ -1,7 +1,16 @@
 {
+    "login": {
+        "Login": "Iniciar Sesión",
+        "Place_email_address": "Correo Electrónico",
+        "Place_password": "Contraseña",
+        "Remember":"Recuerda me",
+        "invalid email or password":"Correo electrónico o contraseña incorrectos",
+        "Please write your email and password": "Por favor, escribe tu correo electrónico y contraseña"
+    },
     "barra":{
         "Patient": "Paciente",
         "Journey": "Viaje",
+        "Need help?":"¿Necesitas ayuda?",
         "Home": "Inicio",
         "New patient": "Nuevo paciente",
         "User": "Usuario",
@@ -22,9 +31,11 @@
         "Name":"Nombre",
         "Go to medical history": "Ir a historial medico",
         "Recently attended": "Atendidos recientemente",
-        "No patient attended":"Aun no hay pacientes atendidos"
+        "No patient attended":"Aun no hay pacientes atendidos",
+        "Show recently attended": "Mostrar últimos pacientes atendidos"
     },
     "ficha-paciente":{
+        "Medical History":"Historial Clínico",
         "Required information":"Información Básica",
         "Name":"Nombre",
         "Last name":"Apellidos",
@@ -53,9 +64,11 @@
         "To add an archetype you must create a session first":"Debes crear una nueva sesión médica para garegar arquetipos",
 
         "New medical sesion":"Nueva sesión médica",
+        "Export to PDF":"Exportar a PDF",
         "Place_new_medical_sesion":"Nombre de la nueva sesión médica...",
         "Add to History":"Agregar al historial",
-        "Cancel":"Cancelar"
+        "Cancel":"Cancelar",
+        "Save":"Guardar"
     },
     "diagrama-arquetipos":{
         "Add to History":"Agregar al historial",
@@ -71,6 +84,7 @@
         "Close":"Cerrar"
     },
     "lista-arquetipos":{
+        "Clinical Models":"Modelos Clínicos",
         "OpenEHR repository":"Repositorio OpenEHR",
         "My Archetypes":"Mis Arquetipos",
         "Topic":"Tema",

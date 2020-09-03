@@ -5,7 +5,7 @@ import { FieldConfig } from "../../field.interface";
   selector: "app-button",
   template: `
 <div class="demo-full-width margin-top ml-2" [formGroup]="group">
-<button type="submit" class="lightblue-button" mat-raised-button color="primary">{{field.label}}</button>
+<button type="submit" class="lightblue-button" mat-raised-button color="primary">{{"ficha-paciente.Save" | translate}}</button>
 </div>
 `,
   styles: [

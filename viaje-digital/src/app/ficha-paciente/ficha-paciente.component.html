@@ -81,7 +81,7 @@
             <div *ngIf="mostrar_historial" >
               <!--<h3 class="text-center">Medical History</h3>-->
                 <!--<h4 class="text-center text-info">{{"ficha-paciente.Patient information" | translate}} text-right</h4>-->
-                <p class="text-title-ficha-paciente">Medical History</p>
+                <p class="text-title-ficha-paciente">{{"ficha-paciente.Medical History" | translate}}</p>
                 <div class="row text-basic">
                   <div class="col-md-7">
                     <p id="text-name-patient">{{patient_journey['nombre'] + ' ' + patient_journey['apellidos']}}</p>
@@ -164,7 +164,7 @@
                     </div>
                     <div class="col-6">
                       <button (click)="downloadPDF()" class="btn btn-secondary fa">&#xf1c1;</button> 
-                      <span class="ml-2 text-new-sesion">Export to PDF</span>
+                      <span class="ml-2 text-new-sesion">{{"ficha-paciente.Export to PDF" | translate}}</span>
                     </div>
                   </div>
                   <!--
@@ -179,7 +179,7 @@
             </div>
             <!--Si ya creamos una nueva sesion medica, mostramos los datos al final del historial clinico-->
             <div *ngIf="!habilitar_creacion_nueva_sesion" class="border shadow p-3 mt-2 mb-2 sesion-border text-basic" > 
-              <p class="text-center sub-title-size"><b>New medical session: {{current_medical_sesion["nombre_sesion"]}}</b></p>
+              <p class="text-center sub-title-size"><b>{{"ficha-paciente.New medical sesion" | translate}}: {{current_medical_sesion["nombre_sesion"]}}</b></p>
                 <p>
                   <b>{{"ficha-paciente.Person attending" | translate}}:</b> {{current_medical_sesion["nombre_profesional"]}}<br>
                   <b>{{"ficha-paciente.Profession" | translate}}:</b> {{current_medical_sesion["profesion"]}}<br>

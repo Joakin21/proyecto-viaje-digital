@@ -1,7 +1,16 @@
 {
+    "login": {
+        "Login": "Login",
+        "Place_email_address": "Email Address",
+        "Place_password": "Password",
+        "Remember":"Remember me",
+        "invalid email or password":"invalid email or password",
+        "Please write your email and password": "Please write your email and password"
+    },
     "barra":{
         "Patient": "Patient",
         "Journey": "Journey",
+        "Need help?":"Need help?",
         "Home": "Home",
         "New patient": "New patient",
         "User": "User",
@@ -12,8 +21,8 @@
     },
     "inicio":{
         "Search Patient": "Search Patient",
-        "Rut": "Rut",
-        "Place_rut_paciente": "Write rut...",
+        "Rut": "Id",
+        "Place_rut_paciente": "Write Id...",
         "Patient not found":"Patient not found",
         "Search": "Search",
         "or":"or",
@@ -22,13 +31,15 @@
         "Name":"Name",
         "Go to medical history": "Go to medical history",
         "Recently attended": "Recently attended",
-        "No patient attended":"No patient attended"
+        "No patient attended":"No patient attended",
+        "Show recently attended":"Show recently attended"
     },
     "ficha-paciente":{
+        "Medical History":"Medical History",
         "Required information":"Required information",
         "Name":"Name",
         "Last name":"Last name",
-        "Rut":"Rut",
+        "Rut":"ID",
         "Address":"Address",
         "Birthday":"Birthday",
         "City":"City",
@@ -53,9 +64,11 @@
         "To add an archetype you must create a session first":"To add an archetype you must create a session first",
 
         "New medical sesion":"New medical sesion",
+        "Export to PDF":"Export to PDF",
         "Place_new_medical_sesion":"Medical sesion name...",
         "Add to History":"Add to History",
-        "Cancel":"Cancel"
+        "Cancel":"Cancel",
+        "Save":"Save"
     },
     "diagrama-arquetipos":{
         "Add to History":"Add to history",
@@ -71,6 +84,7 @@
         "Close":"Close"
     },
     "lista-arquetipos":{
+        "Clinical Models":"Clinical Models",
         "OpenEHR repository":"OpenEHR repository",
         "My Archetypes":"My Archetypes",
         "Topic":"Topic",

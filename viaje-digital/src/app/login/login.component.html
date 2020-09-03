@@ -18,20 +18,20 @@
 <div id="myLogin"class="text-center mt-1">
     <form #credenciales="ngForm" (ngSubmit)="login(credenciales)" class="form-signin">
         <!--<img class="mb-4" src="assets/imagenes/logo2.png" alt="" width="72" height="72">-->
-        <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
+        <h1 class="h3 mb-3 font-weight-normal">{{"login.Login" | translate}}</h1>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" name="username" class="form-control text-center mb-2" ngModel placeholder="Email address" required #email="ngModel" autofocus>
+        <input type="email" id="inputEmail" name="username" class="form-control text-center mb-2" ngModel placeholder="{{'login.Place_email_address' | translate}}" required #email="ngModel" autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" name="password" class="form-control text-center" ngModel placeholder="Password" required>
+        <input type="password" id="inputPassword" name="password" class="form-control text-center" ngModel placeholder="{{'login.Place_password' | translate}}" required>
         <div class="checkbox mb-3">
         <small >
-            <input type="checkbox" value="remember-me" class="checkbox-round"> Remember me
+            <input type="checkbox" value="remember-me" class="checkbox-round"> {{"login.Remember" | translate}}
         </small>
         </div>
         <div *ngIf="mostrar_error">
-            <p class="text-danger">{{mensaje_login}}</p>
+            <p class="text-danger">{{"login."+mensaje_login | translate}}</p>
         </div>
-        <button id="btn_submit" class="btn btn-default" type="submit">Sign in</button>
+        <button id="btn_submit" class="btn btn-default" type="submit">{{"login.Login" | translate}}</button>
         
     </form>
 </div>
