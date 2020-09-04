@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PacienteService } from '../servicios/paciente.service'
-import {NgForm, FormBuilder, FormGroup, FormControl,Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-crud-pacientes',
@@ -13,11 +13,11 @@ export class CrudPacientesComponent implements OnInit {
 
   constructor(private patientService: PacienteService, private formBuilder: FormBuilder) { }
 
-  createPatientForm:FormGroup
-  updatePatientForm:FormGroup
+  createPatientForm: FormGroup
+  updatePatientForm: FormGroup
 
 
-  my_patients:any[] = []
+  my_patients: any[] = []
 
   ngOnInit(): void {
     this.patientService.getAllPatients().subscribe(
@@ -32,7 +32,7 @@ export class CrudPacientesComponent implements OnInit {
 
     this.createPatientForm = this.formBuilder.group({
       nombre: ['', Validators.required],
-      apellidos: ['',Validators.required],
+      apellidos: ['', Validators.required],
       rut: ['', Validators.required],
       direccion: ['', Validators.required],
       fecha_nacimiento: ['', Validators.required],
@@ -50,11 +50,9 @@ export class CrudPacientesComponent implements OnInit {
 
   }
 
-  error_create_patient:string = ""
-  show_error_create_patient:boolean = false
-  createPatient(){
-    
-    //Preparamos los datos
+  error_create_patient: string = ""
+  show_error_create_patient: boolean = false
+  createPatient() {
     var new_patient = this.createPatientForm.value
     new_patient["profesionales_que_atendieron"] = []
     new_patient["sesiones_medica"] = []
@@ -62,20 +60,20 @@ export class CrudPacientesComponent implements OnInit {
     //Preparamos los datos
     this.patientService.postPatient(new_patient).subscribe(
       new_patient_resp => {
-        if(new_patient_resp["detail"]){
+        if (new_patient_resp["detail"]) {
           this.error_create_patient = new_patient_resp["detail"]
           this.show_error_create_patient = true
         }
-        else{
+        else {
           this.show_error_create_patient = false
           //adapto respuesta (id de paciente creado)
           new_patient["_id"] = new_patient_resp["_id"]
           delete new_patient["profesionales_que_atendieron"]
           delete new_patient["sesiones_medica"]
           this.my_patients.push(new_patient)
-          $('#modalCreatePatient').modal('toggle');       
+          $('#modalCreatePatient').modal('toggle');
         }
-        
+
       },
       error => {
         console.log('error', error)
@@ -85,13 +83,13 @@ export class CrudPacientesComponent implements OnInit {
 
   }
 
-  deletePatient(patient_index){
+  deletePatient(patient_index) {
     var respuesta = confirm("Are you sure you want to delete this patient?");
-    if(respuesta){
+    if (respuesta) {
       var patient_rut = this.my_patients[patient_index]["rut"]
       this.patientService.deletePatient(patient_rut).subscribe(
         data => {
-          if(!data["detail"]){//sin no hay un error inesperado
+          if (!data["detail"]) {//sin no hay un error inesperado
             console.log(data)
             this.my_patients.splice(patient_index, 1)
           }
@@ -103,8 +101,8 @@ export class CrudPacientesComponent implements OnInit {
     }
 
   }
-  index_patient_to_update:number
-  prepareModalUpdatePatient(patient_index){
+  index_patient_to_update: number
+  prepareModalUpdatePatient(patient_index) {
     this.index_patient_to_update = patient_index
 
     this.updatePatientForm.controls["update_nombre"].setValue(this.my_patients[patient_index]["nombre"])
@@ -116,12 +114,11 @@ export class CrudPacientesComponent implements OnInit {
 
     $('#modalUpdatePatient').modal('show');
   }
-  
-  error_update_patient:string = ""
-  show_error_update_patient:boolean = false
-  updatePatient(){
+
+  error_update_patient: string = ""
+  show_error_update_patient: boolean = false
+  updatePatient() {
     //Los campos vienen listos (se validan que no esten vacios)
-    //console.log(this.updatePatientForm.value)
     var updatePatientForm = this.updatePatientForm.value
     var rut_patient_to_update = this.my_patients[this.index_patient_to_update]["rut"]
     //obtener paciente completo:
@@ -135,42 +132,41 @@ export class CrudPacientesComponent implements OnInit {
         patient_to_uodate["direccion"] = updatePatientForm["update_direccion"]
         patient_to_uodate["fecha_nacimiento"] = updatePatientForm["update_fecha_nacimiento"]
         patient_to_uodate["ciudad"] = updatePatientForm["update_ciudad"]
-        //console.log(patient_to_uodate)
 
         this.patientService.putPatient(rut_patient_to_update, patient_to_uodate).subscribe(
           data => {
-            
-            if(!data["detail"]){
+
+            if (!data["detail"]) {
               delete patient_to_uodate["profesionales_que_atendieron"]
               delete patient_to_uodate["sesiones_medica"]
               this.my_patients[this.index_patient_to_update] = patient_to_uodate
               this.show_error_update_patient = false
-              $('#modalUpdatePatient').modal('toggle');   
+              $('#modalUpdatePatient').modal('toggle');
               console.log(this.my_patients)
-            }else{
+            } else {
               this.error_update_patient = data["detail"]
               this.show_error_update_patient = true
             }
-            
+
           },
           error => {
             console.log('error', error)
           }
         );
-        
+
       },
       error => {
         console.log('error', error)
       }
     );
-    
+
 
   }
 
 
 
-  public trackItem (index: number) {
-    
+  public trackItem(index: number) {
+
     return index;
   }
 

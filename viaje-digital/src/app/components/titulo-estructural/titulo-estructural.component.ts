@@ -28,6 +28,6 @@ import { FieldConfig } from "../../field.interface";
 export class TituloEstructuralComponent implements OnInit {
   field: FieldConfig;
   group: FormGroup;
-  constructor() {}
-  ngOnInit() {}
+  constructor() { }
+  ngOnInit() { }
 }

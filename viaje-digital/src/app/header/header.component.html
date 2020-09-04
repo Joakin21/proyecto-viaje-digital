@@ -1,77 +1,36 @@
-
-  <div class="row container-header">
+<div class="row container-header">
     <div class="col-md-12">
-      <nav class="navbar navbar-expand-md navbar-light p-4">
-        <a [routerLink]="" class="navbar-brand"><span id="title-text">{{"barra.Patient" | translate}} <span style="color:rgba(89,176,243,1);">{{"barra.Journey" | translate}}</span></span></a>
-        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div id="navbarCollapse" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="nav-item mr-3 ml-3">
-                  <a [routerLink]="" class="nav-link"><span id="help-text">{{"barra.Need help?" | translate}}</span></a>
-                </li>
-                <li class="nav-item mr-3">
-                    <a [routerLink]="" (click)="goHome()" class="nav-link"><span id="home-text">{{"barra.Home" | translate}}</span></a>
-                </li>
-                <li class="nav-item">
-                    <a [routerLink]="" (click)="createNewPatient()" class="nav-link"><span id="new-text">{{"barra.New patient" | translate}}</span></a>
-                </li>
-                <!-- 
-                <li class="nav-item">
-                  <a [routerLink]="" (click)="goToArchetypeEditor()" class="nav-link">Archetype Editor</a>
-                </li>
-                --> 
-            </ul>
-            <ul class="nav navbar-nav ml-auto">
-                <!--<li class="nav-item dropdown">
-
-                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><img src="assets/iconos_idioma/icon1.png" alt="" width="20" height="20"></a>
-                  
-                  <div class="dropdown-menu dropdown-menu-right">
-                      <div class="dropdown-divider"></div>
-                      <a [routerLink]="" class="dropdown-item" (click)="cambiarIdioma('en')">{{"barra.English" | translate}}</a>
-                      <a [routerLink]="" class="dropdown-item" (click)="cambiarIdioma('es')">{{"barra.Spanish" | translate}}</a>
-                      
-                  </div>
-                </li>-->
-                <li class="nav-item dropdown">
-                    <!--<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><span id="user-text">{{"barra.User" | translate}}</span></a>-->
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><span id="user-text">{{userName}}</span></a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <!--<a href="#" class="dropdown-item">Reports</a>
-                        <a href="#" class="dropdown-item">Settings</a>-->
-                        <div class="dropdown-divider"></div>
-                        <!--<a [routerLink]="" class="dropdown-item">{{userName}}</a>-->
-                        <a [routerLink]="" (click)="logout()" class="dropdown-item">{{"barra.Logout" | translate}}</a>
-                        
-                    </div>
-                </li>
-            </ul>
-        </div>
-      </nav>
+        <nav class="navbar navbar-expand-md navbar-light p-4">
+            <a [routerLink]="" class="navbar-brand"><span id="title-text">{{"barra.Patient" | translate}} <span
+            style="color:rgba(89,176,243,1);">{{"barra.Journey" | translate}}</span></span></a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item mr-3 ml-3">
+                        <a [routerLink]="" class="nav-link"><span id="help-text">{{"barra.Need help?" | translate}}</span></a>
+                    </li>
+                    <li class="nav-item mr-3">
+                        <a [routerLink]="" (click)="goHome()" class="nav-link"><span
+                id="home-text">{{"barra.Home" | translate}}</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a [routerLink]="" (click)="createNewPatient()" class="nav-link"><span
+                id="new-text">{{"barra.New patient" | translate}}</span></a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><span
+                id="user-text">{{userName}}</span></a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-divider"></div>
+                            <a [routerLink]="" (click)="logout()" class="dropdown-item">{{"barra.Logout" | translate}}</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </div>
-  </div>
-
-<!-- Modal para mostrar los pacientes que haya atendido este usuario-->
-<!--
-<div class="modal fade" id="modalShowMyPatients" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">My Patients</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>here will be the table...</p>
-  
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  -->
+</div>

@@ -3,90 +3,88 @@
 
 <div id="editor">
     <div class="row">
-      <div class="col-md-12">
-        <!--<div *ngIf="arquetipo">
-          <button (click)="mostrarNodo()" class="btn btn-secondary m-2">agregar al formulario</button>
-        </div>-->
-        <div id="jsmind_container"></div>
-        
-      </div>
+        <div class="col-md-12">
+            <div id="jsmind_container"></div>
+        </div>
     </div>
-    
+
 </div>
 
 <!-- Modal arquetipos tipo info: usado para description y attribution-->
 <div class="modal fade" id="modalTipoInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <p class="modal-title text-basic size-title-basic" id="exampleModalLabel"><b>{{info_text}}</b></p>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title text-basic size-title-basic" id="exampleModalLabel"><b>{{info_text}}</b></p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <div class="modal-body text-basic size-text-basic">
-        <div *ngIf="info_is_lista">
-          <ul>
-            <li *ngFor="let data of info_value">{{data}} </li>
-          </ul>
+            </div>
+            <div class="modal-body text-basic size-text-basic">
+                <div *ngIf="info_is_lista">
+                    <ul>
+                        <li *ngFor="let data of info_value">{{data}} </li>
+                    </ul>
+                </div>
+                <div *ngIf="info_is_lista == false">
+                    <p> {{info_value}}</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary text-white text-basic border-input" data-dismiss="modal"><b>{{"diagrama-arquetipos.Close" | translate}}</b></button>
+            </div>
         </div>
-        <div *ngIf="info_is_lista == false">
-          <p> {{info_value}}</p>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary text-white text-basic border-input" data-dismiss="modal"><b>{{"diagrama-arquetipos.Close" | translate}}</b></button>
-      </div>
     </div>
-  </div>
 </div>
 
 <!-- Modal arquetipos tipo 1: Se intenta abarcar la mayoria de nodos posible-->
 <div class="modal fade" id="modalTipo1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <p class="modal-title text-basic size-title-basic" id="exampleModalLabel"><b>{{text}}</b></p>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title text-basic size-title-basic" id="exampleModalLabel"><b>{{text}}</b></p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <div class="modal-body text-basic size-text-basic">
-        <div *ngIf="tipo">
-          <p class="mb-1"><b>{{"diagrama-arquetipos.Field type" | translate}}:</b></p>
-          <p>{{tipo}}</p>
-        </div>
-        <div *ngIf="text">
-          <p class="mb-1"><b>{{"diagrama-arquetipos.Name" | translate}}:</b></p>
-          <p>{{text}}</p>
-        </div>
-        <div *ngIf="description">
-          <p class="mb-1"><b>{{"diagrama-arquetipos.Description" | translate}}:</b></p>
-          <p>{{description}}</p>
-        </div>
-        <div *ngIf="comment">
-          <p class="mb-1"><b>{{"diagrama-arquetipos.Comments" | translate}}:</b></p>
-          <p>{{comment}}</p>
-        </div>
-        <div *ngIf="source">
-          <p class="mb-1"><b>{{"diagrama-arquetipos.Source" | translate}}:</b></p>
-          <p>{{source}}</p>
-        </div>
-        <div *ngIf="contenido.length > 0">
-          <p class="mb-1"><b>{{"diagrama-arquetipos.Selection options" | translate}}:</b></p>
-          <ul>
-            <div *ngIf="tipo_nodo_elegido!='DV_ORDINAL'">
-              <li *ngFor="let nodo of contenido"><label> <b>{{nodo["text"]}}</b>{{" ["+nodo["description"]+"]"}}</label> </li>
             </div>
-            <div *ngIf="tipo_nodo_elegido=='DV_ORDINAL'">
-              <li *ngFor="let nodo of contenido"><label> <b>{{nodo["numero"]+": "}} {{nodo["text"]}}</b>{{" ["+nodo["description"]+"]"}}</label> </li>
+            <div class="modal-body text-basic size-text-basic">
+                <div *ngIf="tipo">
+                    <p class="mb-1"><b>{{"diagrama-arquetipos.Field type" | translate}}:</b></p>
+                    <p>{{tipo}}</p>
+                </div>
+                <div *ngIf="text">
+                    <p class="mb-1"><b>{{"diagrama-arquetipos.Name" | translate}}:</b></p>
+                    <p>{{text}}</p>
+                </div>
+                <div *ngIf="description">
+                    <p class="mb-1"><b>{{"diagrama-arquetipos.Description" | translate}}:</b></p>
+                    <p>{{description}}</p>
+                </div>
+                <div *ngIf="comment">
+                    <p class="mb-1"><b>{{"diagrama-arquetipos.Comments" | translate}}:</b></p>
+                    <p>{{comment}}</p>
+                </div>
+                <div *ngIf="source">
+                    <p class="mb-1"><b>{{"diagrama-arquetipos.Source" | translate}}:</b></p>
+                    <p>{{source}}</p>
+                </div>
+                <div *ngIf="contenido.length > 0">
+                    <p class="mb-1"><b>{{"diagrama-arquetipos.Selection options" | translate}}:</b></p>
+                    <ul>
+                        <div *ngIf="tipo_nodo_elegido!='DV_ORDINAL'">
+                            <li *ngFor="let nodo of contenido"><label> <b>{{nodo["text"]}}</b>{{" ["+nodo["description"]+"]"}}</label>
+                            </li>
+                        </div>
+                        <div *ngIf="tipo_nodo_elegido=='DV_ORDINAL'">
+                            <li *ngFor="let nodo of contenido"><label> <b>{{nodo["numero"]+": "}}
+                    {{nodo["text"]}}</b>{{" ["+nodo["description"]+"]"}}</label> </li>
+                        </div>
+                    </ul>
+                </div>
             </div>
-          </ul>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary text-white text-basic border-input" data-dismiss="modal"><b>{{"diagrama-arquetipos.Close" | translate}}</b></button>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary text-white text-basic border-input" data-dismiss="modal"><b>{{"diagrama-arquetipos.Close" | translate}}</b></button>
-      </div>
     </div>
-  </div>
 </div>

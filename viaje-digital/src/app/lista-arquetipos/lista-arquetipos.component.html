@@ -1,171 +1,129 @@
-  
 <div class="overflow-auto p-3" style="height: 88vh;">
-  <p id="archetype-list-title">{{"lista-arquetipos.Clinical Models" | translate}}</p>
+    <p id="archetype-list-title">{{"lista-arquetipos.Clinical Models" | translate}}</p>
 
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs mr-3 text-nav" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" data-toggle="tab" href="#menu1">{{"lista-arquetipos.OpenEHR repository" | translate}}</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#menu2">{{"lista-arquetipos.My Archetypes" | translate}}</a>
-    </li>
-  </ul>
-  <!--max-height-->
-  <!--class="pre-scrollable" style="height: 50vh"-->
-  
-  <!-- Tab panes -->
-  <div class="tab-content mt-3">
-    <div id="menu1" class="container tab-pane active">
-      <!--Buscador-->
-      <div class="form-group mt-2">
-        <input type="text" class="form-control text-center border-input search-text pt-4 pb-4 fa" name="buscarArquetipo" [placeholder]="'&#xf002;'+'  '+placeholder_buscador" [(ngModel)]="buscarArquetipo">
-      </div>
-      <!--My Filter-->
-      <form>
-        <div class="form-group">
-          <!--<button (click) = "testPipe()">Test pipe</button>-->
-          <select class="form-control text-center select-color select-text border-input" id="filter_name">
-            <option class="bg-white font-weight-normal text-dark" *ngFor="let nombre_filtro of nombres_filtros" (click)="seleccionarFiltro(nombre_filtro)" [value]="nombre_filtro">{{"nombre-filtros."+nombre_filtro | translate}}</option> <!--{{nombre_filtro}}-->
+    <ul class="nav nav-tabs mr-3 text-nav" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#menu1">{{"lista-arquetipos.OpenEHR repository" | translate}}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu2">{{"lista-arquetipos.My Archetypes" | translate}}</a>
+        </li>
+    </ul>
+
+    <div class="tab-content mt-3">
+        <div id="menu1" class="container tab-pane active">
+            <!--Buscador-->
+            <div class="form-group mt-2">
+                <input type="text" class="form-control text-center border-input search-text pt-4 pb-4 fa" name="buscarArquetipo" [placeholder]="'&#xf002;'+'  '+placeholder_buscador" [(ngModel)]="buscarArquetipo">
+            </div>
+            <form>
+                <div class="form-group">
+                    <select class="form-control text-center select-color select-text border-input" id="filter_name">
+            <option class="bg-white font-weight-normal text-dark" *ngFor="let nombre_filtro of nombres_filtros"
+              (click)="seleccionarFiltro(nombre_filtro)" [value]="nombre_filtro">
+              {{"nombre-filtros."+nombre_filtro | translate}}</option>
           </select>
-        </div>
-      </form>
-      <div class="row">
-        
-        <div class="col-4 p-0">
-          <!-- list-group-mine agregado para configurar estilos-->
-          <div class="list-group list-group-mine" id="list-tab" role="tablist">
-            <a *ngIf="cluster.length > 0 && (cluster | buscador:buscarArquetipo).length > 0" class="list-group-item list-group-item-action text-center mb-1 border border-input text-break" id="my-cluster" data-toggle="list" href="#cluster" role="tab" aria-controls="home">cluster</a>
-            <a *ngIf="composition.length > 0 && (composition | buscador:buscarArquetipo).length > 0" class="list-group-item list-group-item-action text-center mb-1 border border-input text-break" id="my-composition" data-toggle="list" href="#composition" role="tab" aria-controls="profile">composition</a>
-            <a *ngIf="action.length > 0 && (action | buscador:buscarArquetipo).length > 0" class="list-group-item list-group-item-action text-center mb-1 border border-input text-break" id="my-action" data-toggle="list" href="#action" role="tab" aria-controls="messages">action</a>
-            <a *ngIf="admin_entry.length > 0 && (admin_entry | buscador:buscarArquetipo).length > 0" class="list-group-item list-group-item-action text-center mb-1 border border-input text-break" id="my-admin_entry" data-toggle="list" href="#admin_entry" role="tab" aria-controls="settings">admin_entry</a>
-            
-            <a *ngIf="evaluation.length > 0 && (evaluation | buscador:buscarArquetipo).length > 0" class="list-group-item list-group-item-action text-center mb-1 border border-input text-break" id="my-evaluation" data-toggle="list" href="#evaluation" role="tab" aria-controls="settings">evaluation</a>
-            <a *ngIf="instruction.length > 0 && (instruction | buscador:buscarArquetipo).length > 0" class="list-group-item list-group-item-action text-center mb-1 border border-input text-break" id="my-instruction" data-toggle="list" href="#instruction" role="tab" aria-controls="settings">instruction</a>
-            <a *ngIf="observation.length > 0 && (observation | buscador:buscarArquetipo).length > 0" class="list-group-item list-group-item-action text-center mb-1 border border-input text-break" id="my-observation" data-toggle="list" href="#observation" role="tab" aria-controls="settings">observation</a>
-            <a *ngIf="section.length > 0 && (section | buscador:buscarArquetipo).length > 0" class="list-group-item list-group-item-action text-center border border-input text-break" id="my-section" data-toggle="list" href="#section" role="tab" aria-controls="settings">section</a>
+                </div>
+            </form>
+            <div class="row">
 
-          </div>
-        </div>
-        <div class="col-8">
-        
-            <div class="tab-content" id="nav-tabContent">
-              <!--<div class="tab-content overflow-auto" id="nav-tabContent" style="height: 60vh">-->
-            <div *ngIf="cluster.length > 0" class="tab-pane fade" id="cluster" role="tabpanel" aria-labelledby="my-cluster">
-                <div class="list-group">
-                  <a [routerLink]="" *ngFor="let arq of cluster | buscador:buscarArquetipo" class="list-group-item list-group-item-action my-list-group shadow">
-                    <button class="fa btn-circle btn-add p-0" (click)="agregarAlHistorial(arq)">&#xf067;</button> 
-                    <button class="fa btn-circle btm-show-archetype p-0 mr-2" (click)="verArquetipo(arq)">&#xf06e;</button>
-                    {{arq["nombre"]}}
-                  </a>
+                <div class="col-4 p-0">
+                    <div class="list-group list-group-mine" id="list-tab" role="tablist">
+                        <a *ngIf="cluster.length > 0 && (cluster | buscador:buscarArquetipo).length > 0" class="list-group-item list-group-item-action text-center mb-1 border border-input text-break" id="my-cluster" data-toggle="list" href="#cluster" role="tab" aria-controls="home">cluster</a>
+                        <a *ngIf="composition.length > 0 && (composition | buscador:buscarArquetipo).length > 0" class="list-group-item list-group-item-action text-center mb-1 border border-input text-break" id="my-composition" data-toggle="list" href="#composition" role="tab"
+                            aria-controls="profile">composition</a>
+                        <a *ngIf="action.length > 0 && (action | buscador:buscarArquetipo).length > 0" class="list-group-item list-group-item-action text-center mb-1 border border-input text-break" id="my-action" data-toggle="list" href="#action" role="tab" aria-controls="messages">action</a>
+                        <a *ngIf="admin_entry.length > 0 && (admin_entry | buscador:buscarArquetipo).length > 0" class="list-group-item list-group-item-action text-center mb-1 border border-input text-break" id="my-admin_entry" data-toggle="list" href="#admin_entry" role="tab"
+                            aria-controls="settings">admin_entry</a>
+
+                        <a *ngIf="evaluation.length > 0 && (evaluation | buscador:buscarArquetipo).length > 0" class="list-group-item list-group-item-action text-center mb-1 border border-input text-break" id="my-evaluation" data-toggle="list" href="#evaluation" role="tab" aria-controls="settings">evaluation</a>
+                        <a *ngIf="instruction.length > 0 && (instruction | buscador:buscarArquetipo).length > 0" class="list-group-item list-group-item-action text-center mb-1 border border-input text-break" id="my-instruction" data-toggle="list" href="#instruction" role="tab"
+                            aria-controls="settings">instruction</a>
+                        <a *ngIf="observation.length > 0 && (observation | buscador:buscarArquetipo).length > 0" class="list-group-item list-group-item-action text-center mb-1 border border-input text-break" id="my-observation" data-toggle="list" href="#observation" role="tab"
+                            aria-controls="settings">observation</a>
+                        <a *ngIf="section.length > 0 && (section | buscador:buscarArquetipo).length > 0" class="list-group-item list-group-item-action text-center border border-input text-break" id="my-section" data-toggle="list" href="#section" role="tab" aria-controls="settings">section</a>
+
+                    </div>
+                </div>
+                <div class="col-8">
+
+                    <div class="tab-content" id="nav-tabContent">
+                        <!--<div class="tab-content overflow-auto" id="nav-tabContent" style="height: 60vh">-->
+                        <div *ngIf="cluster.length > 0" class="tab-pane fade" id="cluster" role="tabpanel" aria-labelledby="my-cluster">
+                            <div class="list-group">
+                                <a [routerLink]="" *ngFor="let arq of cluster | buscador:buscarArquetipo" class="list-group-item list-group-item-action my-list-group shadow">
+                                    <button class="fa btn-circle btn-add p-0" (click)="agregarAlHistorial(arq)">&#xf067;</button>
+                                    <button class="fa btn-circle btm-show-archetype p-0 mr-2" (click)="verArquetipo(arq)">&#xf06e;</button> {{arq["nombre"]}}
+                                </a>
+                            </div>
+                        </div>
+                        <div *ngIf="composition.length > 0" class="tab-pane fade" id="composition" role="tabpanel" aria-labelledby="my-composition">
+                            <div class="list-group">
+                                <a [routerLink]="" *ngFor="let arq of composition | buscador:buscarArquetipo" class="list-group-item list-group-item-action my-list-group shadow">
+                                    <button class="fa btn-circle btn-add p-0" (click)="agregarAlHistorial(arq)">&#xf067;</button>
+                                    <button class="fa btn-circle btm-show-archetype p-0 mr-2" (click)="verArquetipo(arq)">&#xf06e;</button> {{arq["nombre"]}}
+                                </a>
+                            </div>
+                        </div>
+                        <div *ngIf="action.length > 0" class="tab-pane fade" id="action" role="tabpanel" aria-labelledby="my-action">
+                            <div class="list-group">
+                                <a [routerLink]="" *ngFor="let arq of action | buscador:buscarArquetipo" class="list-group-item list-group-item-action my-list-group shadow">
+                                    <button class="fa btn-circle btn-add p-0" (click)="agregarAlHistorial(arq)">&#xf067;</button>
+                                    <button class="fa btn-circle btm-show-archetype p-0 mr-2" (click)="verArquetipo(arq)">&#xf06e;</button> {{arq["nombre"]}}
+                                </a>
+                            </div>
+                        </div>
+                        <div *ngIf="admin_entry.length > 0" class="tab-pane fade" id="admin_entry" role="tabpanel" aria-labelledby="my-admin_entry">
+                            <div class="list-group">
+                                <a [routerLink]="" *ngFor="let arq of admin_entry | buscador:buscarArquetipo" class="list-group-item list-group-item-action my-list-group shadow">
+                                    <button class="fa btn-circle btn-add p-0" (click)="agregarAlHistorial(arq)">&#xf067;</button>
+                                    <button class="fa btn-circle btm-show-archetype p-0 mr-2" (click)="verArquetipo(arq)">&#xf06e;</button> {{arq["nombre"]}}
+                                </a>
+                            </div>
+                        </div>
+                        <div *ngIf="evaluation.length > 0" class="tab-pane fade" id="evaluation" role="tabpanel" aria-labelledby="my-evaluation">
+
+                            <div class="list-group">
+                                <a [routerLink]="" *ngFor="let arq of evaluation | buscador:buscarArquetipo" class="list-group-item list-group-item-action my-list-group shadow">
+                                    <button class="fa btn-circle btn-add p-0" (click)="agregarAlHistorial(arq)">&#xf067;</button>
+                                    <button class="fa btn-circle btm-show-archetype p-0 mr-2" (click)="verArquetipo(arq)">&#xf06e;</button> {{arq["nombre"]}}
+                                </a>
+                            </div>
+                        </div>
+                        <div *ngIf="instruction.length > 0" class="tab-pane fade" id="instruction" role="tabpanel" aria-labelledby="my-instruction">
+                            <div class="list-group">
+                                <a [routerLink]="" *ngFor="let arq of instruction | buscador:buscarArquetipo" class="list-group-item list-group-item-action my-list-group shadow">
+                                    <button class="fa btn-circle btn-add p-0" (click)="agregarAlHistorial(arq)">&#xf067;</button>
+                                    <button class="fa btn-circle btm-show-archetype p-0 mr-2" (click)="verArquetipo(arq)">&#xf06e;</button> {{arq["nombre"]}}
+                                </a>
+                            </div>
+                        </div>
+                        <div *ngIf="observation.length > 0" class="tab-pane fade" id="observation" role="tabpanel" aria-labelledby="my-observation">
+                            <div class="list-group">
+                                <a [routerLink]="" *ngFor="let arq of observation | buscador:buscarArquetipo" class="list-group-item list-group-item-action my-list-group shadow">
+                                    <button class="fa btn-circle btn-add p-0" (click)="agregarAlHistorial(arq)">&#xf067;</button>
+                                    <button class="fa btn-circle btm-show-archetype p-0 mr-2" (click)="verArquetipo(arq)">&#xf06e;</button> {{arq["nombre"]}}
+                                </a>
+                            </div>
+                        </div>
+                        <div *ngIf="section.length > 0" class="tab-pane fade" id="section" role="tabpanel" aria-labelledby="my-section">
+                            <div class="list-group">
+                                <a [routerLink]="" *ngFor="let arq of section | buscador:buscarArquetipo" class="list-group-item list-group-item-action my-list-group shadow">
+                                    <button class="fa btn-circle btn-add p-0" (click)="agregarAlHistorial(arq)">&#xf067;</button>
+                                    <button class="fa btn-circle btm-show-archetype p-0 mr-2" (click)="verArquetipo(arq)">&#xf06e;</button> {{arq["nombre"]}}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div *ngIf="composition.length > 0" class="tab-pane fade" id="composition" role="tabpanel" aria-labelledby="my-composition">
-              <div class="list-group">
-                <a [routerLink]="" *ngFor="let arq of composition | buscador:buscarArquetipo" class="list-group-item list-group-item-action my-list-group shadow">
-                  <button class="fa btn-circle btn-add p-0" (click)="agregarAlHistorial(arq)">&#xf067;</button>
-                  <button class="fa btn-circle btm-show-archetype p-0 mr-2" (click)="verArquetipo(arq)">&#xf06e;</button>
-                  {{arq["nombre"]}}
-                </a>
-              </div>
-            </div>
-            <div *ngIf="action.length > 0" class="tab-pane fade" id="action" role="tabpanel" aria-labelledby="my-action">
-              <div class="list-group">
-                <a [routerLink]="" *ngFor="let arq of action | buscador:buscarArquetipo" class="list-group-item list-group-item-action my-list-group shadow">
-                  <button class="fa btn-circle btn-add p-0" (click)="agregarAlHistorial(arq)">&#xf067;</button> 
-                  <button class="fa btn-circle btm-show-archetype p-0 mr-2" (click)="verArquetipo(arq)">&#xf06e;</button>
-                  {{arq["nombre"]}}
-                </a>
-              </div>
-            </div>
-            <div *ngIf="admin_entry.length > 0" class="tab-pane fade" id="admin_entry" role="tabpanel" aria-labelledby="my-admin_entry">
-              <div class="list-group">
-                <a [routerLink]="" *ngFor="let arq of admin_entry | buscador:buscarArquetipo" class="list-group-item list-group-item-action my-list-group shadow">
-                  <button class="fa btn-circle btn-add p-0" (click)="agregarAlHistorial(arq)">&#xf067;</button>
-                  <button class="fa btn-circle btm-show-archetype p-0 mr-2" (click)="verArquetipo(arq)">&#xf06e;</button>
-                  {{arq["nombre"]}}
-                </a>
-              </div>
-            </div>
-            <div *ngIf="evaluation.length > 0" class="tab-pane fade" id="evaluation" role="tabpanel" aria-labelledby="my-evaluation">
-
-              <div class="list-group">
-                <a [routerLink]="" *ngFor="let arq of evaluation | buscador:buscarArquetipo" class="list-group-item list-group-item-action my-list-group shadow">
-                  <button class="fa btn-circle btn-add p-0" (click)="agregarAlHistorial(arq)">&#xf067;</button> 
-                  <button class="fa btn-circle btm-show-archetype p-0 mr-2" (click)="verArquetipo(arq)">&#xf06e;</button>
-                  {{arq["nombre"]}}
-                </a>
-              </div>
-            </div>
-            <div *ngIf="instruction.length > 0" class="tab-pane fade" id="instruction" role="tabpanel" aria-labelledby="my-instruction">
-              <div class="list-group">
-                <a [routerLink]="" *ngFor="let arq of instruction | buscador:buscarArquetipo" class="list-group-item list-group-item-action my-list-group shadow">
-                  <button class="fa btn-circle btn-add p-0" (click)="agregarAlHistorial(arq)">&#xf067;</button> 
-                  <button class="fa btn-circle btm-show-archetype p-0 mr-2" (click)="verArquetipo(arq)">&#xf06e;</button>
-                  {{arq["nombre"]}}
-                </a>
-              </div>
-            </div>
-            <div *ngIf="observation.length > 0" class="tab-pane fade" id="observation" role="tabpanel" aria-labelledby="my-observation">
-              <div class="list-group">
-                <a [routerLink]="" *ngFor="let arq of observation | buscador:buscarArquetipo" class="list-group-item list-group-item-action my-list-group shadow">
-                  <button class="fa btn-circle btn-add p-0" (click)="agregarAlHistorial(arq)">&#xf067;</button> 
-                  <button class="fa btn-circle btm-show-archetype p-0 mr-2" (click)="verArquetipo(arq)">&#xf06e;</button>
-                  {{arq["nombre"]}}
-                </a>
-              </div>
-            </div>
-            <div *ngIf="section.length > 0" class="tab-pane fade" id="section" role="tabpanel" aria-labelledby="my-section">
-              <div class="list-group">
-                <a [routerLink]="" *ngFor="let arq of section | buscador:buscarArquetipo" class="list-group-item list-group-item-action my-list-group shadow">
-                  <button class="fa btn-circle btn-add p-0" (click)="agregarAlHistorial(arq)">&#xf067;</button> 
-                  <button class="fa btn-circle btm-show-archetype p-0 mr-2" (click)="verArquetipo(arq)">&#xf06e;</button>
-                  {{arq["nombre"]}}
-                </a>
-              </div>
-            </div>
-            </div>
-         
         </div>
-      </div>
+        <div id="menu2" class="container tab-pane fade"><br>
+            <p class="text-center">{{"lista-arquetipos.In construction" | translate}}</p>
+
+        </div>
+
     </div>
-    <div id="menu2" class="container tab-pane fade"><br>
-      <p class="text-center">{{"lista-arquetipos.In construction" | translate}}</p>
-      
-      <!--
-      <div class="row">
-
-        <div class="col-4">
-          <div class="list-group" id="list-tab" role="tablist">
-            
-            <a class="list-group-item list-group-item-action active" id="my-enHistorial" data-toggle="list" href="#enHistorial" role="tab" aria-controls="enHistorial">{{"lista-arquetipos.In the clinical history" | translate}}</a>
-            <a class="list-group-item list-group-item-action" id="my-List" data-toggle="list" href="#myList" role="tab" aria-controls="myList">{{"lista-arquetipos.Custom list" | translate}}</a>
-          </div>
-        </div>
-        <div class="col-8">
-          <div class="tab-content overflow-auto" id="nav-tabContent" style="height: 100vh">
-            <div class="tab-pane fade show active" id="enHistorial" role="tabpanel" aria-labelledby="my-enHistorial">
-              <div *ngIf="en_historial_clinico.length == 0" class="text-center">
-                <p >{{"lista-arquetipos.Clinical history without archetypes" | translate}}</p>
-              </div>
-              <div *ngIf="en_historial_clinico.length > 0">
-                <div class="list-group">
-                  <a [routerLink]="" *ngFor="let arq of en_historial_clinico" (click)="seleccionarArquetipo(arq)" class="list-group-item list-group-item-action">{{arq["nombre"]}}</a>
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="myList" role="tabpanel" aria-labelledby="my-List">
-              <p class="text-center">{{"lista-arquetipos.In construction" | translate}}</p>
-            </div>
-          </div>
-          
-        </div>
-
-
-      </div>
-      -->
-    </div>
-
-  </div>
 
 </div>

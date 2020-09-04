@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {Router} from '@angular/router';
-import {NgForm} from '@angular/forms';
+import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 import { UserService } from '../servicios/user.service';
 
 //para cambiar el color de toda la pagina
@@ -16,19 +16,19 @@ import { Inject } from '@angular/core';
 export class LoginComponent implements OnInit {
 
   constructor(private router: Router, private userService: UserService, @Inject(DOCUMENT) private _document) { }
-  mostrar_error:boolean = false
-  mensaje_login:string
+  mostrar_error: boolean = false
+  mensaje_login: string
 
   ngOnInit(): void {
     this._document.body.style.background = '#FFFFFF';
-    if(this.userService.getToken() && this.userService.getIdUser()){//el usuario ya esta logeado
+    if (this.userService.getToken() && this.userService.getIdUser()) {//el usuario ya esta logeado
 
       //Intentamos obtener al usuario profesional salud
       var try_go_admin_menu = false
       this.userService.getUser(parseInt(this.userService.getIdUser())).subscribe(
         data => {
           var is_admin = data.user.is_staff
-          if (!is_admin){
+          if (!is_admin) {
             this.goToInicio()
           }
         },
@@ -36,50 +36,20 @@ export class LoginComponent implements OnInit {
           try_go_admin_menu = true
           this.userService.getAdmin(parseInt(this.userService.getIdUser())).subscribe(
             data => {
-              //this.usuario_logeado = data.user.first_name + " " + data.user.last_name//data.user.username
-              //Si el usuario es admin, debe ser redirigido a una pagina que le corresponda, esta es para los usuarios finales
               var is_admin = data.is_staff
-              if(is_admin){
+              if (is_admin) {
                 this.goToAdminMenu()
               }
-              //var id_profesional = data.user.id
             },
-  
+
           );
         }
       );
-      /*if(try_go_admin_menu){
-        this.userService.getAdmin(parseInt(this.userService.getIdUser())).subscribe(
-          data => {
-            //this.usuario_logeado = data.user.first_name + " " + data.user.last_name//data.user.username
-            //Si el usuario es admin, debe ser redirigido a una pagina que le corresponda, esta es para los usuarios finales
-            var is_admin = data.is_staff
-            if(is_admin){
-              this.goToAdminMenu()
-            }
-            //var id_profesional = data.user.id
-          },
-
-        );
-      }*/
-
-
-
-      /*if(this.userService.getIdUser()){
-        //obtenemos el id y obtenemos el usuario
-        this.goToInicio()
-      }
-      else{
-        this.goToAdminMenu()
-      }*/
-      
     }
   }
-  login(credenciales: NgForm){
+  login(credenciales: NgForm) {
     var credenciales_ingresadas = credenciales.valid
-    if (credenciales_ingresadas){
-      
-      //llamamos a la api
+    if (credenciales_ingresadas) {
       console.log(credenciales.value)
       this.userService.login(credenciales.value).subscribe(
         data => {
@@ -89,36 +59,30 @@ export class LoginComponent implements OnInit {
 
           var is_admin = data.is_admin
           this.userService.setIdUser(data.user_id.toString())
-          if (is_admin){
+          if (is_admin) {
             this.goToAdminMenu()
           }
-          else{
+          else {
             this.goToInicio()
           }
         },
         error => {
           console.log('error', error),
-          this.mostrar_error = true,
-          this.mensaje_login = "invalid email or password"
+            this.mostrar_error = true,
+            this.mensaje_login = "invalid email or password"
         }
       );
-      //alert("Bienvenido "+f.value.email)
-    }else{
+    } else {
       this.mostrar_error = true
       this.mensaje_login = "Please write your email and password"
     }
-    
+
     console.log(credenciales.valid);
   }
-  goToInicio(): void{
-    //this.router.navigateByUrl('/ficha-paciente')//luego cambiar por pagina de inicio
+  goToInicio(): void {
     this.router.navigateByUrl('/inicio')
   }
-  goToAdminMenu():void{
+  goToAdminMenu(): void {
     this.router.navigateByUrl('/admin-menu')
-  }
-  ngOnDestroy() {
-    // remove the class form body tag
-    this._document.body.classList.add('bodybg-color');
   }
 }

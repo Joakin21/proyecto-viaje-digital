@@ -14,7 +14,7 @@ import { ListaArquetiposComponent } from './lista-arquetipos/lista-arquetipos.co
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MaterialModule } from "./material.module"; 
+import { MaterialModule } from "./material.module";
 import { InputComponent } from "./components/input/input.component";
 import { ButtonComponent } from "./components/button/button.component";
 import { SelectComponent } from "./components/select/select.component";
@@ -23,7 +23,7 @@ import { RadiobuttonComponent } from "./components/radiobutton/radiobutton.compo
 import { CheckboxComponent } from "./components/checkbox/checkbox.component";
 import { TituloArquetipoComponent } from "./components/titulo-arquetipo/titulo-arquetipo.component";// :)
 import { TextareaComponent } from "./components/textarea/textarea.component";
-import { TituloEstructuralComponent} from "./components/titulo-estructural/titulo-estructural.component";
+import { TituloEstructuralComponent } from "./components/titulo-estructural/titulo-estructural.component";
 import { TituloClusterComponent } from "./components/titulo-cluster/titulo-cluster.component"
 import { DynamicFieldDirective } from "./components/dynamic-field/dynamic-field.directive";
 import { DynamicFormComponent } from "./components/dynamic-form/dynamic-form.component";
@@ -32,9 +32,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { HeaderComponent } from './header/header.component';
 import { BuscadorPipe } from './pipes/buscador.pipe';
 
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {HttpClientModule, HttpClient} from '@angular/common/http';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { AdminMenuComponent } from './admin-menu/admin-menu.component';
 import { CrudProfesionalesSaludComponent } from './crud-profesionales-salud/crud-profesionales-salud.component';
 import { CrudPacientesComponent } from './crud-pacientes/crud-pacientes.component';
@@ -46,13 +46,13 @@ export function HttpLoaderFactory(http: HttpClient) {
 const routes: Routes = [
 
   //{path:'login', component: LoginComponent},
-  {path:'inicio', component: InicioComponent},
-  {path:'ficha-paciente', component: FichaPacienteComponent},
-  {path:'admin-menu', component: AdminMenuComponent},
+  { path: 'inicio', component: InicioComponent },
+  { path: 'ficha-paciente', component: FichaPacienteComponent },
+  { path: 'admin-menu', component: AdminMenuComponent },
   //{path:'diagrama', component: DiagramaArquetiposComponent},
-  {path: '', component: LoginComponent, pathMatch: 'full'},
+  { path: '', component: LoginComponent, pathMatch: 'full' },
   //{path: '', component: FichaPacienteComponent, pathMatch: 'full'},
-  {path: '**', redirectTo: '/', pathMatch: 'full' },
+  { path: '**', redirectTo: '/', pathMatch: 'full' },
 ]
 
 
@@ -87,7 +87,7 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule,                               
+    FormsModule,
     ReactiveFormsModule,
 
     BrowserAnimationsModule,
@@ -96,9 +96,9 @@ const routes: Routes = [
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       }
     }),
 

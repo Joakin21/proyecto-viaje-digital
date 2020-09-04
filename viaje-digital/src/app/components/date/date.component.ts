@@ -15,9 +15,9 @@ import { FieldConfig } from "../../field.interface";
   </mat-form-field>
   <br>
 `,
-  styles: 
-  [
-    `
+  styles:
+    [
+      `
     .text-basic{
       font-family: Lato;
       font-style: normal;
@@ -25,11 +25,11 @@ import { FieldConfig } from "../../field.interface";
       color: rgba(72,72,75,1);
     }
     `
-  ]
+    ]
 })
 export class DateComponent implements OnInit {
   field: FieldConfig;
   group: FormGroup;
-  constructor() {}
-  ngOnInit() {}
+  constructor() { }
+  ngOnInit() { }
 }

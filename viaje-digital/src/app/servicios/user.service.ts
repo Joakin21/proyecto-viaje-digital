@@ -6,7 +6,7 @@ import { HttpHeaders } from '@angular/common/http';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
+    'Content-Type': 'application/json',
     'Authorization': 'my-auth-token'
   })
 };
@@ -20,21 +20,21 @@ export class UserService {
   url_users = 'http://127.0.0.1:8000/users/'
   url_admin = 'http://127.0.0.1:8000/adminPatientJourney/'
 
-  constructor(private httpClient:HttpClient, private cookies: CookieService) { }
-  
+  constructor(private httpClient: HttpClient, private cookies: CookieService) { }
+
   login(user: any): Observable<any> {
     return this.httpClient.post(this.url_import, user);
   }
-  getUser(user:number): Observable<any>{
-    httpOptions.headers = httpOptions.headers.set('Authorization', "token "+this.getToken());
-    return this.httpClient.get(this.url_users+user+"/", httpOptions);
+  getUser(user: number): Observable<any> {
+    httpOptions.headers = httpOptions.headers.set('Authorization', "token " + this.getToken());
+    return this.httpClient.get(this.url_users + user + "/", httpOptions);
   }
-  getAdmin(user:number): Observable<any>{
-    httpOptions.headers = httpOptions.headers.set('Authorization', "token "+this.getToken());
-    return this.httpClient.get(this.url_admin+user+"/", httpOptions);
+  getAdmin(user: number): Observable<any> {
+    httpOptions.headers = httpOptions.headers.set('Authorization', "token " + this.getToken());
+    return this.httpClient.get(this.url_admin + user + "/", httpOptions);
   }
 
-  logout(){
+  logout() {
     this.cookies.delete("token");
     this.cookies.delete("id_user");
   }
@@ -45,33 +45,27 @@ export class UserService {
   getToken() {
     return this.cookies.get("token");
   }
-  setIdUser(id_user: string){
-    this.cookies.set("id_user",id_user)
+  setIdUser(id_user: string) {
+    this.cookies.set("id_user", id_user)
   }
-  getIdUser(){
+  getIdUser() {
     return this.cookies.get("id_user")
   }
-
-  //Para el CRUD de users
-  /*getUser(user:number): Observable<any>{
-    httpOptions.headers = httpOptions.headers.set('Authorization', "token "+this.getToken());
-    return this.httpClient.get(this.url_users+user+"/", httpOptions);
-  }*/
-  getAllUsers(): Observable<any>{
-    httpOptions.headers = httpOptions.headers.set('Authorization', "token "+this.getToken());
+  getAllUsers(): Observable<any> {
+    httpOptions.headers = httpOptions.headers.set('Authorization', "token " + this.getToken());
     return this.httpClient.get(this.url_users, httpOptions);
   }
-  createUser(new_user:any): Observable<any>{
-    httpOptions.headers = httpOptions.headers.set('Authorization', "token "+this.getToken());
+  createUser(new_user: any): Observable<any> {
+    httpOptions.headers = httpOptions.headers.set('Authorization', "token " + this.getToken());
     return this.httpClient.post(this.url_users, new_user, httpOptions);
   }
-  deleteUser(user_id:number): Observable<any>{
-    httpOptions.headers = httpOptions.headers.set('Authorization', "token "+this.getToken());
+  deleteUser(user_id: number): Observable<any> {
+    httpOptions.headers = httpOptions.headers.set('Authorization', "token " + this.getToken());
     return this.httpClient.delete(this.url_users + user_id.toString() + "/", httpOptions);
   }
 
-  updateUser(user_updated:any, user_id:number): Observable<any>{
-    httpOptions.headers = httpOptions.headers.set('Authorization', "token "+this.getToken());
+  updateUser(user_updated: any, user_id: number): Observable<any> {
+    httpOptions.headers = httpOptions.headers.set('Authorization', "token " + this.getToken());
     return this.httpClient.put(this.url_users + user_id.toString() + "/", user_updated, httpOptions);
   }
 

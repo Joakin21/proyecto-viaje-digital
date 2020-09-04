@@ -1,15 +1,15 @@
 //filtros
-export const FILTROS:any = {
+export const FILTROS: any = {
     "Anaesthesia and ventilation":
     {
-        "cluster":[
-            "Ventilator settings/findings" 
+        "cluster": [
+            "Ventilator settings/findings"
         ]
     },
-    
+
     "Anthropometry":
     {
-        "observation":[
+        "observation": [
             "Body composition",
             "Body segment area",
             "Body segment circumference",
@@ -26,10 +26,10 @@ export const FILTROS:any = {
 
     "Cancer reporting":
     {
-        "cluster":[
+        "cluster": [
             "TNM clinical classification"
         ],
-        "observation":[
+        "observation": [
             "ECOG performance status"
         ]
 
@@ -37,7 +37,7 @@ export const FILTROS:any = {
 
     "COVID-19 incubator":
     {
-        "cluster":[
+        "cluster": [
             "Address",
             "Anonymised person (PARENT)",
             "Healthcare worker",
@@ -46,15 +46,15 @@ export const FILTROS:any = {
             "Organisation",
             "Symptom/Sign"//No va aparecer
         ],
-        "composition":[
+        "composition": [
             "Encounter",//No va aparecer
             "Report"//No va aparecer
         ],
-        "action":[
+        "action": [
             "Procedure",
             "Service"
         ],
-        "evaluation":[
+        "evaluation": [
             "Condition summary",
             "COVID - procedure summary",
             "Covid-19 infection risk assessment",
@@ -63,11 +63,11 @@ export const FILTROS:any = {
             "Problem/Diagnosis",
             "Reason for encounter"
         ],
-        "observation":[
+        "observation": [
             "Laboratory test result",
             "Travel trip history"
         ],
-        "admin_entry":[
+        "admin_entry": [
             "Covid 19 Admission",
             "COVID outcomes",
             "Patient admission"
@@ -75,16 +75,16 @@ export const FILTROS:any = {
     },
     "COVID-19 project":
     {
-        "cluster":[
+        "cluster": [
             "Dwelling",
             "Overcrowding screening"
         ],
-        "evaluation":[
+        "evaluation": [
             "Health risk assessment",
             "Infectious exposure investigation",
-            "Living arrangement"  
+            "Living arrangement"
         ],
-        "observation":[
+        "observation": [
             "Condition screening questionnaire",
             "CRB-65 score",
             "CURB-65 score",
@@ -95,17 +95,17 @@ export const FILTROS:any = {
             "PaO2/FiO2 ratio",
             "Procedure screening questionnaire",
             "Symptom/sign screening questionnaire",
-            "Travel event" 
+            "Travel event"
         ],
-        "admin_entry":[
+        "admin_entry": [
             "Episode of care - institution",
             "Transfer of care"
         ]
     },
     "Dentistry Incubator":
     {
-        "cluster":[
-            "Anatomical location gingiva", 
+        "cluster": [
+            "Anatomical location gingiva",
             "Anatomical location tooth",
             "Examination of a tooth",
             "Examination of dentition",
@@ -113,16 +113,16 @@ export const FILTROS:any = {
             "Examination of occlusal",
             "Examination of oral membrane",
             "Examination of teeth"
-            
+
         ],
-        "observation":[
+        "observation": [
             "Exam oral",
             "Periodontal screening and recording"
         ]
     },
     "Fluid balance":
     {
-        "observation":[
+        "observation": [
             "Faecal output",
             "Fluid balance",
             "Fluid input",
@@ -131,7 +131,7 @@ export const FILTROS:any = {
     },
     "Genomics":
     {
-        "cluster":[
+        "cluster": [
             "Citation",
             "Genetic copy number variant",
             "Genetic deletion variant",
@@ -149,25 +149,25 @@ export const FILTROS:any = {
             "Reference sequence",
             "Sequencing assay",
         ],
-        "observation":[
+        "observation": [
             "Laboratory test result"
         ]
     },
-    "Health Assessment scores":{
-        "observation":[
+    "Health Assessment scores": {
+        "observation": [
             "EQ-5D-5L Health status"
         ]
     },
     "Hearing":
     {
-        "cluster":[
+        "cluster": [
             "Examination of a middle ear",
             "Examination of a tympanic membrane",
             "Examination of an ear",
             "Examination of an external auditory canal",
             "Examination of both ears",
         ],
-        "observation":[
+        "observation": [
             "Acoustic reflex test result",
             "Audiogram test result",
             "Audiology speech test result",
@@ -181,7 +181,7 @@ export const FILTROS:any = {
     },
     "Laboratory and pathology testing":
     {
-        "cluster":[
+        "cluster": [
             "Anatomical pathology examination",
             "Laboratory analyte result",
             "Laboratory test panel",
@@ -189,13 +189,13 @@ export const FILTROS:any = {
             "Specimen container",
             "Specimen transport details",
         ],
-        "observation":[
+        "observation": [
             "Laboratory test result"
         ]
     },
     "Lifestyle factors":
     {
-        "evaluation":[
+        "evaluation": [
             "Alcohol consumption summary",
             "Gambling summary",
             "Physical activity summary",
@@ -203,7 +203,7 @@ export const FILTROS:any = {
             "Smokeless tobacco summary",
             "Tobacco smoking summary"
         ],
-        "observation":[
+        "observation": [
             "Alcohol intake",
             "Alcohol Use Disorders Identification Test (AUDIT)",
             "Physical activity"
@@ -211,7 +211,7 @@ export const FILTROS:any = {
     },
     "Medication family of archetypes":
     {
-        "cluster":[
+        "cluster": [
             "Conditional medication instructions",
             "Dosage",
             "Medication",
@@ -222,45 +222,45 @@ export const FILTROS:any = {
             "Timing - daily",
             "Timing - non-daily"
         ],
-        "composition":[
+        "composition": [
             "Medication list",
             "Prescription"
 
         ],
-        "action":[
+        "action": [
             "Medication management"
         ],
-        "evaluation":[
+        "evaluation": [
             "Medication summary"
         ],
-        "observation":[
+        "observation": [
             "Medication screening questionnaire"
         ],
-        "instruction":[
+        "instruction": [
             "Medication order"
         ],
-        "section":[
+        "section": [
             "Medication Order List"
         ]
     },
-    "Multiple Sclerosis Functional Composite (MSFC)":{
-        "observation":[
+    "Multiple Sclerosis Functional Composite (MSFC)": {
+        "observation": [
             "MSFC score",
             "Nine Hole Peg Test",
             "Paced Auditory Serial Addition Test",
             "Timed 25-Foot Walk"
         ]
     },
-    
+
     "Nutrition":
     {
-        "cluster":[
-            "Dietary nutrients", 
+        "cluster": [
+            "Dietary nutrients",
             "Dietary phytochemicals",
             "Macronutrients",
             "Micronutrients"
         ],
-        "observation":[
+        "observation": [
             "Eating disorder screening (SCOFF)",
             "Food item",
             "Malnutrition screening tool (MST)",
@@ -271,24 +271,24 @@ export const FILTROS:any = {
     },
     "Obstetrics/Gynaecology":
     {
-        "cluster":[
+        "cluster": [
             "Inspection of the cervix",
             "Palpation of a fetus (per abdomen)",
             "Palpation of a fetus (per vagina)",
             "Palpation of the cervix",
             "Palpation of the uterus",
         ],
-        "composition":[
+        "composition": [
             "Pregnancy Summary"
         ],
-        "evaluation":[
+        "evaluation": [
             "Estimated date of delivery",
             "Menstruation summary",
             "Obstetric summary",
             "Pregnancy Summary",
             "Pregnancy/breast feeding status"
         ],
-        "observation":[
+        "observation": [
             "Apgar score",
             "Bishop score",
             "Fetal heart rate",
@@ -304,33 +304,33 @@ export const FILTROS:any = {
     },
     "Oedema":
     {
-        "cluster":[
+        "cluster": [
             "Oedema"
         ]
     },
 
     "Operative notes":
     {
-        "cluster":[
+        "cluster": [
             "Medical device",
             "Specimen"
         ],
-        "composition":[
+        "composition": [
             "Procedure report"
         ],
-        "action":[
+        "action": [
             "Imaging examination",
             "Procedure",
             "Transfusion"
         ],
-        "observation":[
+        "observation": [
             "Imaging examination result"
         ]
     },
 
     "Operative Procedures":
     {
-        "cluster":[
+        "cluster": [
             "Operative procedure",
             "Physiological monitoring",
             "Procedure preparation"
@@ -338,10 +338,10 @@ export const FILTROS:any = {
     },
     "Ophthalmology":
     {
-        "cluster":[
+        "cluster": [
             "Refraction Details"
         ],
-        "observation":[
+        "observation": [
             "Intraocular pressure test result",
             "Physical examination findings",
             "Refraction assessment",
@@ -351,7 +351,7 @@ export const FILTROS:any = {
     },
     "Pathology Synoptic reporting":
     {
-        "cluster":[
+        "cluster": [
             "Lymph node metastases",
             "Macroscopic findings - Colorectal cancer",
             "Microscopic findings - Breast cancer",
@@ -361,12 +361,12 @@ export const FILTROS:any = {
             "Microscopic findings - Prostate cancer",
             "Surgical resection margins",
             "Tumour - direct invasion"
-            
+
         ]
     },
     "Phenopacket demonstrator":
     {
-        "cluster":[
+        "cluster": [
             "Phenopacket biosample",
             "Phenopacket diagnosis",
             "Phenopacket disease",
@@ -389,17 +389,17 @@ export const FILTROS:any = {
             "Phenopacket VcfAllele",
             "Phenopackets pedigree",
             "Phenopackets person",
-            
+
         ],
-        "evaluation":[
+        "evaluation": [
             "Phenopacket cohort",
             "Phenopacket interpretation"
         ]
-        
-    },   
+
+    },
     "Physical Examination findings":
     {
-        "cluster":[
+        "cluster": [
             "Examination findings",
             "Examination of a burn",
             "Examination of a lesion",
@@ -420,28 +420,28 @@ export const FILTROS:any = {
             "Palpation of the uterus",
             "Palpation of the vagina",
             "Skin sensation"
-            
+
         ],
-        "observation":[
+        "observation": [
             "Physical examination findings"
         ]
     },
     "Problem/Diagnosis family of archetypes":
     {
-        "cluster":[
+        "cluster": [
             "Problem/Diagnosis qualifier"
         ],
-        "composition":[
+        "composition": [
             "Problem list"
         ],
-        "evaluation":[
+        "evaluation": [
             "Problem/Diagnosis"
         ]
 
     },
     "PRSB Section headings":
     {
-        "section":[
+        "section": [
             "Clinical Risk Factors",
             "Examination findings",
             "History",
@@ -450,7 +450,7 @@ export const FILTROS:any = {
     },
     "RCPA Cancer reporting protocols":
     {
-        "section":[
+        "section": [
             "Lab report",
             "Lab result details",
 
@@ -458,7 +458,7 @@ export const FILTROS:any = {
     },
     "Scores and Scales":
     {
-        "observation":[
+        "observation": [
             "ABC-stroke risk score",
             "ABCD2 score",
             "ACVPU scale",
@@ -489,10 +489,10 @@ export const FILTROS:any = {
             "SOFA score"
         ]
     },
-        
+
     "Screening questionnaire project":
     {
-        "observation":[
+        "observation": [
             "Condition screening questionnaire",
             "Exposure screening questionnaire",
             "Management/treatment screening questionnaire",
@@ -505,16 +505,16 @@ export const FILTROS:any = {
     },
     "Social context projec":
     {
-        "cluster":[
+        "cluster": [
             "Dwelling",
             "Education record",
             "Housing record",
             "Interpreter request",
             "Language",
             "Occupation record",
-            "Religious affiliation"  
+            "Religious affiliation"
         ],
-        "evaluation":[
+        "evaluation": [
             "Advance care directive",
             "Communication capability",
             "Education summary",
@@ -525,13 +525,13 @@ export const FILTROS:any = {
             "Social network",
             "Social summary"
         ],
-        "admin_entry":[
+        "admin_entry": [
             "Translation requirement"
         ]
     },
     "Social determinants of health":
     {
-        "cluster":[
+        "cluster": [
             "Dwelling",
             "Education record",
             "Housing record",
@@ -539,9 +539,9 @@ export const FILTROS:any = {
             "Macronutrients",
             "Micronutrients",
             "Occupation record",
-            "Religious affiliation" 
+            "Religious affiliation"
         ],
-        "evaluation":[
+        "evaluation": [
             "Alcohol consumption summary",
             "Communication capability",
             "Education summary",
@@ -560,22 +560,22 @@ export const FILTROS:any = {
             "Social summary",
             "Substance use summary",
             "Tobacco smoking summary",
-            
-            
+
+
         ],
-        "observation":[
+        "observation": [
             "Blood pressure",
             "Body composition",
             "Body mass index",
             "Body weight"
         ],
-        "admin_entry":[
+        "admin_entry": [
             "Translation requirement"
         ]
     },
     "Therapeutic precautions":
     {
-        "evaluation":[
+        "evaluation": [
             "Adverse reaction risk",
             "Contraindication",
             "Precaution",
@@ -584,7 +584,7 @@ export const FILTROS:any = {
     },
     "Vital signs":
     {
-        "observation":[
+        "observation": [
             "Blood pressure",
             "Body temperature",
             "Capillary refill time",

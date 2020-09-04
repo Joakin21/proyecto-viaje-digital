@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../servicios/user.service';
-import {NgForm, FormGroup, FormControl} from '@angular/forms';
+import { NgForm, FormGroup, FormControl } from '@angular/forms';
 
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-crud-profesionales-salud',
@@ -22,9 +22,9 @@ export class CrudProfesionalesSaludComponent implements OnInit {
     centro_salud: new FormControl('')
   });
 
-  myUsers:any[] = []
-  show_error_create_user:boolean = false
-  error_create_user:string = ""
+  myUsers: any[] = []
+  show_error_create_user: boolean = false
+  error_create_user: string = ""
 
   ngOnInit(): void {
     //Obtengo todos los usuarios
@@ -38,47 +38,47 @@ export class CrudProfesionalesSaludComponent implements OnInit {
       }
     );
   }
-  
-  createUser(new_user: NgForm){
+
+  createUser(new_user: NgForm) {
     var valid_data = new_user.valid
     var form_user = new_user.value
 
-    if(!valid_data){
+    if (!valid_data) {
       this.error_create_user = "Error, you must fill all the fields with the required information"
       this.show_error_create_user = true
     }
-    else if (form_user["password"] != form_user["password_rep"]){
+    else if (form_user["password"] != form_user["password_rep"]) {
       this.error_create_user = "Error, passwords do not match"
       this.show_error_create_user = true
     }
-    else{
+    else {
       //preparamos los datos para crear nuevo usuario
-      var my_new_user = 
+      var my_new_user =
       {
         "user":
         {
-          "username":form_user["username"], 
-          "password":form_user["password"], 
-          "first_name":form_user["first_name"], 
-          "last_name":form_user["last_name"]
+          "username": form_user["username"],
+          "password": form_user["password"],
+          "first_name": form_user["first_name"],
+          "last_name": form_user["last_name"]
         },
-        "profesion":form_user["profesion"],
-        "centro_salud":form_user["centro_salud"]
+        "profesion": form_user["profesion"],
+        "centro_salud": form_user["centro_salud"]
       }
       //llamamos funcion que crea nuevo usuario
       this.userService.createUser(my_new_user).subscribe(
         new_user => {
-          if(new_user["detail"]){
+          if (new_user["detail"]) {
             this.error_create_user = new_user["detail"]
             this.show_error_create_user = true
           }
-          else{
+          else {
             this.show_error_create_user = false
             this.myUsers.push(new_user)
             $('#modalCreateUser').modal('toggle');
-            
+
           }
-          
+
         },
         error => {
           console.log('error', error)
@@ -86,21 +86,20 @@ export class CrudProfesionalesSaludComponent implements OnInit {
       );
 
     }
-   
+
   }
-  //IMPLEMENTAR TRACK ID
-  deleteUser(user_index){
-    //alert(user_index)
+
+  deleteUser(user_index) {
     var respuesta = confirm("Are you sure you want to delete this user?");
-    if(respuesta){
+    if (respuesta) {
       var user_id = this.myUsers[user_index]["user"]["id"]
       this.userService.deleteUser(user_id).subscribe(
         data => {
-          if(!data["detail"]){//sin no hay un error inesperado
+          if (!data["detail"]) {//sin no hay un error inesperado
             console.log(data)
             this.myUsers.splice(user_index, 1)
           }
-          
+
           //eliminar del array
         },
         error => {
@@ -108,11 +107,11 @@ export class CrudProfesionalesSaludComponent implements OnInit {
         }
       );
     }
-    
+
   }
 
-  index_user_to_update:number
-  prepareModalUpdateUser(user_index){
+  index_user_to_update: number
+  prepareModalUpdateUser(user_index) {
     this.index_user_to_update = user_index
     //seteamos el form del modal update con los calores del usuario seleccionado
     this.updateUserForm.controls["username"].setValue(this.myUsers[user_index]["user"]["username"])
@@ -129,36 +128,34 @@ export class CrudProfesionalesSaludComponent implements OnInit {
 
     var user_id = this.myUsers[this.index_user_to_update]["user"]["id"]
     var user_updated = {
-      "user":{
+      "user": {
       }
     }
     var updateUserForm = this.updateUserForm.value
 
-    if(updateUserForm["username"]){
+    if (updateUserForm["username"]) {
       user_updated["user"]["username"] = updateUserForm["username"]
     }
-    if(updateUserForm["password"]){
+    if (updateUserForm["password"]) {
       user_updated["user"]["password"] = updateUserForm["password"]
     }
-    if(updateUserForm["first_name"]){
+    if (updateUserForm["first_name"]) {
       user_updated["user"]["first_name"] = updateUserForm["first_name"]
     }
-    if(updateUserForm["last_name"]){
+    if (updateUserForm["last_name"]) {
       user_updated["user"]["last_name"] = updateUserForm["last_name"]
     }
-    if(updateUserForm["profesion"]){
+    if (updateUserForm["profesion"]) {
       user_updated["profesion"] = updateUserForm["profesion"]
     }
-    if(updateUserForm["centro_salud"]){
+    if (updateUserForm["centro_salud"]) {
       user_updated["centro_salud"] = updateUserForm["centro_salud"]
     }
-    //console.log(user_updated)
-    //console.warn(this.updateUserForm.value);
 
     this.userService.updateUser(user_updated, user_id).subscribe(
       data => {
         console.log(data)
-        if(!data["detail"]){//sin no hay un error inesperado
+        if (!data["detail"]) {//sin no hay un error inesperado
           this.myUsers[this.index_user_to_update] = data
         }
       },
@@ -168,7 +165,7 @@ export class CrudProfesionalesSaludComponent implements OnInit {
     );
   }
 
-  public trackItem (index: number) {
+  public trackItem(index: number) {
     return index;
   }
 

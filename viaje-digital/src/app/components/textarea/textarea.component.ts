@@ -15,7 +15,7 @@ import { FieldConfig } from "../../field.interface";
  
   <br>
   `
-,
+  ,
   styles: [
     `
     .text-basic{
@@ -30,6 +30,6 @@ import { FieldConfig } from "../../field.interface";
 export class TextareaComponent implements OnInit {
   field: FieldConfig;
   group: FormGroup;
-  constructor() {}
-  ngOnInit() {}
+  constructor() { }
+  ngOnInit() { }
 }

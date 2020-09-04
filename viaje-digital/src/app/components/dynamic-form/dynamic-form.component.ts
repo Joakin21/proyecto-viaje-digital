@@ -36,15 +36,15 @@ export class DynamicFormComponent implements OnInit {
   get value() {
     return this.form.value;
   }
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     this.form = this.createControl();
   }
-  verificarRepeticionNombre(nombre:string, forlulario:any):string{//borrar esta wea
+  verificarRepeticionNombre(nombre: string, forlulario: any): string {//borrar esta wea
     var claves_nodos_forlulario = Object.keys(forlulario)
-    for(const clave of claves_nodos_forlulario){
-      if(nombre == clave){
+    for (const clave of claves_nodos_forlulario) {
+      if (nombre == clave) {
         console.log(nombre + " se repite")
         nombre = nombre + " I"
       }
@@ -52,53 +52,13 @@ export class DynamicFormComponent implements OnInit {
     return nombre
 
   }
-  resetDatosCurrentSesionMedica(){
+  resetDatosCurrentSesionMedica() {
     //this.fields = []
     this.form = this.createControl();
     this.nodos_agregados_al_historial = []
   }
-  
-  agregarBoton(elemento:any){
-    //agrear al control
-    //agegar a fields
-    //refrecar
-    /*this.fields.push( {
-      type: "input",
-      label: "Password",
-      inputType: "password",
-      name: "password2",
-      validations: [
-        {
-          name: "required",
-          validator: Validators.required,
-          message: "Password Required"
-        }
-      ]
-    })
-    this.form = this.createControl()
 
-    var elemento = {
-      type: "input",
-      label: "Password",
-      inputType: "password",
-      name: "password2",
-      validations: [
-        {
-          name: "required",
-          validator: Validators.required,
-          message: "Password Required"
-        }
-      ]
-    }*/
-    //intentar verificar si la clave ya existe en el form
-    //elemento.name = elemento.name + " 1"
-    /*console.log(elemento.name)
-    console.log(this.form.value)
-    console.log("----------------------------------------------------------------")*/
-
-    //no sirve!!
-    //posible solucion: que la key sea un valor unico como un numero y el valor mantenerlo
-    //elemento.name = this.verificarRepeticionNombre(elemento.name, this.form.value)
+  agregarBoton(elemento: any) {
     this.nodos_agregados_al_historial.push(elemento.label)//prueba
 
     var boton_final = {
@@ -123,7 +83,7 @@ export class DynamicFormComponent implements OnInit {
     event.stopPropagation();
     if (this.form.valid) {
       //this.submit.emit(this.nodos_agregados_al_historial)
-      var datos = {"nombre_campos": this.nodos_agregados_al_historial, "valor_campos": this.form.value}
+      var datos = { "nombre_campos": this.nodos_agregados_al_historial, "valor_campos": this.form.value }
       this.submit.emit(datos);
     } else {
       this.validateAllFormFields(this.form);

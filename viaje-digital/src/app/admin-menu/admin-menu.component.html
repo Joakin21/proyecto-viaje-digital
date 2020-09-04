@@ -1,93 +1,77 @@
 <div class="d-flex ml-0" id="wrapper">
 
-  <!-- Sidebar -->
-  <div class="bg-light border-right" id="sidebar-wrapper">
-    <div class="sidebar-heading">Patient Journey Admin </div>
-    <div class="list-group list-group-flush">
-      <a [routerLink]="" (click)="optionMenu(1)" class="list-group-item list-group-item-action bg-light">Healthcare Professionals</a>
-      <a [routerLink]="" (click)="optionMenu(2)" class="list-group-item list-group-item-action bg-light">Patients</a>
-      <a [routerLink]="" (click)="goToArchetypeEditor()" class="list-group-item list-group-item-action bg-light">Archetype editor</a>
-      <a [routerLink]="" (click)="optionMenu(4)" class="list-group-item list-group-item-action bg-light">Language</a>
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">Patient Journey Admin </div>
+        <div class="list-group list-group-flush">
+            <a [routerLink]="" (click)="optionMenu(1)" class="list-group-item list-group-item-action bg-light">Healthcare
+        Professionals</a>
+            <a [routerLink]="" (click)="optionMenu(2)" class="list-group-item list-group-item-action bg-light">Patients</a>
+            <a [routerLink]="" (click)="goToArchetypeEditor()" class="list-group-item list-group-item-action bg-light">Archetype editor</a>
+            <a [routerLink]="" (click)="optionMenu(4)" class="list-group-item list-group-item-action bg-light">Language</a>
+        </div>
     </div>
-  </div>
-  <!-- /#sidebar-wrapper -->
 
-  <!-- Page Content -->
-  <div id="page-content-wrapper">
+    <div id="page-content-wrapper">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-      <button *ngIf="menu_abierto" (click)="menuToggle(false)" style='font-size:24px' class="btn btn-link text-decoration-none fa" id="menu-toggle">&#xf104;</button>
-      <button *ngIf="!menu_abierto" (click)="menuToggle(true)" style='font-size:24px' class="btn btn-link text-decoration-none fa" id="menu-toggle">&#xf105;</button>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <button *ngIf="menu_abierto" (click)="menuToggle(false)" style='font-size:24px' class="btn btn-link text-decoration-none fa" id="menu-toggle">&#xf104;</button>
+            <button *ngIf="!menu_abierto" (click)="menuToggle(true)" style='font-size:24px' class="btn btn-link text-decoration-none fa" id="menu-toggle">&#xf105;</button>
 
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-          <!--
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>-->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {{admin["first_name"] + " " + admin["last_name"]}}
             </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a [routerLink]=""  (click)="logout()" class="dropdown-item" href="#">Logout</a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a [routerLink]="" (click)="logout()" class="dropdown-item" href="#">Logout</a>
 
+                        </div>
+                    </li>
+                </ul>
             </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
+        </nav>
 
-    <div class="container-fluid">
-      
-      <app-crud-profesionales-salud *ngIf="option_selected == 1"></app-crud-profesionales-salud>
-      <app-crud-pacientes *ngIf="option_selected == 2"></app-crud-pacientes>
-      <!--<p *ngIf="option_selected == 3">opcion 3 seleccionada</p>-->
+        <div class="container-fluid">
 
-      <!--Select language-->
-      <div *ngIf="option_selected == 4" class="row m-4">
-        <div class="col-md-6">
-          <h3>Language</h3>
-          <!--<p><b> Current:</b> {{application_language}}</p>-->
-          <form [formGroup]="language_form" (ngSubmit)="changeLanguage()">
-            <div class="form-group">
-              <label for="language">Select language:</label>
-              <select class="form-control" id="language" formControlName="language" required> 
+            <app-crud-profesionales-salud *ngIf="option_selected == 1"></app-crud-profesionales-salud>
+            <app-crud-pacientes *ngIf="option_selected == 2"></app-crud-pacientes>
+
+            <!--Select language-->
+            <div *ngIf="option_selected == 4" class="row m-4">
+                <div class="col-md-6">
+                    <h3>Language</h3>
+                    <!--<p><b> Current:</b> {{application_language}}</p>-->
+                    <form [formGroup]="language_form" (ngSubmit)="changeLanguage()">
+                        <div class="form-group">
+                            <label for="language">Select language:</label>
+                            <select class="form-control" id="language" formControlName="language" required>
                 <option value="en">English</option>
                 <option value="es">Spanish</option>
               </select>
+                        </div>
+                        <div *ngIf="language_form.controls['language'].invalid && (language_form.controls['language'].dirty || language_form.controls['language'].touched)" class="alert alert-danger">
+                            <div *ngIf="language_form.controls['language'].errors.required">
+                                Language is required.
+                            </div>
+                        </div>
+                        <button type="submit" [disabled]="language_form.pristine || language_form.invalid" class="btn btn-primary">Change</button>
+                    </form>
+
+                    <div class="alert alert-success mt-2" id="success-alert" style="display:none;" role="alert">
+                        <strong>Well done!</strong> The language was changed.
+                    </div>
+                </div>
+
             </div>
-            <div *ngIf="language_form.controls['language'].invalid && (language_form.controls['language'].dirty || language_form.controls['language'].touched)" class="alert alert-danger">
-              <div *ngIf="language_form.controls['language'].errors.required">
-                Language is required.
-              </div>
-            </div>
-            <button type="submit" [disabled]="language_form.pristine || language_form.invalid" class="btn btn-primary">Change</button>
-          </form>
-          
-          <div class="alert alert-success mt-2" id="success-alert" style="display:none;" role="alert">
-            <strong>Well done!</strong> The language was changed.
-          </div>
-          
 
         </div>
-
-      </div>
-
     </div>
-  </div>
-  <!-- /#page-content-wrapper -->
 
 </div>
-
-
-  
-  
