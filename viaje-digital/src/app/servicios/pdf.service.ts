@@ -10,6 +10,7 @@ export class PdfService {
 
   constructor() { }
   fichaPacienteToPdf(patient_journey: any) {
+    let full_name = patient_journey['nombre'] + " " + patient_journey['apellidos']
     var myContent = [
       {
         text: 'Medical History',
@@ -21,7 +22,7 @@ export class PdfService {
         style: 'sesionName',
         margin: [0, 0, 0, 10]
       },
-      "Name: " + patient_journey['nombre'],
+      "Name: " + full_name,
       "Id: " + patient_journey['rut'],
       "Birth: " + patient_journey['fecha_nacimiento'],
       "Address: " + patient_journey['direccion'],
@@ -81,7 +82,7 @@ export class PdfService {
         }
       }
     };
-    pdfMake.createPdf(documentDefinition).open();
+    pdfMake.createPdf(documentDefinition).download(full_name + " Medical History");//.open();
   }
 
 }
