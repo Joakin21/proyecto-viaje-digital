@@ -79,8 +79,8 @@ export class FichaPacienteComponent implements OnInit {
       this.current_medical_sesion["nombre_profesional"] = this.user.user.first_name + " " + this.user.user.last_name
       this.current_medical_sesion["profesion"] = this.user.profesion
       this.current_medical_sesion["centro_salud"] = this.user.centro_salud
-      console.log(this.user)
-      console.log(this.current_medical_sesion)
+      //console.log(this.user)
+      //console.log(this.current_medical_sesion)
       this.habilitar_creacion_nueva_sesion = false
       //dibujamos nuevamente el patient journey
       this.mostrar_mensaje_error2 = false
@@ -183,13 +183,7 @@ export class FichaPacienteComponent implements OnInit {
           label: mylabel,
           inputType: "text",
           name: nombre,
-          validations: [
-            {
-              name: "required",
-              validator: Validators.required,
-              message: nombre + " es obligarorio"
-            }
-          ]
+
         }
       }
       else {
@@ -214,13 +208,6 @@ export class FichaPacienteComponent implements OnInit {
         label: mylabel,
         inputType: "text",
         name: nombre,
-        validations: [
-          {
-            name: "required",
-            validator: Validators.required,
-            message: nombre + " es obligarorio"
-          }
-        ]
       }
     }
     else if (tipo == "DV_ORDINAL") {
@@ -246,13 +233,6 @@ export class FichaPacienteComponent implements OnInit {
         type: "date",
         label: mylabel,
         name: nombre,
-        validations: [
-          {
-            name: "required",
-            validator: Validators.required,
-            message: nombre + " es obligarorio"
-          }
-        ]
       }
     }
     else if (tipo == "DV_BOOLEAN") {
@@ -275,13 +255,6 @@ export class FichaPacienteComponent implements OnInit {
         label: mylabel,
         inputType: "text",
         name: nombre,
-        validations: [
-          {
-            name: "required",
-            validator: Validators.required,
-            message: nombre + " es obligarorio"
-          }
-        ]
       }
     }
     else if (tipo == "CLUSTER") {
@@ -300,13 +273,6 @@ export class FichaPacienteComponent implements OnInit {
           label: mylabel,
           inputType: "text",
           name: nombre,
-          validations: [
-            {
-              name: "required",
-              validator: Validators.required,
-              message: nombre + " es obligarorio"
-            }
-          ]
         }
       } else {
 
@@ -318,13 +284,6 @@ export class FichaPacienteComponent implements OnInit {
           label: mylabel,
           inputType: "text",
           name: nombre,
-          validations: [
-            {
-              name: "required",
-              validator: Validators.required,
-              message: nombre + " es obligarorio"
-            }
-          ]
         }
       }
 
@@ -338,13 +297,6 @@ export class FichaPacienteComponent implements OnInit {
         label: mylabel,
         inputType: "text",
         name: nombre,
-        validations: [
-          {
-            name: "required",
-            validator: Validators.required,
-            message: nombre + " es obligarorio"
-          }
-        ]
       }
 
     }
@@ -388,13 +340,6 @@ export class FichaPacienteComponent implements OnInit {
       label: nombre_arquetipo,
       inputType: "text",
       name: this.n.toString(),
-      validations: [
-        {
-          name: "required",
-          validator: Validators.required,
-          message: nombre_arquetipo + " es obligarorio"
-        }
-      ]
     }
     this.form.agregarBoton(elemento)
     this.arquetipo_agregado_historial.push({ "tipo": 1 })
@@ -424,10 +369,10 @@ export class FichaPacienteComponent implements OnInit {
   submit(datos_form: any) {
 
     if (this.arquetipos_medical_sesion.length > 0) {
-      console.log("Patient Journey:")
+      //console.log("Patient Journey:")
       var i = 0
       for (let arquetipo_in_historial of this.arquetipos_medical_sesion) {
-        for (let nodo of arquetipo_in_historial) {
+        for (let j=0; j < arquetipo_in_historial.length; j++/*let nodo of arquetipo_in_historial*/) {
           var nombre_campo = datos_form["nombre_campos"][i]
           var valor_campo = datos_form["valor_campos"][i.toString()]
           if (typeof valor_campo == "object") {
@@ -436,8 +381,15 @@ export class FichaPacienteComponent implements OnInit {
           }
 
           //nodo[nombre_campo] = valor_campo
-          nodo["clave"] = nombre_campo
-          nodo["valor"] = valor_campo
+          // nodo = arquetipo_in_historial[j]
+          arquetipo_in_historial[j]["clave"] = nombre_campo
+          arquetipo_in_historial[j]["valor"] = valor_campo
+          //se verifican campos no utilizados
+          if(arquetipo_in_historial[j]["tipo"] == 4 && (arquetipo_in_historial[j]["valor"] == arquetipo_in_historial[j]["clave"] || arquetipo_in_historial[j]["valor"] == "")){
+            //console.log(arquetipo_in_historial[j]["valor"] + " no ha sido utilizado!")
+            arquetipo_in_historial.splice(j, 1)
+            j--; 
+          }
           i = i + 1
         }
       }
@@ -455,8 +407,8 @@ export class FichaPacienteComponent implements OnInit {
       }
 
       this.resetDatosCurrentSesionMedica()
-      console.log(this.patient_journey["_id"])
-      console.log(this.patient_journey)
+      //console.log(this.patient_journey["_id"])
+      //console.log(this.patient_journey)
 
       if (this.patient_journey["_id"]) {//Si hay que actualizar uno ya existente
         this.patientService.putPatient(this.patient_journey["rut"], this.patient_journey).subscribe(
