@@ -465,4 +465,8 @@ export class FichaPacienteComponent implements OnInit {
   downloadPDF() {
     this.pdfService.fichaPacienteToPdf(this.patient_journey)
   }
+
+  menuToggle(open: boolean) {
+    $("#wrapper").toggleClass("toggled");
+  }
 }

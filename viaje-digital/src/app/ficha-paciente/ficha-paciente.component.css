@@ -1,81 +1,126 @@
-.extra-style{
+.extra-style {
     border-radius: 25px;
     /*width: 85%;*/
 }
-.horizontal-center{
+
+.horizontal-center {
     margin-left: auto;
     margin-right: auto;
-  }
-.text-title-ficha-paciente{
+}
+
+.text-title-ficha-paciente {
     text-align: center;
-	font-family: Raleway;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 26px;
-	color: rgba(72,72,75,1);
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 26px;
+    color: rgba(72, 72, 75, 1);
 }
-#text-name-patient{
+
+#text-name-patient {
     font-family: Lato;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 22px;
-	color: rgba(72,72,75,1);
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    color: rgba(72, 72, 75, 1);
 }
-.text-basic{
+
+.text-basic {
     font-family: Lato;
-	font-style: normal;
-	/*font-weight: bold;*/
+    font-style: normal;
+    /*font-weight: bold;*/
     font-size: 16px;
-    color: rgba(72,72,75,1);
-	/*color: rgba(72,72,75,1);*/
+    color: rgba(72, 72, 75, 1);
+    /*color: rgba(72,72,75,1);*/
 }
-.text-basic-blod{
+
+.text-basic-blod {
     font-weight: bold;
 }
-.sesion-border{
+
+.sesion-border {
     border-radius: 12px;
 }
-.border-input{
+
+.border-input {
     border-radius: 7px;
 }
-.text-btn-open-sesion{
-	font-family: Lato;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 22px;
-	/*color: rgba(89,176,243,1);*/
-	color: #59b0f3;
+
+.text-btn-open-sesion {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    /*color: rgba(89,176,243,1);*/
+    color: #59b0f3;
 }
 
-.title-patient{
-	font-family: Lato;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 21px;
-	color: rgba(72,72,75,1);
+.title-patient {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 21px;
+    color: rgba(72, 72, 75, 1);
 }
 
-.btn-new-sesion{
-	color: white;
-	background-color: #59b0f3;
-  }
-
-.text-new-sesion{
-	font-family: Lato;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 14px;
-	color: rgba(72,72,75,1);
-}
-.btn-new-patient-and-addhistory{
-	font-family: Lato;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 16px;
-	color: rgba(255,255,255,1);
-	background-color: #59b0f3;
+.btn-new-sesion {
+    color: white;
+    background-color: #59b0f3;
 }
 
-.sub-title-size{
-	font-size: 22px;
+.text-new-sesion {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    color: rgba(72, 72, 75, 1);
+}
+
+.btn-new-patient-and-addhistory {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 1);
+    background-color: #59b0f3;
+}
+
+.sub-title-size {
+    font-size: 22px;
+}
+
+
+/*menu lateral prro*/
+
+#wrapper {
+    overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -25rem;
+    -webkit-transition: margin .25s ease-out;
+    -moz-transition: margin .25s ease-out;
+    -o-transition: margin .25s ease-out;
+    transition: margin .25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-width {
+    width: 15rem;
+}
+
+
+/*#page-content-wrapper {
+    min-width: 100vw;
+}*/
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+@media (min-width: 768px) {
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
 }
