@@ -14,28 +14,43 @@
         </div>
     </div>-->
     <!--class="pre-scrollable" style="height: 100vh"-->
-    <div class="bg-dark border-right" id="sidebar-wrapper">
+    <div class="" id="sidebar-wrapper">
         <!--
         <div class="sidebar-width">
             <h1>hola q tal</h1>
         </div>
         <div class="sidebar-heading">Patient Journey Admin </div>
         -->
-        <div class="bg-white p-3 shadow" style="height: 100vh;width: 25rem;">
-            <div *ngIf="mostrar_mensaje_error2 && habilitar_creacion_nueva_sesion">
-                <p class="text-danger mb-0">{{"ficha-paciente."+mensaje_error2 | translate}}</p>
-            </div>
-            <app-lista-arquetipos (mostrar_diagrama_arquetipos)="cambiarComponente($event)" (emitir_id_arquetipo)="recibirArquetipoId($event)"></app-lista-arquetipos>
 
+        <div *ngIf="mostrar_mensaje_error2 && habilitar_creacion_nueva_sesion">
+            <p class="text-danger mb-0">{{"ficha-paciente."+mensaje_error2 | translate}}</p>
         </div>
+        <app-lista-arquetipos (mostrar_diagrama_arquetipos)="cambiarComponente($event)" (emitir_id_arquetipo)="recibirArquetipoId($event)"></app-lista-arquetipos>
+
+
 
     </div>
-    <button (click)="menuToggle(false)" style='font-size:24px' class="btn btn-link text-decoration-none fa" id="menu-toggle">&#xf104;</button>
+    <button *ngIf="menu_abierto" (click)="menuToggle(false)" class="btn btn-link mt-3 ml-2 mr-2 h-100 btn-dropdown-menu text-decoration-none fa" id="menu-toggle">&#xf105;</button>
+    <button *ngIf="!menu_abierto" (click)="menuToggle(true)" class="btn btn-link mt-3 ml-2 mr-2 h-100 btn-dropdown-menu text-decoration-none fa" id="menu-toggle">&#xf104;</button>
     <div id="page-content-wrapper">
+        <!--
+        <button *ngIf="menu_abierto" (click)="menuToggle(false)" style='font-size:24px' class="btn btn-link text-decoration-none fa" id="menu-toggle">&#xf105;</button>
+        <button *ngIf="!menu_abierto" (click)="menuToggle(true)" style='font-size:24px' class="btn btn-link text-decoration-none fa" id="menu-toggle">&#xf104;</button>
+        -->
+        <div class="container mt-3" *ngIf="mostrar_diagrama_arquetipos">
+            <div class="bg-white p-3 shadow extra-style horizontal-center">
+                <button type="button" (click)="closeDiagram()" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+                <div *ngIf="mostrar_mensaje_error2 && habilitar_creacion_nueva_sesion">
+                    <p class="text-danger mb-0">{{"ficha-paciente."+mensaje_error2 | translate}}</p>
+                </div>
+                <app-diagrama-arquetipos (emitir_id_arquetipo)="recibirArquetipoId($event)"></app-diagrama-arquetipos>
+            </div>
+        </div>
 
-
-        <div class="container-fluid bg-white mt-3 shadow extra-style">
-            <div class="overflow-auto p-3" style="height: 88vh;">
+        <div class="container-fluid bg-white mt-3 shadow extra-style" id="medical-history">
+            <div class="overflow-auto p-3" style="height: 100vh;">
                 <div *ngIf="habilitar_form_datos_base">
                     <p class="text-title-ficha-paciente">{{"ficha-paciente.Required information" | translate}}</p>
                     <form #datos_base="ngForm" (ngSubmit)="crearPaciente(datos_base)" class="form-search mr-3">

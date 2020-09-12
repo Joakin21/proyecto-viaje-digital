@@ -37,6 +37,8 @@ export class FichaPacienteComponent implements OnInit {
   mensaje_error2: string = ""
   mostrar_mensaje_error2: boolean = false
 
+  menu_abierto: boolean = true
+
   @ViewChild(DynamicFormComponent, { static: false }) form: DynamicFormComponent;
   regConfig: FieldConfig[] = [//Nos ayudara para agregar nuevas sesiones medicas a la estructura
 
@@ -467,6 +469,7 @@ export class FichaPacienteComponent implements OnInit {
   }
 
   menuToggle(open: boolean) {
+    this.menu_abierto = open
     $("#wrapper").toggleClass("toggled");
   }
 }

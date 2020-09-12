@@ -68,6 +68,12 @@
     background-color: #59b0f3;
 }
 
+.btn-dropdown-menu {
+    font-size: 24px;
+    background-color: #59b0f3;
+    color: white;
+}
+
 .text-new-sesion {
     font-family: Lato;
     font-style: normal;
@@ -97,12 +103,14 @@
 }
 
 #sidebar-wrapper {
+    /*position: fixed;*/
     min-height: 100vh;
     margin-left: -25rem;
     -webkit-transition: margin .25s ease-out;
     -moz-transition: margin .25s ease-out;
     -o-transition: margin .25s ease-out;
     transition: margin .25s ease-out;
+    background-color: #f6f9fc;
 }
 
 #sidebar-wrapper .sidebar-width {
@@ -121,6 +129,15 @@
 @media (min-width: 768px) {
     #page-content-wrapper {
         min-width: 0;
+        width: 100%;
+    }
+    #medical-history {
+        width: 75%;
+    }
+}
+
+@media (max-width: 767.98px) {
+    #medical-history {
         width: 100%;
     }
 }
