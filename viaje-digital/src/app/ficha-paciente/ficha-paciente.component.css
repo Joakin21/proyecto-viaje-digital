@@ -105,7 +105,7 @@
 #sidebar-wrapper {
     /*position: fixed;*/
     min-height: 100vh;
-    margin-left: -25rem;
+    margin-left: -30rem;
     -webkit-transition: margin .25s ease-out;
     -moz-transition: margin .25s ease-out;
     -o-transition: margin .25s ease-out;

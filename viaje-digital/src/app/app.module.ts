@@ -38,6 +38,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { AdminMenuComponent } from './admin-menu/admin-menu.component';
 import { CrudProfesionalesSaludComponent } from './crud-profesionales-salud/crud-profesionales-salud.component';
 import { CrudPacientesComponent } from './crud-pacientes/crud-pacientes.component';
+import { NgxPopper } from 'angular-popper';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -102,7 +103,9 @@ const routes: Routes = [
       }
     }),
 
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+
+    NgxPopper
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],

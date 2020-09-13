@@ -76,3 +76,7 @@
     font-size: 18px;
     color: rgba(154, 154, 154, 1);
 }
+
+.dropdown-toggle::after {
+    display: none;
+}
