@@ -35,7 +35,6 @@ export class FichaPacienteComponent implements OnInit {
   habilitar_creacion_nueva_sesion: boolean = true
 
   mensaje_error2: string = ""
-  mostrar_mensaje_error2: boolean = false
 
   menu_abierto: boolean = true
 
@@ -85,7 +84,6 @@ export class FichaPacienteComponent implements OnInit {
       //console.log(this.current_medical_sesion)
       this.habilitar_creacion_nueva_sesion = false
       //dibujamos nuevamente el patient journey
-      this.mostrar_mensaje_error2 = false
       this.mensaje_error_create_sesion = false
     }
     else {
@@ -359,11 +357,15 @@ export class FichaPacienteComponent implements OnInit {
           console.log(this.arquetipos_medical_sesion)
           this.arquetipo_agregado_historial = []
         })
+        this.mostrar_diagrama_arquetipos = false
       }
-      this.mostrar_mensaje_error2 = false
     } else {
       this.mensaje_error2 = "To add an archetype you must create a session first"
-      this.mostrar_mensaje_error2 = true
+
+      $("#error_crear_sesion").show();
+      window.setTimeout(function () {
+        $("#error_crear_sesion").hide();
+      }, 4000);
     }
 
   }
@@ -431,10 +433,12 @@ export class FichaPacienteComponent implements OnInit {
           }
         );
       }
-      this.mostrar_mensaje_error2 = false
     } else {
       this.mensaje_error2 = "You must add at least one archetype to the session"
-      this.mostrar_mensaje_error2 = true
+      $("#error_agregar_arquetipo").show();
+      window.setTimeout(function () {
+        $("#error_agregar_arquetipo").hide();
+      }, 4000);
     }
 
 

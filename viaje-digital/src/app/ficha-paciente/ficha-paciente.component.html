@@ -21,10 +21,6 @@
         </div>
         <div class="sidebar-heading">Patient Journey Admin </div>
         -->
-
-        <div *ngIf="mostrar_mensaje_error2 && habilitar_creacion_nueva_sesion">
-            <p class="text-danger mb-0">{{"ficha-paciente."+mensaje_error2 | translate}}</p>
-        </div>
         <app-lista-arquetipos (mostrar_diagrama_arquetipos)="cambiarComponente($event)" (emitir_id_arquetipo)="recibirArquetipoId($event)"></app-lista-arquetipos>
 
 
@@ -39,13 +35,16 @@
         -->
         <div class="container mt-3" *ngIf="mostrar_diagrama_arquetipos">
             <div class="bg-white p-3 shadow extra-style horizontal-center">
-                <button type="button" (click)="closeDiagram()" class="close" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-                <div *ngIf="mostrar_mensaje_error2 && habilitar_creacion_nueva_sesion">
-                    <p class="text-danger mb-0">{{"ficha-paciente."+mensaje_error2 | translate}}</p>
+
+                <div class="alert alert-danger mt-3 mb-2 text-basic" id="error_crear_sesion" style="display:none;" role="alert">
+                    {{"ficha-paciente."+mensaje_error2 | translate}}
                 </div>
+
+                <button type="button" (click)="closeDiagram()" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 <app-diagrama-arquetipos (emitir_id_arquetipo)="recibirArquetipoId($event)"></app-diagrama-arquetipos>
+
             </div>
         </div>
 
@@ -124,6 +123,11 @@
                     <p class="text-basic text-basic-blod mb-0">{{patient_journey['ciudad']}}</p>
                     <p class="text-basic">{{patient_journey['direccion']}}</p>
 
+
+                    <div class="alert alert-danger mt-3 mb-2 text-basic" id="error_crear_sesion" style="display:none;" role="alert">
+                        {{"ficha-paciente."+mensaje_error2 | translate}}
+                    </div>
+
                     <div class="accordion" id="accordionExample">
                         <!--Iteramos cada sesion medica-->
                         <div *ngFor="let sesion_medica of patient_journey['sesiones_medica']; let i = index;">
@@ -198,17 +202,16 @@
                         <b>{{"ficha-paciente.Clinic" | translate}}:</b> {{current_medical_sesion["centro_salud"]}}<br>
                         <b>{{"ficha-paciente.Date" | translate}}:</b> {{current_medical_sesion["fecha"]}}
                     </p>
-
+                    <div class="alert alert-danger mt-3 mb-2" id="error_agregar_arquetipo" style="display:none;" role="alert">
+                        {{"ficha-paciente."+mensaje_error2 | translate}}
+                    </div>
                     <div class="form">
                         <dynamic-form [fields]="regConfig" (submit)="submit($event)">
                         </dynamic-form>
 
                     </div>
-                    <div *ngIf="mostrar_mensaje_error2">
-                        <p class="text-danger mt-2">{{"ficha-paciente."+mensaje_error2 | translate}}</p>
-                    </div>
-
                 </div>
+
             </div>
 
         </div>
