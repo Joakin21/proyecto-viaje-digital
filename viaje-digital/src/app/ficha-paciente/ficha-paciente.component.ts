@@ -56,7 +56,6 @@ export class FichaPacienteComponent implements OnInit {
       this.patient_journey = datos_base.value
       this.patient_journey["profesionales_que_atendieron"] = []
       this.patient_journey["sesiones_medica"] = []
-      //console.log(this.patient  _journey)
       this.showPatientJourney()
     } else {
       this.mostrar_error = true
@@ -64,8 +63,6 @@ export class FichaPacienteComponent implements OnInit {
   }
   mostrar_historial: boolean = false
   showPatientJourney() {
-    console.log("Se mostrará el historial del paciente!!")
-    console.log(this.patient_journey)
     this.habilitar_form_datos_base = false
     this.mostrar_historial = true
   }
@@ -80,8 +77,6 @@ export class FichaPacienteComponent implements OnInit {
       this.current_medical_sesion["nombre_profesional"] = this.user.user.first_name + " " + this.user.user.last_name
       this.current_medical_sesion["profesion"] = this.user.profesion
       this.current_medical_sesion["centro_salud"] = this.user.centro_salud
-      //console.log(this.user)
-      //console.log(this.current_medical_sesion)
       this.habilitar_creacion_nueva_sesion = false
       //dibujamos nuevamente el patient journey
       this.mensaje_error_create_sesion = false
@@ -124,21 +119,15 @@ export class FichaPacienteComponent implements OnInit {
           this.router.navigateByUrl('/inicio')
         }
         if (rut == "new_patient") {
-          //alert("crear nuevo paciente")
-          console.log("Crear paciente desde 0")
-          console.log(this.patient_journey)
           this.habilitar_form_datos_base = true
           this.mostrar_historial = false
           this.habilitar_creacion_nueva_sesion = true
         }
         else {
-
-          console.log("modificar paciente:", rut)
           this.patientService.getPatient(rut).subscribe(
             data => {
               this.patient_journey = data
               this.showPatientJourney()
-              //console.log(this.patient_journey)
             },
             error => {
               console.log('error', error)
@@ -354,7 +343,6 @@ export class FichaPacienteComponent implements OnInit {
             this.agregarAlHistorial(arquetipo)
           //luego de las dos funciones anteriores, el tipo de nodo esta seteado
           this.arquetipos_medical_sesion.push(this.arquetipo_agregado_historial)
-          console.log(this.arquetipos_medical_sesion)
           this.arquetipo_agregado_historial = []
         })
         this.mostrar_diagrama_arquetipos = false
@@ -373,7 +361,6 @@ export class FichaPacienteComponent implements OnInit {
   submit(datos_form: any) {
 
     if (this.arquetipos_medical_sesion.length > 0) {
-      //console.log("Patient Journey:")
       var i = 0
       for (let arquetipo_in_historial of this.arquetipos_medical_sesion) {
         for (let j=0; j < arquetipo_in_historial.length; j++/*let nodo of arquetipo_in_historial*/) {
@@ -390,7 +377,6 @@ export class FichaPacienteComponent implements OnInit {
           arquetipo_in_historial[j]["valor"] = valor_campo
           //se verifican campos no utilizados
           if(arquetipo_in_historial[j]["tipo"] == 4 && (arquetipo_in_historial[j]["valor"] == arquetipo_in_historial[j]["clave"] || arquetipo_in_historial[j]["valor"] == "")){
-            //console.log(arquetipo_in_historial[j]["valor"] + " no ha sido utilizado!")
             arquetipo_in_historial.splice(j, 1)
             j--; 
           }
@@ -411,9 +397,6 @@ export class FichaPacienteComponent implements OnInit {
       }
 
       this.resetDatosCurrentSesionMedica()
-      //console.log(this.patient_journey["_id"])
-      //console.log(this.patient_journey)
-
       if (this.patient_journey["_id"]) {//Si hay que actualizar uno ya existente
         this.patientService.putPatient(this.patient_journey["rut"], this.patient_journey).subscribe(
           data => {
@@ -459,9 +442,6 @@ export class FichaPacienteComponent implements OnInit {
 
   cambiarComponente(mensaje: boolean) {
     this.mostrar_diagrama_arquetipos = mensaje
-    console.log("mensaje recibido :)")
-    console.log(this.mostrar_diagrama_arquetipos)
-
     window.scroll(0, 50);
   }
   closeDiagram() {
