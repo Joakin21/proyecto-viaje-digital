@@ -19,6 +19,7 @@ export class UserService {
   url_import = 'http://127.0.0.1:8000/auth/'
   url_users = 'http://127.0.0.1:8000/users/'
   url_admin = 'http://127.0.0.1:8000/adminPatientJourney/'
+  url_arquetipos_usuario = 'http://127.0.0.1:8000/arquetipos_usuario/'
 
   constructor(private httpClient: HttpClient, private cookies: CookieService) { }
 
@@ -67,6 +68,11 @@ export class UserService {
   updateUser(user_updated: any, user_id: number): Observable<any> {
     httpOptions.headers = httpOptions.headers.set('Authorization', "token " + this.getToken());
     return this.httpClient.put(this.url_users + user_id.toString() + "/", user_updated, httpOptions);
+  }
+
+  getUserArchetypeLists(user_id: number): Observable<any> {
+    httpOptions.headers = httpOptions.headers.set('Authorization', "token " + this.getToken());
+    return this.httpClient.get(this.url_arquetipos_usuario + user_id.toString() + "/", httpOptions);
   }
 
 }

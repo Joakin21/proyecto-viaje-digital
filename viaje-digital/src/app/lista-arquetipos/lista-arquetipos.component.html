@@ -64,7 +64,7 @@
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <a class="dropdown-item" (click)="verArquetipo(arq)" [routerLink]="">Ver</a>
                                                     <a class="dropdown-item" (click)="agregarAlHistorial(arq)" [routerLink]="">Agregar a sesión actual</a>
-                                                    <a class="dropdown-item" [routerLink]="">Agregar a mi lista</a>
+                                                    <a class="dropdown-item" data-toggle="modal" data-target="#modalListasPersonalizadas" [routerLink]="">Agregar a mi lista</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -87,7 +87,7 @@
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <a class="dropdown-item" (click)="verArquetipo(arq)" [routerLink]="">Ver</a>
                                                     <a class="dropdown-item" (click)="agregarAlHistorial(arq)" [routerLink]="">Agregar a sesión actual</a>
-                                                    <a class="dropdown-item" [routerLink]="">Agregar a mi lista</a>
+                                                    <a class="dropdown-item" data-toggle="modal" data-target="#modalListasPersonalizadas" [routerLink]="">Agregar a mi lista</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -109,7 +109,7 @@
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <a class="dropdown-item" (click)="verArquetipo(arq)" [routerLink]="">Ver</a>
                                                     <a class="dropdown-item" (click)="agregarAlHistorial(arq)" [routerLink]="">Agregar a sesión actual</a>
-                                                    <a class="dropdown-item" [routerLink]="">Agregar a mi lista</a>
+                                                    <a class="dropdown-item" data-toggle="modal" data-target="#modalListasPersonalizadas" [routerLink]="">Agregar a mi lista</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -131,7 +131,7 @@
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <a class="dropdown-item" (click)="verArquetipo(arq)" [routerLink]="">Ver</a>
                                                     <a class="dropdown-item" (click)="agregarAlHistorial(arq)" [routerLink]="">Agregar a sesión actual</a>
-                                                    <a class="dropdown-item" [routerLink]="">Agregar a mi lista</a>
+                                                    <a class="dropdown-item" data-toggle="modal" data-target="#modalListasPersonalizadas" [routerLink]="">Agregar a mi lista</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -154,7 +154,7 @@
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <a class="dropdown-item" (click)="verArquetipo(arq)" [routerLink]="">Ver</a>
                                                     <a class="dropdown-item" (click)="agregarAlHistorial(arq)" [routerLink]="">Agregar a sesión actual</a>
-                                                    <a class="dropdown-item" [routerLink]="">Agregar a mi lista</a>
+                                                    <a class="dropdown-item" data-toggle="modal" data-target="#modalListasPersonalizadas" [routerLink]="">Agregar a mi lista</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -176,7 +176,7 @@
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <a class="dropdown-item" (click)="verArquetipo(arq)" [routerLink]="">Ver</a>
                                                     <a class="dropdown-item" (click)="agregarAlHistorial(arq)" [routerLink]="">Agregar a sesión actual</a>
-                                                    <a class="dropdown-item" [routerLink]="">Agregar a mi lista</a>
+                                                    <a class="dropdown-item" data-toggle="modal" data-target="#modalListasPersonalizadas" [routerLink]="">Agregar a mi lista</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -198,7 +198,7 @@
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <a class="dropdown-item" (click)="verArquetipo(arq)" [routerLink]="">Ver</a>
                                                     <a class="dropdown-item" (click)="agregarAlHistorial(arq)" [routerLink]="">Agregar a sesión actual</a>
-                                                    <a class="dropdown-item" [routerLink]="">Agregar a mi lista</a>
+                                                    <a class="dropdown-item" data-toggle="modal" data-target="#modalListasPersonalizadas" [routerLink]="">Agregar a mi lista</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -220,7 +220,7 @@
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <a class="dropdown-item" (click)="verArquetipo(arq)" [routerLink]="">Ver</a>
                                                     <a class="dropdown-item" (click)="agregarAlHistorial(arq)" [routerLink]="">Agregar a sesión actual</a>
-                                                    <a class="dropdown-item" [routerLink]="">Agregar a mi lista</a>
+                                                    <a class="dropdown-item" data-toggle="modal" data-target="#modalListasPersonalizadas" [routerLink]="">Agregar a mi lista</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -233,11 +233,66 @@
                 </div>
             </div>
         </div>
-        <div id="menu2" class="container tab-pane fade"><br>
-            <p class="text-center">{{"lista-arquetipos.In construction" | translate}}</p>
+        <div id="menu2" class="container tab-pane fade">
+
+            <div class="border mb-2" *ngFor="let lista of user_listas_arquetipos; let i = index;">
+                <button class="btn btn-link text-decoration-none text-basic" type="button" data-toggle="collapse" [attr.data-target]="'#list' + i.toString()" aria-expanded="false" [attr.aria-controls]="'list' + i.toString()">
+                    {{lista['nombre_lista']}}
+                </button>
+                <div id="{{'list' + i.toString()}}" class="collapse p-2" data-parent="#menu2">
+                    <div class="list-group">
+                        <a [routerLink]="" *ngFor="let arq of lista['arquetipos']" class="list-group-item list-group-item-action my-list-group">
+                            <div class="row">
+                                <div class="col-10 font-weight-bold">
+                                    {{arq["nombre"]}}
+                                </div>
+                                <div class="col-2">
+                                    <div class="btn-group dropup">
+                                        <button type="button" class="btn btn-link dropdown-toggle text-decoration-none p-0 fa" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&#xf141;</button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" (click)="verArquetipo(arq)" [routerLink]="">Ver</a>
+                                            <a class="dropdown-item" (click)="agregarAlHistorial(arq)" [routerLink]="">Agregar a sesión actual</a>
+                                            <a class="dropdown-item" data-toggle="modal" data-target="#modalListasPersonalizadas" [routerLink]="">Agregar a mi lista</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <button type="button" class="btn btn-link text-decoration-none text-secondary fa"> <span class="mr-3">&#xf067; </span>  Create New List</button>
 
         </div>
 
     </div>
 
+</div>
+
+<!-- Modal para setear el nombre de una nueva sesion medica-->
+<div class="modal fade" id="modalListasPersonalizadas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5> Save in...</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="ListsForm" (ngSubmit)="agregarArquetipoToLista()">
+                    <label formArrayName="lists" *ngFor="let list of userListsFormArray.controls; let i = index">
+                        <input type="checkbox" [formControlName]="i">
+                        {{user_listas_arquetipos[i].nombre_lista}}
+                    </label>
+
+                    <button *ngIf="ListsForm.valid">submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary text-white text-basic border-input" data-dismiss="modal"><b>{{"ficha-paciente.Cancel" | translate}}</b></button>
+            </div>
+        </div>
+    </div>
 </div>

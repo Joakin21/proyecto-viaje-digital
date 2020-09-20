@@ -80,3 +80,12 @@
 .dropdown-toggle::after {
     display: none;
 }
+
+.text-basic {
+    font-family: Lato;
+    font-style: normal;
+    /*font-weight: bold;*/
+    font-size: 18px;
+    color: #59b0f3;
+    /*color: rgba(72,72,75,1);*/
+}

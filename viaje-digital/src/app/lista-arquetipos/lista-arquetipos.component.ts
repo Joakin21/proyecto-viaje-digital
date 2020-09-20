@@ -3,6 +3,8 @@ import { ConexionBackendService } from '../servicios/conexion-backend.service'
 import { SeleccionarArquetipoService } from '../servicios/seleccionar-arquetipo.service'
 import { FILTROS } from '../filtro-arquetipos'
 import { TranslateService } from '.../../node_modules/@ngx-translate/core'
+import { UserService } from '../servicios/user.service';
+import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
 
 declare var $: any;
 
@@ -16,7 +18,8 @@ export class ListaArquetiposComponent implements OnInit {
   @Output() mostrar_diagrama_arquetipos = new EventEmitter<boolean>();
   @Output() emitir_id_arquetipo = new EventEmitter<string>();
 
-  constructor(private conexBack: ConexionBackendService, private elegirArquetipo: SeleccionarArquetipoService, public translate: TranslateService) { }
+  constructor(private conexBack: ConexionBackendService, private elegirArquetipo: SeleccionarArquetipoService, public translate: TranslateService, private userService: UserService, private formBuilder: FormBuilder) { }
+  
   cluster: any[] = []
   composition: any[] = []
   action: any[] = []
@@ -36,15 +39,46 @@ export class ListaArquetiposComponent implements OnInit {
   buscarArquetipo = ''
   placeholder_buscador = '';
 
+  ListsForm: FormGroup
+  user_listas_arquetipos = []
+
+  get userListsFormArray() {
+    return this.ListsForm.controls.lists as FormArray;
+  }
+
   ngOnInit(): void {
     this.nombres_filtros = Object.keys(this.filtros)
     this.nombres_filtros.unshift("All")
 
     this.conexBack.getArquetipos().subscribe(resp => this.arquetiposFromDB(resp));
     this.en_historial_clinico = this.elegirArquetipo.getArquetipos_en_historial()
-    //console.log(this.en_historial_clinico)
-    console.log("Filtro:", this.elegirArquetipo.getNombre_filtro())
 
+    this.ListsForm = this.formBuilder.group({
+      lists: new FormArray([], minSelectedCheckboxes(1))
+    })
+
+    let current_user_id = parseInt(this.userService.getIdUser())
+    this.userService.getUserArchetypeLists(current_user_id).subscribe(
+      data => {
+        this.user_listas_arquetipos = data["listas_arquetipos"]
+        this.addCheckboxes()
+      },
+      error => {
+        console.log(error)
+      }
+    );
+
+  }
+
+  private addCheckboxes() {
+    this.user_listas_arquetipos.forEach(() => this.userListsFormArray.push(new FormControl(false)));
+  }
+
+  agregarArquetipoToLista(){
+    const selected_lists_name = this.ListsForm.value.lists
+      .map((checked, i) => checked ? this.user_listas_arquetipos[i].nombre_lista : null)
+      .filter(v => v !== null);
+    console.log(selected_lists_name);
   }
 
   arquetiposFromDB(arquetipos: any[]) {
@@ -76,7 +110,7 @@ export class ListaArquetiposComponent implements OnInit {
       }
 
     }
-
+    //console.log(arquetipos)
     this.arquetipos["cluster"] = this.cluster
     this.arquetipos["composition"] = this.composition
     this.arquetipos["action"] = this.action
@@ -92,12 +126,9 @@ export class ListaArquetiposComponent implements OnInit {
     element.value = filter_selected;
     this.seleccionarFiltro(filter_selected)
 
-
-
   }
 
   seleccionarArquetipo(arquetipo: any) {
-    //console.log(arquetipo)
     this.elegirArquetipo.asignar(arquetipo["id"])
     this.elegirArquetipo.setTipo_arquetipo(arquetipo["tipo_arquetipo"])
     this.mostrar_diagrama_arquetipos.emit(true)
@@ -133,7 +164,6 @@ export class ListaArquetiposComponent implements OnInit {
     if (this.translate.currentLang == "es")
       idioma_buscar = "Buscar en"
     this.translate.get("nombre-filtros." + nombre_filtro).subscribe(res => {
-      //console.log("traduccion:", res)
       var nombre_filtro_traducido = res
       this.placeholder_buscador = idioma_buscar + " " + nombre_filtro_traducido + " ..."
     })
@@ -210,19 +240,46 @@ export class ListaArquetiposComponent implements OnInit {
   }
 
   agregarAlHistorial(arquetipo: any) {
-
+    let arquetipo_id
+    if(arquetipo["id"]){
+      arquetipo_id = arquetipo["id"]
+    }
+    else{
+      arquetipo_id = arquetipo["_id"]
+    }
     //MEJORAR LOGICA DE COMO SE TRANSFIERE ESTA INFORMACIÓN ENTRE COMPONENTES
-    this.conexBack.getArquetipoById(arquetipo["id"]).subscribe(arquetipo => {
-      console.log(arquetipo)
+    this.conexBack.getArquetipoById(arquetipo_id).subscribe(arquetipo => {
       this.emitir_id_arquetipo.emit(arquetipo["_id"])
       this.elegirArquetipo.agregarAlHistorial(arquetipo)
     })
   }
   verArquetipo(arquetipo: any) {
     //alert("Comienza la fiesta") mostrar_diagrama:boolean = false
-    this.elegirArquetipo.asignar(arquetipo["id"])
+    if(arquetipo["id"]){
+      this.elegirArquetipo.asignar(arquetipo["id"])
+    }
+    else{
+      this.elegirArquetipo.asignar(arquetipo["_id"])
+    }
+    
     this.elegirArquetipo.setTipo_arquetipo(arquetipo["tipo_arquetipo"])
     this.mostrar_diagrama_arquetipos.emit(true)
   }
 
+
+}
+
+function minSelectedCheckboxes(min = 1) {
+  const validator: ValidatorFn = (formArray: FormArray) => {
+    const totalSelected = formArray.controls
+      // get a list of checkbox values (boolean)
+      .map(control => control.value)
+      // total up the number of checked checkboxes
+      .reduce((prev, next) => next ? prev + next : prev, 0);
+
+    // if the total is not greater than the minimum, return the error message
+    return totalSelected >= min ? null : { required: true };
+  };
+
+  return validator;
 }
