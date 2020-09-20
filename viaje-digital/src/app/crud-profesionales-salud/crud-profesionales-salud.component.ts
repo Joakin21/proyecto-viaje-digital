@@ -31,7 +31,7 @@ export class CrudProfesionalesSaludComponent implements OnInit {
     this.userService.getAllUsers().subscribe(
       data => {
         this.myUsers = data
-        console.log(this.myUsers)
+        //console.log(this.myUsers)
       },
       error => {
         console.log('error', error)
@@ -154,7 +154,7 @@ export class CrudProfesionalesSaludComponent implements OnInit {
 
     this.userService.updateUser(user_updated, user_id).subscribe(
       data => {
-        console.log(data)
+        //console.log(data)
         if (!data["detail"]) {//sin no hay un error inesperado
           this.myUsers[this.index_user_to_update] = data
         }
