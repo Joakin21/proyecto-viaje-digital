@@ -38,9 +38,11 @@ export class ListaArquetiposComponent implements OnInit {
 
   buscarArquetipo = ''
   placeholder_buscador = '';
+  current_user_id:number
 
   ListsForm: FormGroup
   user_listas_arquetipos = []
+  arquetipo_a_lista = {}
 
   get userListsFormArray() {
     return this.ListsForm.controls.lists as FormArray;
@@ -57,11 +59,12 @@ export class ListaArquetiposComponent implements OnInit {
       lists: new FormArray([], minSelectedCheckboxes(1))
     })
 
-    let current_user_id = parseInt(this.userService.getIdUser())
-    this.userService.getUserArchetypeLists(current_user_id).subscribe(
+    this.current_user_id = parseInt(this.userService.getIdUser())
+    this.userService.getUserArchetypeLists(this.current_user_id).subscribe(
       data => {
         this.user_listas_arquetipos = data["listas_arquetipos"]
         this.addCheckboxes()
+        console.log(this.user_listas_arquetipos)
       },
       error => {
         console.log(error)
@@ -75,10 +78,34 @@ export class ListaArquetiposComponent implements OnInit {
   }
 
   agregarArquetipoToLista(){
-    const selected_lists_name = this.ListsForm.value.lists
+    const selected_lists = this.ListsForm.value.lists
       .map((checked, i) => checked ? this.user_listas_arquetipos[i].nombre_lista : null)
       .filter(v => v !== null);
-    console.log(selected_lists_name);
+    
+    for(let selected_list of selected_lists){
+      for(let i=0; i<this.user_listas_arquetipos.length; i++){
+        if(selected_list == this.user_listas_arquetipos[i]['nombre_lista']){
+          this.user_listas_arquetipos[i].arquetipos.push(this.arquetipo_a_lista)
+        }
+      }
+    }
+    let listas_arquetipos_actualizada = {"listas_arquetipos":this.user_listas_arquetipos}
+    //actualizo la db 
+    this.userService.putUserArchetypeLists(listas_arquetipos_actualizada, this.current_user_id).subscribe(
+      data => {
+        if(!data['actualizada'])
+          console.log("Error, the list was not updated")
+        },
+        error => {
+          console.log(error)
+        }
+    )
+    $('#modalListasPersonalizadas').modal('toggle');
+  }
+
+  seleccionarParaAgregarToLista(arquetipo: any){
+    this.arquetipo_a_lista = arquetipo
+    $('#modalListasPersonalizadas').modal('show');
   }
 
   arquetiposFromDB(arquetipos: any[]) {

@@ -75,4 +75,9 @@ export class UserService {
     return this.httpClient.get(this.url_arquetipos_usuario + user_id.toString() + "/", httpOptions);
   }
 
+  putUserArchetypeLists(listas_arquetipos: any, user_id: number): Observable<any> {
+    httpOptions.headers = httpOptions.headers.set('Authorization', "token " + this.getToken());
+    return this.httpClient.put(this.url_arquetipos_usuario + user_id.toString() + "/", listas_arquetipos, httpOptions);
+  }
+
 }
