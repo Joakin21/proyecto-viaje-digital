@@ -4,7 +4,7 @@ import { SeleccionarArquetipoService } from '../servicios/seleccionar-arquetipo.
 import { FILTROS } from '../filtro-arquetipos'
 import { TranslateService } from '.../../node_modules/@ngx-translate/core'
 import { UserService } from '../servicios/user.service';
-import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn, Validators } from '@angular/forms';
 
 declare var $: any;
 
@@ -42,7 +42,13 @@ export class ListaArquetiposComponent implements OnInit {
 
   ListsForm: FormGroup
   user_listas_arquetipos = []
-  arquetipo_a_lista = {}
+  arquetipo_de_mylist = {}
+
+  createNewListForm: FormGroup
+  habilitar_new_list_form: boolean = false
+
+  editListForm: FormGroup
+  nombre_lista_a_cambiar: string
 
   get userListsFormArray() {
     return this.ListsForm.controls.lists as FormArray;
@@ -58,7 +64,13 @@ export class ListaArquetiposComponent implements OnInit {
     this.ListsForm = this.formBuilder.group({
       lists: new FormArray([], minSelectedCheckboxes(1))
     })
-
+    this.createNewListForm = this.formBuilder.group({
+      list_name: ['', Validators.required]
+    })
+    this.editListForm = this.formBuilder.group({
+      list_name: ['', Validators.required]
+    })
+    
     this.current_user_id = parseInt(this.userService.getIdUser())
     this.userService.getUserArchetypeLists(this.current_user_id).subscribe(
       data => {
@@ -85,12 +97,91 @@ export class ListaArquetiposComponent implements OnInit {
     for(let selected_list of selected_lists){
       for(let i=0; i<this.user_listas_arquetipos.length; i++){
         if(selected_list == this.user_listas_arquetipos[i]['nombre_lista']){
-          this.user_listas_arquetipos[i].arquetipos.push(this.arquetipo_a_lista)
+          this.user_listas_arquetipos[i].arquetipos.push(this.arquetipo_de_mylist)
         }
       }
     }
+    this.actualizarMisListasEnDB()
+    $('#modalListasPersonalizadas').modal('toggle');
+  }
+
+  seleccionarDesdeMiLista(arquetipo: any){
+    this.arquetipo_de_mylist = arquetipo
+    $('#modalListasPersonalizadas').modal('show');
+  }
+  quitarDeMilista(nombre_lista:string, arquetipo: any){
+
+    let arquetipo_id = arquetipo["_id"] ?? arquetipo["id"]  
+
+    for(let i=0; i<this.user_listas_arquetipos.length; i++){
+      if(nombre_lista == this.user_listas_arquetipos[i]['nombre_lista']){
+        for(let j=0; j<this.user_listas_arquetipos[i]['arquetipos'].length; j++){
+          let arquetipo_buscado_id = this.user_listas_arquetipos[i]['arquetipos'][j]['_id'] ?? this.user_listas_arquetipos[i]['arquetipos'][j]['id']
+          if(arquetipo_id == arquetipo_buscado_id){
+            this.user_listas_arquetipos[i]['arquetipos'].splice(j, 1)
+            this.actualizarMisListasEnDB()
+            return
+          }
+          
+        }
+      }
+    }
+
+  }
+  habilitarNewListForm(){
+    this.habilitar_new_list_form = true
+  }
+  crearNuevaLista(){
+    //console.log(this.createNewListForm.value)
+    
+    let lista = { nombre_lista:this.createNewListForm.value.list_name, arquetipos:[] }
+    this.user_listas_arquetipos.push(lista)
+
+    this.ListsForm = this.formBuilder.group({
+      lists: new FormArray([], minSelectedCheckboxes(1))
+    })
+    this.addCheckboxes()
+
+    this.habilitar_new_list_form = false
+  }
+  seleccionarListaToEditar(lista:string){
+    this.nombre_lista_a_cambiar = lista
+    this.editListForm.controls["list_name"].setValue(lista)
+    $('#modalEditListName').modal('show');
+  }
+  editarNombreLista(){
+    let nombre_lista_actualizado = this.editListForm.value.list_name
+ 
+    for(let i=0; i<this.user_listas_arquetipos.length; i++){
+      if(this.nombre_lista_a_cambiar == this.user_listas_arquetipos[i]['nombre_lista']){
+        this.user_listas_arquetipos[i]['nombre_lista'] = nombre_lista_actualizado
+        $('#modalEditListName').modal('toggle');
+        this.actualizarMisListasEnDB()
+        return
+      }
+    }
+    
+  }
+  eliminarLista(lista:string){
+    var acpetar = confirm("Are you sure you want to delete this custom list?");
+    if(acpetar){
+      for(let i=0; i<this.user_listas_arquetipos.length; i++){
+        if(lista == this.user_listas_arquetipos[i]['nombre_lista']){
+          this.user_listas_arquetipos.splice(i, 1)
+          this.ListsForm = this.formBuilder.group({
+            lists: new FormArray([], minSelectedCheckboxes(1))
+          })
+          this.addCheckboxes()
+          this.actualizarMisListasEnDB()
+          return
+        }
+      }
+    }
+    
+  }
+
+  actualizarMisListasEnDB(){
     let listas_arquetipos_actualizada = {"listas_arquetipos":this.user_listas_arquetipos}
-    //actualizo la db 
     this.userService.putUserArchetypeLists(listas_arquetipos_actualizada, this.current_user_id).subscribe(
       data => {
         if(!data['actualizada'])
@@ -100,12 +191,6 @@ export class ListaArquetiposComponent implements OnInit {
           console.log(error)
         }
     )
-    $('#modalListasPersonalizadas').modal('toggle');
-  }
-
-  seleccionarParaAgregarToLista(arquetipo: any){
-    this.arquetipo_a_lista = arquetipo
-    $('#modalListasPersonalizadas').modal('show');
   }
 
   arquetiposFromDB(arquetipos: any[]) {
