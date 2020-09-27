@@ -34,6 +34,11 @@
     /*color: rgba(72,72,75,1);*/
 }
 
+h5 {
+    font-family: Lato;
+    font-style: normal;
+}
+
 .text-basic-blod {
     font-weight: bold;
 }
