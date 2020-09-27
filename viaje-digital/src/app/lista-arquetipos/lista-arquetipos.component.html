@@ -238,7 +238,7 @@
             <div class="border mb-2" *ngFor="let lista of user_listas_arquetipos; let i = index;">
                 <div class="row">
                     <div class="col-9">
-                        <button class="btn btn-link text-decoration-none text-basic" type="button" data-toggle="collapse" [attr.data-target]="'#list' + i.toString()" aria-expanded="false" [attr.aria-controls]="'list' + i.toString()">
+                        <button class="btn btn-link text-decoration-none custom-list-title" type="button" data-toggle="collapse" [attr.data-target]="'#list' + i.toString()" aria-expanded="false" [attr.aria-controls]="'list' + i.toString()">
                             {{lista['nombre_lista']}}
                         </button>
                     </div>
@@ -293,7 +293,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body text-basic">
                 <form class="mb-2" [formGroup]="ListsForm" (ngSubmit)="agregarArquetipoToLista()">
                     <label class="mr-3" formArrayName="lists" *ngFor="let list of userListsFormArray.controls; let i = index">
                         

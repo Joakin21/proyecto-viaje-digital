@@ -2,7 +2,7 @@
 <div class="row">
 
     <div class="col-md-6 search-and-attended-container">
-        <div class="center-container">
+        <div class="center-container w-75">
             <form #paciente="ngForm" (ngSubmit)="buscarPaciente(paciente)">
                 <div class="form-group">
                     <label id="rut-label" class="ml-3" for="formRut">{{"inicio.Search Patient" | translate}}</label>
@@ -21,38 +21,39 @@
         </div>
     </div>
     <div class="col-md-6">
-        <p *ngIf="mostrar_paciente_encontrado" class="text-center mt-5 attended-and-found-text">
-            {{"inicio.Patient found" | translate}}</p>
-        <p *ngIf="!mostrar_paciente_encontrado" class="text-center mt-5 attended-and-found-text">
-            {{"inicio.Recently attended" | translate}}</p>
-        <p *ngIf="pacientes_atendidos.length == 0 && !mostrar_paciente_encontrado" class="text-info text-center lightblue-text">{{"inicio.No patient attended" | translate}}</p>
-        <div *ngIf="pacientes_atendidos.length > 0 || mostrar_paciente_encontrado" class="bg-white pl-4 pr-4 pb-4 container-mytable w-75">
-            <table id="attended-table" class="table table-hover table-borderless">
-                <thead class="bg-white">
+
+        <div class="bg-darkgray p-4 container-mytable center-container w-75">
+            <p *ngIf="mostrar_paciente_encontrado" class="text-center attended-and-found-text">{{"inicio.Patient found" | translate}}</p>
+            <p *ngIf="!mostrar_paciente_encontrado" class="text-center attended-and-found-text">{{"inicio.Recently attended" | translate}}</p>
+
+            <table *ngIf="pacientes_atendidos.length > 0 || mostrar_paciente_encontrado" id="attended-table" class="table table-borderless">
+                <thead class="bg-darkgray">
                     <tr>
                         <th scope="col">{{"inicio.Name" | translate}}</th>
                         <th scope="col">{{"inicio.Rut" | translate}}</th>
                     </tr>
                 </thead>
                 <tbody *ngIf="mostrar_paciente_encontrado">
-                    <tr class="border-radius" (click)="goToHistory()">
-                        <td>{{nombre}} {{apellidos}}</td>
-                        <td>{{rut}}</td>
+                    <tr (click)="goToHistory()">
+                        <td class="td-left-radius">{{nombre}} {{apellidos}}</td>
+                        <td class="td-right-radius">{{rut}}</td>
                     </tr>
                 </tbody>
                 <tbody *ngIf="!mostrar_paciente_encontrado">
-                    <tr *ngFor="let paciente of pacientes_atendidos" (click)="seleccionarDesdeLista(paciente)" class="border-radius">
-                        <td>{{paciente["nombre"]}} {{paciente["apellidos"]}}</td>
-                        <td>{{paciente["rut"]}}</td>
+                    <tr *ngFor="let paciente of pacientes_atendidos" (click)="seleccionarDesdeLista(paciente)">
+                        <td class="td-left-radius">{{paciente["nombre"]}} {{paciente["apellidos"]}}</td>
+                        <td class="td-right-radius">{{paciente["rut"]}}</td>
                     </tr>
                 </tbody>
 
             </table>
+            <div *ngIf="mostrar_paciente_encontrado" class="text-center mt-2">
+                <button (click)="ShowRecentlyAttended()" class="btn btn-default lightblue-button">{{"inicio.Show recently attended" | translate}}</button>
+            </div>
+            <p *ngIf="pacientes_atendidos.length == 0 && !mostrar_paciente_encontrado" class="text-info text-center lightblue-text">{{"inicio.No patient attended" | translate}}</p>
 
         </div>
-        <div *ngIf="mostrar_paciente_encontrado" class="text-center mt-3">
-            <button (click)="ShowRecentlyAttended()" class="btn btn-default lightblue-button">{{"inicio.Show recently attended" | translate}}</button>
-        </div>
+
 
     </div>
 </div>

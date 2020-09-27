@@ -49,15 +49,33 @@ td {
     cursor: pointer;
 }
 
-tbody {
+
+/*tbody {
     background-color: #f6f9fc;
     ;
+}*/
+
+.table {
+    border-collapse: separate;
+    border-spacing: 0 10px;
 }
 
 .container-mytable {
-    border-radius: 25px;
+    border-radius: 15px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.td-left-radius {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background-color: #f6f9fc;
+}
+
+.td-right-radius {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #f6f9fc;
 }
 
 .horizontal-center {
@@ -94,4 +112,8 @@ tbody {
     font-style: normal;
     font-size: 18px;
     color: #F32013;
+}
+
+.bg-darkgray {
+    background-color: #e8edf2;
 }
