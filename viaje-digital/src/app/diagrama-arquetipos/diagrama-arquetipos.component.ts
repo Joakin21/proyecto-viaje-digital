@@ -134,6 +134,7 @@ export class DiagramaArquetiposComponent implements OnInit {
     this.arquetipo = arquetipo
     this.configurarJsMind()
 
+    this._jm.disable_edit()
   }
 
 
