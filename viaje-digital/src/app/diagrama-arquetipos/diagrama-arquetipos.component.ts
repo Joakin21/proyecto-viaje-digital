@@ -46,13 +46,18 @@ export class DiagramaArquetiposComponent implements OnInit {
         } else {
           direction = "left"
         }
-        var color
-        if (obj[k]["tipo"] == "estructural")
-          color = "#A4A4A4"//gis normal
-        else
-          color = "#D8D8D8"//gis claro
+        var color_fondo
+        var text_color
+        if (obj[k]["tipo"] == "estructural"){
+          color_fondo = "#acc2d2"//gis normal
+          text_color = "#FFFFFF"
+        }
+        else {
+          color_fondo = "#E8E8E8"//gis claro
+          text_color = "#000000"
+        }
         obj[k]["id_nodo"] = "nodo" + this.id_nodo
-        this.myData.push({ "id": obj[k]["id_nodo"], "parentid": obj["id_nodo"], "direction": direction, "topic": obj[k]["text"], "background-color": color, "foreground-color": "black" })
+        this.myData.push({ "id": obj[k]["id_nodo"], "parentid": obj["id_nodo"], "direction": direction, "topic": obj[k]["text"], "background-color": color_fondo, "foreground-color": text_color })
         this.id_nodo = this.id_nodo + 1
         this.crearData(obj[k]);
       }
@@ -128,7 +133,7 @@ export class DiagramaArquetiposComponent implements OnInit {
     this.myData = []
 
     arquetipo["id_nodo"] = "nodo1"
-    this.myData.push({ "id": arquetipo["id_nodo"], "isroot": true, "topic": arquetipo["text"] })
+    this.myData.push({ "id": arquetipo["id_nodo"], "isroot": true, "background-color": "#4080ff", "topic": arquetipo["text"] })
     this.crearData(arquetipo)
     console.log(arquetipo)
     this.arquetipo = arquetipo
