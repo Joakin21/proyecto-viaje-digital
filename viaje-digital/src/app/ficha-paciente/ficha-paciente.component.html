@@ -205,11 +205,12 @@
                     <div class="alert alert-danger mt-3 mb-2" id="error_agregar_arquetipo" style="display:none;" role="alert">
                         {{"ficha-paciente."+mensaje_error2 | translate}}
                     </div>
-                    <div class="form">
+                    <div class="form mb-2">
                         <dynamic-form [fields]="regConfig" (submit)="submit($event)">
                         </dynamic-form>
 
                     </div>
+                    <button type="button" (click)="resetDatosCurrentSesionMedica()" class="btn btn-secondary border-input font-weight-bold ml-2">Cancel</button>
                 </div>
 
             </div>
