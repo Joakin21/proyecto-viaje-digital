@@ -77,6 +77,7 @@ export class FichaPacienteComponent implements OnInit {
       this.current_medical_sesion["nombre_profesional"] = this.user.user.first_name + " " + this.user.user.last_name
       this.current_medical_sesion["profesion"] = this.user.profesion
       this.current_medical_sesion["centro_salud"] = this.user.centro_salud
+      this.current_medical_sesion["user_id"] = this.user.user.id
       this.habilitar_creacion_nueva_sesion = false
       //dibujamos nuevamente el patient journey
       this.mensaje_error_create_sesion = false
@@ -106,6 +107,7 @@ export class FichaPacienteComponent implements OnInit {
       data => {
         this.usuario_logeado = data.user.first_name + " " + data.user.last_name//data.user.username
         this.user = data
+        console.log(this.user)
       },
       error => {
         console.log('error', error)
@@ -127,6 +129,7 @@ export class FichaPacienteComponent implements OnInit {
           this.patientService.getPatient(rut).subscribe(
             data => {
               this.patient_journey = data
+              console.log(this.patient_journey)
               this.showPatientJourney()
             },
             error => {
