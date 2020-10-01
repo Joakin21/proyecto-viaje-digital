@@ -66,16 +66,18 @@ td {
     margin-right: auto;
 }
 
+.bg-td {
+    background-color: #f6f9fc;
+}
+
 .td-left-radius {
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
-    background-color: #f6f9fc;
 }
 
 .td-right-radius {
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
-    background-color: #f6f9fc;
 }
 
 .horizontal-center {
@@ -97,6 +99,11 @@ td {
     font-weight: bold;
     font-size: 14px;
     color: rgba(72, 72, 75, 1);
+}
+
+.table-text-light {
+    font-weight: normal;
+    color: rgba(154, 154, 154, 1);
 }
 
 .lightblue-text {

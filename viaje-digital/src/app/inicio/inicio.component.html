@@ -31,18 +31,20 @@
                     <tr>
                         <th scope="col">{{"inicio.Name" | translate}}</th>
                         <th scope="col">{{"inicio.Rut" | translate}}</th>
+                        <th *ngIf="!mostrar_paciente_encontrado" scope="col">{{"inicio.Date" | translate}}</th>
                     </tr>
                 </thead>
                 <tbody *ngIf="mostrar_paciente_encontrado">
                     <tr (click)="goToHistory()">
-                        <td class="td-left-radius">{{nombre}} {{apellidos}}</td>
-                        <td class="td-right-radius">{{rut}}</td>
+                        <td class="td-left-radius bg-td">{{nombre}} {{apellidos}}</td>
+                        <td class="td-right-radius bg-td table-text-light">{{rut}}</td>
                     </tr>
                 </tbody>
                 <tbody *ngIf="!mostrar_paciente_encontrado">
                     <tr *ngFor="let paciente of pacientes_atendidos" (click)="seleccionarDesdeLista(paciente)">
-                        <td class="td-left-radius">{{paciente["nombre"]}} {{paciente["apellidos"]}}</td>
-                        <td class="td-right-radius">{{paciente["rut"]}}</td>
+                        <td class="td-left-radius bg-td">{{paciente["nombre"]}} {{paciente["apellidos"]}}</td>
+                        <td class="bg-td table-text-light">{{paciente["rut"]}}</td>
+                        <td class="td-right-radius bg-td table-text-light">{{paciente["fecha"]}}</td>
                     </tr>
                 </tbody>
 

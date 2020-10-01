@@ -390,15 +390,14 @@ export class FichaPacienteComponent implements OnInit {
       this.patient_journey["sesiones_medica"].push(this.current_medical_sesion)
       //agrego el profesional que atendio solo si nunca habia atendido al paciente
       var atendio_al_paciente_antes = false
-      for (let id_profesional of this.patient_journey["profesionales_que_atendieron"]) {
-        if (this.user.user.id == id_profesional) {
+      for (let profesional of this.patient_journey["profesionales_que_atendieron"]) {
+        if (this.user.user.id == profesional["user_id"]) {
           atendio_al_paciente_antes = true
         }
       }
       if (!atendio_al_paciente_antes) {
-        this.patient_journey["profesionales_que_atendieron"].push(this.user.user.id)
+        this.patient_journey["profesionales_que_atendieron"].push({"user_id": this.user.user.id, "fecha": this.current_medical_sesion["fecha"]})
       }
-
       this.resetDatosCurrentSesionMedica()
       if (this.patient_journey["_id"]) {//Si hay que actualizar uno ya existente
         this.patientService.putPatient(this.patient_journey["rut"], this.patient_journey).subscribe(
