@@ -26,7 +26,7 @@
             <p *ngIf="mostrar_paciente_encontrado" class="text-center attended-and-found-text">{{"inicio.Patient found" | translate}}</p>
             <p *ngIf="!mostrar_paciente_encontrado" class="text-center attended-and-found-text">{{"inicio.Recently attended" | translate}}</p>
 
-            <table *ngIf="pacientes_atendidos.length > 0 || mostrar_paciente_encontrado" id="attended-table" class="table table-borderless">
+            <table *ngIf="pacientes_atendidos.length > 0 || mostrar_paciente_encontrado" class="table table-borderless attended-table">
                 <thead class="bg-darkgray">
                     <tr>
                         <th scope="col">{{"inicio.Name" | translate}}</th>
@@ -36,20 +36,31 @@
                 </thead>
                 <tbody *ngIf="mostrar_paciente_encontrado">
                     <tr (click)="goToHistory()">
-                        <td class="td-left-radius bg-td">{{nombre}} {{apellidos}}</td>
+                        <td class="td-left-radius bg-td">
+                            <span *ngIf="es_atendido_ahora" class="my-arrow-right fa mr-2">&#xf061;</span>
+                            <span *ngIf="!es_atendido_ahora" class="in-observation fa mr-2">&#xf06e;</span> {{nombre}} {{apellidos}}
+                        </td>
                         <td class="td-right-radius bg-td table-text-light">{{rut}}</td>
                     </tr>
                 </tbody>
                 <tbody *ngIf="!mostrar_paciente_encontrado">
-                    <tr *ngFor="let paciente of pacientes_atendidos" (click)="seleccionarDesdeLista(paciente)">
-                        <td class="td-left-radius bg-td">{{paciente["nombre"]}} {{paciente["apellidos"]}}</td>
+                    <tr *ngFor="let paciente of pacientes_atendidos" (click)="goToHistory(paciente)">
+                        <td class="td-left-radius bg-td">
+                            <span *ngIf="paciente['es_atendido_ahora']" class="my-arrow-right fa mr-2">&#xf061;</span>
+                            <span *ngIf="!paciente['es_atendido_ahora']" class="in-observation fa mr-2">&#xf06e;</span> {{paciente["nombre"]}} {{paciente["apellidos"]}}
+                        </td>
                         <td class="bg-td table-text-light">{{paciente["rut"]}}</td>
                         <td class="td-right-radius bg-td table-text-light">{{paciente["fecha"]}}</td>
                     </tr>
                 </tbody>
 
             </table>
-            <div *ngIf="mostrar_paciente_encontrado" class="text-center mt-2">
+            <div *ngIf="pacientes_atendidos.length > 0 || mostrar_paciente_encontrado" class="text-center attended-table mt-2">
+                <span class="my-arrow-right fa mr-2">&#xf061;</span><span class="mr-3">Editable</span>
+                <span class="in-observation fa mr-2">&#xf06e;</span><span>In edit</span>
+            </div>
+
+            <div *ngIf="mostrar_paciente_encontrado" class="text-center mt-3">
                 <button (click)="ShowRecentlyAttended()" class="btn btn-default lightblue-button">{{"inicio.Show recently attended" | translate}}</button>
             </div>
             <p *ngIf="pacientes_atendidos.length == 0 && !mostrar_paciente_encontrado" class="text-info text-center lightblue-text">{{"inicio.No patient attended" | translate}}</p>

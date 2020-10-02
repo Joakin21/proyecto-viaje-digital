@@ -93,7 +93,7 @@ td {
     color: rgba(72, 72, 75, 1);
 }
 
-#attended-table {
+.attended-table {
     font-family: Lato;
     font-style: normal;
     font-weight: bold;
@@ -123,4 +123,14 @@ td {
 
 .bg-darkgray {
     background-color: #e8edf2;
+}
+
+.my-arrow-right {
+    font-size: 18px;
+    color: rgba(122, 210, 116, 1);
+}
+
+.in-observation {
+    font-size: 18px;
+    color: #ff6e6e;
 }

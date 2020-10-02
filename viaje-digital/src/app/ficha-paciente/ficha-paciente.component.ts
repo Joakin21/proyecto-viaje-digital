@@ -54,6 +54,7 @@ export class FichaPacienteComponent implements OnInit {
     if (all_datos_ingresados) {
       this.mostrar_error = false
       this.patient_journey = datos_base.value
+      this.patient_journey["es_atendido_ahora"] = true 
       this.patient_journey["profesionales_que_atendieron"] = []
       this.patient_journey["sesiones_medica"] = []
       this.showPatientJourney()

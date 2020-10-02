@@ -54,6 +54,7 @@ export class CrudPacientesComponent implements OnInit {
   show_error_create_patient: boolean = false
   createPatient() {
     var new_patient = this.createPatientForm.value
+    new_patient["es_atendido_ahora"] = false 
     new_patient["profesionales_que_atendieron"] = []
     new_patient["sesiones_medica"] = []
 
@@ -68,6 +69,7 @@ export class CrudPacientesComponent implements OnInit {
           this.show_error_create_patient = false
           //adapto respuesta (id de paciente creado)
           new_patient["_id"] = new_patient_resp["_id"]
+          delete new_patient["es_atendido_ahora"]
           delete new_patient["profesionales_que_atendieron"]
           delete new_patient["sesiones_medica"]
           this.my_patients.push(new_patient)

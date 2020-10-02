@@ -67,6 +67,7 @@ export class InicioComponent implements OnInit {
   rut: string
   nombre: string
   apellidos: string
+  es_atendido_ahora: boolean
 
   buscarPaciente(paciente: NgForm) {
     var rut = paciente.value.rut
@@ -77,6 +78,7 @@ export class InicioComponent implements OnInit {
           this.rut = data["rut"]
           this.nombre = data["nombre"]
           this.apellidos = data["apellidos"]
+          this.es_atendido_ahora = data["es_atendido_ahora"]
           this.mostrar_paciente_encontrado = true
           this.mostrar_error = false
         } else {
@@ -94,14 +96,12 @@ export class InicioComponent implements OnInit {
     );
   }
 
-  goToHistory() {
-    this.seleccionarPacienteService.asignar(this.rut)
-    this.router.navigateByUrl('/ficha-paciente')
-  }
-
-  seleccionarDesdeLista(paciente: any) {
-    this.rut = paciente["rut"]
-    this.goToHistory()
+  goToHistory(paciente: any = {}){
+    if(paciente["es_atendido_ahora"] || this.es_atendido_ahora){
+      let rut = paciente["rut"] ?? this.rut
+      this.seleccionarPacienteService.asignar(rut)
+      this.router.navigateByUrl('/ficha-paciente')
+    }
   }
 
   createNewPatient() {
