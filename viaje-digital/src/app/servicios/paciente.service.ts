@@ -18,6 +18,8 @@ export class PacienteService {
 
   url_pacientes = 'http://127.0.0.1:8000/pacientes/'
   url_pacientes_atendidos = 'http://127.0.0.1:8000/pacientes_atendidos/'
+  url_es_atendido = 'http://127.0.0.1:8000/setEsAtendidoAhora/'
+
   constructor(private httpClient: HttpClient, private cookies: CookieService) { }
 
   getPatient(rut: string): Observable<any> {
@@ -31,6 +33,10 @@ export class PacienteService {
   putPatient(rut: string, patient_journey: any): Observable<any> {
     httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
     return this.httpClient.put(this.url_pacientes + rut + "/", patient_journey, httpOptions)
+  }
+  setEsAtendidoAhora(rut: string, es_atendido_ahora: any): Observable<any> {
+    httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
+    return this.httpClient.put(this.url_es_atendido + rut + "/", es_atendido_ahora, httpOptions)
   }
   postPatient(patient_journey: any): Observable<any> {
     httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
