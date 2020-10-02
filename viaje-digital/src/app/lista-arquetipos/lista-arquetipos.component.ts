@@ -76,7 +76,7 @@ export class ListaArquetiposComponent implements OnInit {
       data => {
         this.user_listas_arquetipos = data["listas_arquetipos"]
         this.addCheckboxes()
-        console.log(this.user_listas_arquetipos)
+        //console.log(this.user_listas_arquetipos)
       },
       error => {
         console.log(error)

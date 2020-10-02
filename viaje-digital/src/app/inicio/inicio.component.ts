@@ -42,13 +42,13 @@ export class InicioComponent implements OnInit {
           this.router.navigateByUrl('')
         }
 
-        console.log(data)
+        //console.log(data)
         var id_profesional = data.user.id
         this.patientService.getAttendedPatients(id_profesional).subscribe(
           data => {
 
             this.pacientes_atendidos = data["pacientes_atendidos"]
-            console.log(this.pacientes_atendidos)
+            //console.log(this.pacientes_atendidos)
           },
           error => {
             console.log('error', error)
@@ -95,11 +95,22 @@ export class InicioComponent implements OnInit {
       }
     );
   }
+  setEsAtendidoAhora(rut:string, valor: boolean){
+    this.patientService.setEsAtendidoAhora(rut, {es_atendido_ahora:valor}).subscribe(
+      data => {
+      },
+      error => {
+        console.log('error', error)
+      }
+    );
+  }
+
 
   goToHistory(paciente: any = {}){
-    if(paciente["es_atendido_ahora"] || this.es_atendido_ahora){
+    if(paciente["es_atendido_ahora"] == false || this.es_atendido_ahora == false){
       let rut = paciente["rut"] ?? this.rut
       this.seleccionarPacienteService.asignar(rut)
+      this.setEsAtendidoAhora(rut, true)
       this.router.navigateByUrl('/ficha-paciente')
     }
   }

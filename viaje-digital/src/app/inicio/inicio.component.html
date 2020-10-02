@@ -37,8 +37,8 @@
                 <tbody *ngIf="mostrar_paciente_encontrado">
                     <tr (click)="goToHistory()">
                         <td class="td-left-radius bg-td">
-                            <span *ngIf="es_atendido_ahora" class="my-arrow-right fa mr-2">&#xf061;</span>
-                            <span *ngIf="!es_atendido_ahora" class="in-observation fa mr-2">&#xf06e;</span> {{nombre}} {{apellidos}}
+                            <span *ngIf="es_atendido_ahora" class="in-observation fa mr-2">&#xf06e;</span>
+                            <span *ngIf="!es_atendido_ahora" class="my-arrow-right fa mr-2">&#xf061;</span> {{nombre}} {{apellidos}}
                         </td>
                         <td class="td-right-radius bg-td table-text-light">{{rut}}</td>
                     </tr>
@@ -46,8 +46,8 @@
                 <tbody *ngIf="!mostrar_paciente_encontrado">
                     <tr *ngFor="let paciente of pacientes_atendidos" (click)="goToHistory(paciente)">
                         <td class="td-left-radius bg-td">
-                            <span *ngIf="paciente['es_atendido_ahora']" class="my-arrow-right fa mr-2">&#xf061;</span>
-                            <span *ngIf="!paciente['es_atendido_ahora']" class="in-observation fa mr-2">&#xf06e;</span> {{paciente["nombre"]}} {{paciente["apellidos"]}}
+                            <span *ngIf="paciente['es_atendido_ahora']" class="in-observation fa mr-2">&#xf06e;</span>
+                            <span *ngIf="!paciente['es_atendido_ahora']" class="my-arrow-right fa mr-2">&#xf061;</span> {{paciente["nombre"]}} {{paciente["apellidos"]}}
                         </td>
                         <td class="bg-td table-text-light">{{paciente["rut"]}}</td>
                         <td class="td-right-radius bg-td table-text-light">{{paciente["fecha"]}}</td>
