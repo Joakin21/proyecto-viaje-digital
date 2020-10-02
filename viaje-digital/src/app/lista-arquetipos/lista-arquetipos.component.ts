@@ -352,18 +352,19 @@ export class ListaArquetiposComponent implements OnInit {
   }
 
   agregarAlHistorial(arquetipo: any) {
-    let arquetipo_id
-    if(arquetipo["id"]){
-      arquetipo_id = arquetipo["id"]
-    }
-    else{
-      arquetipo_id = arquetipo["_id"]
-    }
+    let arquetipo_id = arquetipo["id"] ?? arquetipo["_id"]
+
     //MEJORAR LOGICA DE COMO SE TRANSFIERE ESTA INFORMACIÓN ENTRE COMPONENTES
     this.conexBack.getArquetipoById(arquetipo_id).subscribe(arquetipo => {
       this.emitir_id_arquetipo.emit(arquetipo["_id"])
       this.elegirArquetipo.agregarAlHistorial(arquetipo)
     })
+  }
+  agregarTemplateAlHistorial(arquetipos){
+    for(let arquetipo of arquetipos){
+      this.agregarAlHistorial(arquetipo)
+    }
+    
   }
   verArquetipo(arquetipo: any) {
     //alert("Comienza la fiesta") mostrar_diagrama:boolean = false
