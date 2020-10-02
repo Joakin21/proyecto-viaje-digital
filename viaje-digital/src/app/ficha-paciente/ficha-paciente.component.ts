@@ -108,7 +108,7 @@ export class FichaPacienteComponent implements OnInit {
       data => {
         this.usuario_logeado = data.user.first_name + " " + data.user.last_name//data.user.username
         this.user = data
-        console.log(this.user)
+        //console.log(this.user)
       },
       error => {
         console.log('error', error)
@@ -130,7 +130,7 @@ export class FichaPacienteComponent implements OnInit {
           this.patientService.getPatient(rut).subscribe(
             data => {
               this.patient_journey = data
-              console.log(this.patient_journey)
+              //console.log(this.patient_journey)
               this.showPatientJourney()
             },
             error => {
@@ -403,7 +403,7 @@ export class FichaPacienteComponent implements OnInit {
       if (this.patient_journey["_id"]) {//Si hay que actualizar uno ya existente
         this.patientService.putPatient(this.patient_journey["rut"], this.patient_journey).subscribe(
           data => {
-            console.log(data)
+            //console.log(data)
           },
           error => {
             console.log('error', error)
