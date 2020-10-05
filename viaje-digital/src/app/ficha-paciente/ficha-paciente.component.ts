@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ViewChild } from '@angular/core';
 
 import { ConexionBackendService } from '../servicios/conexion-backend.service'
 import { NgForm, FormGroup } from '@angular/forms';
@@ -141,6 +141,28 @@ export class FichaPacienteComponent implements OnInit {
         }
 
       })
+  }
+  setEsAtendidoAhora(valor: boolean){
+    let rut = this.patient_journey["rut"]
+    if(rut){
+      this.patientService.setEsAtendidoAhora(rut, {es_atendido_ahora:valor}).subscribe(
+        data => {
+        },
+        error => {
+          console.log('error', error)
+        }
+      );
+    }
+  }
+
+  ngOnDestroy() {
+    this.setEsAtendidoAhora(false)
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  public beforeunloadHandler($event) {
+    this.setEsAtendidoAhora(false)
+    //$event.returnValue = "Are you sure?";
   }
 
   agregarCampo(datos_campo: any) {
