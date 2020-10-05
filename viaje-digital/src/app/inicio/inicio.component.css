@@ -60,6 +60,11 @@ td {
     border-spacing: 0 10px;
 }
 
+.container-search-menu {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .container-mytable {
     border-radius: 15px;
     margin-left: auto;

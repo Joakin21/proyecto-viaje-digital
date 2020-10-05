@@ -1,8 +1,8 @@
 <app-header [userName]="usuario_logeado"></app-header>
 <div class="row">
 
-    <div class="col-md-6 search-and-attended-container">
-        <div class="center-container w-75">
+    <div class="col-md-6">
+        <div class="mt-5 container-search-menu w-75">
             <form #paciente="ngForm" (ngSubmit)="buscarPaciente(paciente)">
                 <div class="form-group">
                     <label id="rut-label" class="ml-3" for="formRut">{{"inicio.Search Patient" | translate}}</label>
@@ -22,7 +22,7 @@
     </div>
     <div class="col-md-6">
 
-        <div class="bg-darkgray p-4 container-mytable center-container w-75">
+        <div class="bg-darkgray p-4 mt-5 mb-3 container-mytable w-75">
             <p *ngIf="mostrar_paciente_encontrado" class="text-center attended-and-found-text">{{"inicio.Patient found" | translate}}</p>
             <p *ngIf="!mostrar_paciente_encontrado" class="text-center attended-and-found-text">{{"inicio.Recently attended" | translate}}</p>
 
