@@ -10,6 +10,7 @@ import { UserService } from '../servicios/user.service';
 import { PacienteService } from '../servicios/paciente.service'
 import { SeleccionarPacienteService } from '../servicios/seleccionar-paciente.service'
 import { PdfService } from '../servicios/pdf.service'
+import { months } from 'moment';
 
 declare var $: any;
 
@@ -89,12 +90,27 @@ export class FichaPacienteComponent implements OnInit {
 
   }
   obtenerFechaActual(): string {
+    let month = {
+      "01":"Jan",
+      "02":"Feb",
+      "03":"Mar",
+      "04":"Apr",
+      "05":"May",
+      "06":"Jun",
+      "07":"Jul",
+      "08":"Aug",
+      "09":"Sep",
+      "10":"Oct",
+      "11":"Nov",
+      "12":"Dec",
+    }
+
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
+    var yyyy = today.getFullYear().toString();
 
-    var my_current_date = mm + '/' + dd + '/' + yyyy;
+    var my_current_date = dd + '-' + month[mm] + '-' + yyyy.slice(yyyy.length - 2, yyyy.length);//length
     return my_current_date
   }
   usuario_logeado: string = ""//para pasar al header
@@ -416,6 +432,7 @@ export class FichaPacienteComponent implements OnInit {
       for (let profesional of this.patient_journey["profesionales_que_atendieron"]) {
         if (this.user.user.id == profesional["user_id"]) {
           atendio_al_paciente_antes = true
+          profesional["fecha"] = this.current_medical_sesion["fecha"]
         }
       }
       if (!atendio_al_paciente_antes) {
