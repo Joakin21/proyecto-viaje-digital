@@ -50,6 +50,7 @@ export class FichaPacienteComponent implements OnInit {
   ];
 
   mostrar_error: boolean = false
+  error_crear_paciente: string
   crearPaciente(datos_base: NgForm) {
     var all_datos_ingresados = datos_base.valid
     if (all_datos_ingresados) {
@@ -58,9 +59,28 @@ export class FichaPacienteComponent implements OnInit {
       this.patient_journey["es_atendido_ahora"] = true 
       this.patient_journey["profesionales_que_atendieron"] = []
       this.patient_journey["sesiones_medica"] = []
-      this.showPatientJourney()
+
+      this.patientService.postPatient(this.patient_journey).subscribe(
+        data => {
+          if(data["detail"]){
+            this.mostrar_error = true
+            this.error_crear_paciente = "the patient's id is already registered"
+          }
+          else {
+            this.mostrar_error = false
+            this.patient_journey["_id"] = data["_id"]
+            this.showPatientJourney()
+          }  
+        },
+        error => {
+          console.log('error', error)
+        }
+      );
+
+      
     } else {
       this.mostrar_error = true
+      this.error_crear_paciente = "Please enter all fields"
     }
   }
   mostrar_historial: boolean = false
@@ -439,25 +459,16 @@ export class FichaPacienteComponent implements OnInit {
         this.patient_journey["profesionales_que_atendieron"].push({"user_id": this.user.user.id, "fecha": this.current_medical_sesion["fecha"]})
       }
       this.resetDatosCurrentSesionMedica()
-      if (this.patient_journey["_id"]) {//Si hay que actualizar uno ya existente
-        this.patientService.putPatient(this.patient_journey["rut"], this.patient_journey).subscribe(
-          data => {
-            //console.log(data)
-          },
-          error => {
-            console.log('error', error)
-          }
-        );
-      } else {
-        this.patientService.postPatient(this.patient_journey).subscribe(
-          data => {
-            this.patient_journey["_id"] = data["_id"]
-          },
-          error => {
-            console.log('error', error)
-          }
-        );
-      }
+
+      this.patientService.putPatient(this.patient_journey["rut"], this.patient_journey).subscribe(
+        data => {
+          //console.log(data)
+        },
+        error => {
+          console.log('error', error)
+        }
+      );
+      
     } else {
       this.mensaje_error2 = "You must add at least one archetype to the session"
       $("#error_agregar_arquetipo").show();

@@ -45,6 +45,7 @@
         "Birthday": "Fecha de nacimiento",
         "City": "Ciudad",
         "Please enter all fields": "Por favor llenar todos los campos",
+        "the patient's id is already registered": "El rut del paciente ya esta registrado",
         "Create Patient": "Crear paciente",
 
         "Place_patient_name": "Nombre del paciente...",

@@ -98,7 +98,7 @@
                         </div>
 
                         <div *ngIf="mostrar_error">
-                            <p class="text-danger">{{"ficha-paciente.Please enter all fields" | translate}}</p>
+                            <p class="text-danger">{{"ficha-paciente." + error_crear_paciente | translate}}</p>
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-default btn-new-patient-and-addhistory border-input pt-2 pb-2 pr-4 pl-4">{{"ficha-paciente.Create Patient" | translate}}</button>

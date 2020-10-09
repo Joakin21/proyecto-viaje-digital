@@ -45,6 +45,7 @@
         "Birthday": "Birthday",
         "City": "City",
         "Please enter all fields": "Please enter all fields",
+        "the patient's id is already registered": "the patient's id is already registered",
         "Create Patient": "Create Patient",
 
         "Place_patient_name": "patient name...",
