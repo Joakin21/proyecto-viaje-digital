@@ -229,6 +229,7 @@
                 </div>
                 <!--Si ya creamos una nueva sesion medica, mostramos los datos al final del historial clinico-->
                 <div *ngIf="!habilitar_creacion_nueva_sesion" class="border shadow p-3 mt-2 mb-2 sesion-border text-basic">
+                    <app-buscador-rapido (emitir_id_arquetipo)="recibirArquetipoId($event)"></app-buscador-rapido>
                     <p class="text-center sub-title-size"><b>{{"ficha-paciente.New medical sesion" | translate}}:
                 {{current_medical_sesion["nombre_sesion"]}}</b></p>
                     <p>

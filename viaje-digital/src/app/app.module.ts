@@ -39,6 +39,8 @@ import { AdminMenuComponent } from './admin-menu/admin-menu.component';
 import { CrudProfesionalesSaludComponent } from './crud-profesionales-salud/crud-profesionales-salud.component';
 import { CrudPacientesComponent } from './crud-pacientes/crud-pacientes.component';
 import { NgxPopper } from 'angular-popper';
+import { BuscadorRapidoComponent } from './buscador-rapido/buscador-rapido.component';
+import { SugerirArquetipoPipe } from './pipes/sugerir-arquetipo.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -83,7 +85,9 @@ const routes: Routes = [
     BuscadorPipe,
     AdminMenuComponent,
     CrudProfesionalesSaludComponent,
-    CrudPacientesComponent
+    CrudPacientesComponent,
+    BuscadorRapidoComponent,
+    SugerirArquetipoPipe
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,12 @@
+<div>
+    <div class="form-group">
+        <input type="text" class="form-control text-center border-input search-text pt-4 pb-4 fa" name="buscarArquetipo" [placeholder]="'&#xf002;'+'  '+placeholder_buscador" [(ngModel)]="buscarArquetipo">
+    </div>
+    <div class="list-group">
+
+        <a [routerLink]="" *ngFor="let arq of arquetipos | sugerirArquetipo:buscarArquetipo" (click)="agregarAlHistorial(arq)" class="list-group-item list-group-item-action">
+            {{arq["nombre"]}}
+        </a>
+
+    </div>
+</div>
