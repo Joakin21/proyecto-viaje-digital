@@ -6,6 +6,10 @@
     color: rgba(72, 72, 75, 1);
 }
 
+.lista-arquetipos-width {
+    width: 30rem;
+}
+
 .border-input {
     border-radius: 7px;
 }
@@ -99,4 +103,10 @@
 .ellipsis-h-template {
     font-size: 18px;
     color: black;
+}
+
+@media (max-width: 767.98px) {
+    .lista-arquetipos-width {
+        width: 20rem;
+    }
 }

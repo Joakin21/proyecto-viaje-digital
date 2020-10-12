@@ -21,14 +21,21 @@
         </div>
         <div class="sidebar-heading">Patient Journey Admin </div>
         -->
-        <app-lista-arquetipos (mostrar_diagrama_arquetipos)="cambiarComponente($event)" (emitir_id_arquetipo)="recibirArquetipoId($event)"></app-lista-arquetipos>
-
-
+        <div class="row">
+            <div class="col-12 text-right">
+                <button *ngIf="!menu_abierto" (click)="menuToggle(true)" class="btn btn-link mt-3 mr-3 pt-0 pb-0 pr-4 pl-4 btn-pill btn-dropdown-menu text-decoration-none fa" id="menu-toggle">&#xf104;</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <app-lista-arquetipos (mostrar_diagrama_arquetipos)="cambiarComponente($event)" (emitir_id_arquetipo)="recibirArquetipoId($event)"></app-lista-arquetipos>
+            </div>
+        </div>
 
     </div>
     <button *ngIf="menu_abierto" (click)="menuToggle(false)" class="btn btn-link mt-3 ml-2 mr-2 h-100 btn-dropdown-menu text-decoration-none fa" id="menu-toggle">&#xf105;</button>
-    <button *ngIf="!menu_abierto" (click)="menuToggle(true)" class="btn btn-link mt-3 ml-2 mr-2 h-100 btn-dropdown-menu text-decoration-none fa" id="menu-toggle">&#xf104;</button>
-    <div id="page-content-wrapper">
+
+    <div id="page-content-wrapper" class="pl-2">
         <!--
         <button *ngIf="menu_abierto" (click)="menuToggle(false)" style='font-size:24px' class="btn btn-link text-decoration-none fa" id="menu-toggle">&#xf105;</button>
         <button *ngIf="!menu_abierto" (click)="menuToggle(true)" style='font-size:24px' class="btn btn-link text-decoration-none fa" id="menu-toggle">&#xf104;</button>

@@ -132,6 +132,10 @@ h5 {
     text-align: center;
 }
 
+.btn-pill {
+    border-radius: 16px;
+}
+
 
 /*#page-content-wrapper {
     min-width: 100vw;
@@ -154,5 +158,8 @@ h5 {
 @media (max-width: 767.98px) {
     #medical-history {
         width: 100%;
+    }
+    #sidebar-wrapper {
+        margin-left: -20rem;
     }
 }
