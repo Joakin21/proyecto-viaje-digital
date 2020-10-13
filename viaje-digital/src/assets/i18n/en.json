@@ -23,7 +23,7 @@
         "Search Patient": "Search Patient",
         "Rut": "Id",
         "Date": "Date",
-        "Place_rut_paciente": "Write Id...",
+        "Place_rut_paciente": "Write Id (example: 19478195-4)",
         "Patient not found": "Patient not found",
         "Search": "Search",
         "or": "or",
