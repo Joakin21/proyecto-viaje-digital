@@ -51,38 +51,78 @@
         </button>
             </div>
             <div class="modal-body">
-                <form #new_user="ngForm" (ngSubmit)="createUser(new_user)" novalidate>
+                <form [formGroup]="crearteUserForm" (ngSubmit)="createUser()">
                     <div class="form-group">
-                        <label for="username">Username (email):</label>
-                        <input type="email" class="form-control" id="username" name="username" ngModel email required>
+                        <label for="username">Email:</label>
+                        <input type="email" class="form-control" id="username" formControlName="username" required email>
+                    </div>
+                    <div *ngIf="crearteUserForm.controls['username'].invalid && (crearteUserForm.controls['username'].dirty || crearteUserForm.controls['username'].touched)" class="alert alert-danger">
+                        <div *ngIf="crearteUserForm.controls['username'].errors.required">
+                            Email is required.
+                        </div>
+                        <div *ngIf="crearteUserForm.controls['username'].errors.email">
+                            Please enter a valid email.
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="password">Password:</label>
-                        <input type="password" class="form-control" id="password" name="password" ngModel required>
+                        <input type="password" class="form-control" id="password" formControlName="password" required>
+                    </div>
+                    <div *ngIf="crearteUserForm.controls['password'].invalid && (crearteUserForm.controls['password'].dirty || crearteUserForm.controls['password'].touched)" class="alert alert-danger">
+                        <div *ngIf="crearteUserForm.controls['password'].errors.required">
+                            password is required.
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="password_rep">Repeat password:</label>
-                        <input type="password" class="form-control" id="password_rep" name="password_rep" ngModel required>
+                        <label for="repeat_password">Repeat Password:</label>
+                        <input type="password" class="form-control" id="repeat_password" formControlName="repeat_password" required>
+                    </div>
+                    <div *ngIf="crearteUserForm.controls['repeat_password'].invalid && (crearteUserForm.controls['repeat_password'].dirty || crearteUserForm.controls['repeat_password'].touched)" class="alert alert-danger">
+                        <div *ngIf="crearteUserForm.controls['repeat_password'].errors.required">
+                            Repeat Password is required.
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="first_name">First name:</label>
-                        <input type="text" class="form-control" id="first_name" name="first_name" ngModel required>
+                        <input type="text" class="form-control" id="first_name" formControlName="first_name" required>
                     </div>
+                    <div *ngIf="crearteUserForm.controls['first_name'].invalid && (crearteUserForm.controls['first_name'].dirty || crearteUserForm.controls['first_name'].touched)" class="alert alert-danger">
+                        <div *ngIf="crearteUserForm.controls['first_name'].errors.required">
+                            First name is required.
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="last_name">Last name:</label>
-                        <input type="text" class="form-control" id="last_name" name="last_name" ngModel required>
+                        <input type="text" class="form-control" id="last_name" formControlName="last_name" required>
+                    </div>
+                    <div *ngIf="crearteUserForm.controls['last_name'].invalid && (crearteUserForm.controls['last_name'].dirty || crearteUserForm.controls['last_name'].touched)" class="alert alert-danger">
+                        <div *ngIf="crearteUserForm.controls['last_name'].errors.required">
+                            Last name is required.
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="profesion">Profession:</label>
-                        <input type="text" class="form-control" id="profesion" name="profesion" ngModel required>
+                        <input type="text" class="form-control" id="profesion" formControlName="profesion" required>
                     </div>
-                    <div class="form-group">
-                        <label for="centro_salud">Health clinic:</label>
-                        <input type="text" class="form-control" id="centro_salud" name="centro_salud" ngModel required>
+                    <div *ngIf="crearteUserForm.controls['profesion'].invalid && (crearteUserForm.controls['profesion'].dirty || crearteUserForm.controls['profesion'].touched)" class="alert alert-danger">
+                        <div *ngIf="crearteUserForm.controls['profesion'].errors.required">
+                            Profession is required.
+                        </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary ">Create</button>
+                    <div class="form-group">
+                        <label for="centro_salud">Clinic:</label>
+                        <input type="text" class="form-control" id="centro_salud" formControlName="centro_salud" required>
+                    </div>
+                    <div *ngIf="crearteUserForm.controls['centro_salud'].invalid && (crearteUserForm.controls['centro_salud'].dirty || crearteUserForm.controls['centro_salud'].touched)" class="alert alert-danger">
+                        <div *ngIf="crearteUserForm.controls['centro_salud'].errors.required">
+                            Clinic is required.
+                        </div>
+                    </div>
+
+                    <button type="submit" [disabled]="crearteUserForm.pristine || crearteUserForm.invalid" class="btn btn-primary ">Create</button>
                 </form>
                 <p *ngIf="show_error_create_user" class="text-danger mt-2">{{error_create_user}}</p>
 
@@ -93,7 +133,88 @@
         </div>
     </div>
 </div>
+
 <!--Modal para editar un usuario-->
+<div class="modal fade" id="modalUpdateUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="updateUserForm" (ngSubmit)="updateUser()">
+                    <div class="form-group">
+                        <label for="username">Email:</label>
+                        <input type="email" class="form-control" id="username" formControlName="username" required email>
+                    </div>
+                    <div *ngIf="updateUserForm.controls['username'].invalid && (updateUserForm.controls['username'].dirty || updateUserForm.controls['username'].touched)" class="alert alert-danger">
+                        <div *ngIf="updateUserForm.controls['username'].errors.required">
+                            Email is required.
+                        </div>
+                        <div *ngIf="updateUserForm.controls['username'].errors.email">
+                            Please enter a valid email.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" formControlName="password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="first_name">First name:</label>
+                        <input type="text" class="form-control" id="first_name" formControlName="first_name" required>
+                    </div>
+                    <div *ngIf="updateUserForm.controls['first_name'].invalid && (updateUserForm.controls['first_name'].dirty || updateUserForm.controls['first_name'].touched)" class="alert alert-danger">
+                        <div *ngIf="updateUserForm.controls['first_name'].errors.required">
+                            First name is required.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="last_name">Last name:</label>
+                        <input type="text" class="form-control" id="last_name" formControlName="last_name" required>
+                    </div>
+                    <div *ngIf="updateUserForm.controls['last_name'].invalid && (updateUserForm.controls['last_name'].dirty || updateUserForm.controls['last_name'].touched)" class="alert alert-danger">
+                        <div *ngIf="updateUserForm.controls['last_name'].errors.required">
+                            Last name is required.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="profesion">Profession:</label>
+                        <input type="text" class="form-control" id="profesion" formControlName="profesion" required>
+                    </div>
+                    <div *ngIf="updateUserForm.controls['profesion'].invalid && (updateUserForm.controls['profesion'].dirty || updateUserForm.controls['profesion'].touched)" class="alert alert-danger">
+                        <div *ngIf="updateUserForm.controls['profesion'].errors.required">
+                            Profession is required.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="centro_salud">Clinic:</label>
+                        <input type="text" class="form-control" id="centro_salud" formControlName="centro_salud" required>
+                    </div>
+                    <div *ngIf="updateUserForm.controls['centro_salud'].invalid && (updateUserForm.controls['centro_salud'].dirty || updateUserForm.controls['centro_salud'].touched)" class="alert alert-danger">
+                        <div *ngIf="updateUserForm.controls['centro_salud'].errors.required">
+                            Clinic is required.
+                        </div>
+                    </div>
+
+                    <button type="submit" [disabled]="updateUserForm.pristine || updateUserForm.invalid" class="btn btn-primary ">Update</button>
+                </form>
+                <p *ngIf="show_error_update_user" class="text-danger mt-2">User already exists</p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--
 <div class="modal fade" id="modalUpdateUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -104,7 +225,7 @@
         </button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="updateUserForm" (ngSubmit)="updateUser()">
+                <form [formGroup]="updatecrearteUserForm" (ngSubmit)="updateUser()">
                     <div class="form-group">
                         <label for="username">Username (email):</label>
                         <input type="email" class="form-control" id="username" formControlName="username">
@@ -131,7 +252,7 @@
                         <input type="text" class="form-control" id="centro_salud" formControlName="centro_salud">
                     </div>
 
-                    <button type="submit" [disabled]="!updateUserForm.valid" class="btn btn-primary ">Update</button>
+                    <button type="submit" [disabled]="!updatecrearteUserForm.valid" class="btn btn-primary ">Update</button>
                 </form>
             </div>
             <div class="modal-footer">
@@ -140,3 +261,4 @@
         </div>
     </div>
 </div>
+-->
