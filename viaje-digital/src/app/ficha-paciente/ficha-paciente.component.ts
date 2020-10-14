@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, HostListener, ViewChild } from '@angular/
 
 import { ConexionBackendService } from '../servicios/conexion-backend.service'
 import { NgForm, FormGroup } from '@angular/forms';
-import { Validators } from "@angular/forms";
+import { Validators,FormBuilder } from "@angular/forms";
 import { FieldConfig } from '../field.interface'
 import { DynamicFormComponent } from "../components/dynamic-form/dynamic-form.component";
 import { Router } from '@angular/router';
@@ -11,6 +11,7 @@ import { PacienteService } from '../servicios/paciente.service'
 import { SeleccionarPacienteService } from '../servicios/seleccionar-paciente.service'
 import { PdfService } from '../servicios/pdf.service'
 import { months } from 'moment';
+
 
 declare var $: any;
 
@@ -21,7 +22,7 @@ declare var $: any;
 })
 export class FichaPacienteComponent implements OnInit {
 
-  constructor(private conexBack: ConexionBackendService, private router: Router, private userService: UserService, private patientService: PacienteService, private seleccionarPacienteService: SeleccionarPacienteService, private pdfService: PdfService) { }
+  constructor(private conexBack: ConexionBackendService, private router: Router, private userService: UserService, private patientService: PacienteService, private seleccionarPacienteService: SeleccionarPacienteService, private pdfService: PdfService, private formBuilder: FormBuilder) { }
   mostrar_diagrama_arquetipos: boolean = false
 
   patient_journey: any = {}
@@ -51,37 +52,34 @@ export class FichaPacienteComponent implements OnInit {
 
   mostrar_error: boolean = false
   error_crear_paciente: string
-  crearPaciente(datos_base: NgForm) {
-    var all_datos_ingresados = datos_base.valid
-    if (all_datos_ingresados) {
-      this.mostrar_error = false
-      this.patient_journey = datos_base.value
-      this.patient_journey["es_atendido_ahora"] = true 
-      this.patient_journey["profesionales_que_atendieron"] = []
-      this.patient_journey["sesiones_medica"] = []
 
-      this.patientService.postPatient(this.patient_journey).subscribe(
-        data => {
-          if(data["detail"]){
-            this.mostrar_error = true
-            this.error_crear_paciente = "the patient's id is already registered"
-          }
-          else {
-            this.mostrar_error = false
-            this.patient_journey["_id"] = data["_id"]
-            this.showPatientJourney()
-          }  
-        },
-        error => {
-          console.log('error', error)
+  createPatientForm: FormGroup
+
+  crearPaciente() {
+    console.log(this.createPatientForm.value)
+  
+    this.patient_journey = this.createPatientForm.value
+    this.patient_journey["es_atendido_ahora"] = true 
+    this.patient_journey["profesionales_que_atendieron"] = []
+    this.patient_journey["sesiones_medica"] = []
+
+    this.patientService.postPatient(this.patient_journey).subscribe(
+      data => {
+        if(data["detail"]){
+          this.mostrar_error = true
+          this.error_crear_paciente = "the patient's id is already registered"
         }
-      );
+        else {
+          this.mostrar_error = false
+          this.patient_journey["_id"] = data["_id"]
+          this.showPatientJourney()
+        }  
+      },
+      error => {
+        console.log('error', error)
+      }
+    );
 
-      
-    } else {
-      this.mostrar_error = true
-      this.error_crear_paciente = "Please enter all fields"
-    }
   }
   mostrar_historial: boolean = false
   showPatientJourney() {
@@ -176,6 +174,14 @@ export class FichaPacienteComponent implements OnInit {
 
         }
 
+      })
+      this.createPatientForm = this.formBuilder.group({
+        nombre: ['', Validators.required],
+        apellidos: ['', Validators.required],
+        rut: ['', Validators.required],
+        direccion: ['', Validators.required],
+        fecha_nacimiento: ['', Validators.required],
+        ciudad: ['', Validators.required]
       })
   }
   setEsAtendidoAhora(valor: boolean){

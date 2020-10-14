@@ -55,62 +55,90 @@
             </div>
         </div>
 
-        <div class="container-fluid bg-white mt-3 mb-3 shadow extra-style" id="medical-history">
+        <div class="container-fluid bg-white mt-3 mb-3 shadow extra-style text-basic" id="medical-history">
             <div class="overflow-auto p-3" style="height: 100vh;">
                 <div *ngIf="habilitar_form_datos_base">
                     <p class="text-title-ficha-paciente mb-3">{{"ficha-paciente.Required information" | translate}}</p>
-                    <form #datos_base="ngForm" (ngSubmit)="crearPaciente(datos_base)" class="form-search">
-                        <div class="form-row">
-                            <div class="form-group col-md-3">
-                                <label class="text-basic" for="formNombre"><b>{{"ficha-paciente.Name" | translate}}</b></label>
-                                <input type="text" class="form-control border-input" ngModel name="nombre" id="formNombre" required>
+                    <form [formGroup]="createPatientForm" (ngSubmit)="crearPaciente()">
+                        <div class="form-group">
+                            <label for="nombre">First name:</label>
+                            <input type="text" class="form-control border-input" id="nombre" formControlName="nombre" required>
+                        </div>
+                        <div *ngIf="createPatientForm.controls['nombre'].invalid && (createPatientForm.controls['nombre'].dirty || createPatientForm.controls['nombre'].touched)" class="alert alert-danger">
+                            <div *ngIf="createPatientForm.controls['nombre'].errors.required">
+                                First name is required.
                             </div>
-                            <div class="form-group col-md-3">
-                                <label class="text-basic" for="formApellido"><b>{{"ficha-paciente.Last name" | translate}}</b></label>
-                                <input type="text" class="form-control border-input" ngModel name="apellidos" id="formApellido" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="apellidos">Last name:</label>
+                            <input type="text" class="form-control border-input" id="apellidos" formControlName="apellidos" required>
+                        </div>
+                        <div *ngIf="createPatientForm.controls['apellidos'].invalid && (createPatientForm.controls['apellidos'].dirty || createPatientForm.controls['apellidos'].touched)" class="alert alert-danger">
+                            <div *ngIf="createPatientForm.controls['apellidos'].errors.required">
+                                Last name is required.
                             </div>
-                            <div class="form-group col-md-3">
-                                <label class="text-basic" for="formRut"><b>{{"ficha-paciente.Rut" | translate}}</b></label>
-                                <input type="text" class="form-control border-input" ngModel name="rut" id="formRut" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="rut">Rut:</label>
+                            <input type="text" class="form-control border-input" id="rut" formControlName="rut" required>
+                        </div>
+                        <div *ngIf="createPatientForm.controls['rut'].invalid && (createPatientForm.controls['rut'].dirty || createPatientForm.controls['rut'].touched)" class="alert alert-danger">
+                            <div *ngIf="createPatientForm.controls['rut'].errors.required">
+                                Rut is required.
                             </div>
-                            <div class="form-group col-md-3">
-                                <label class="text-basic" for="formDireccion"><b>{{"ficha-paciente.Address" | translate}}</b></label>
-                                <input type="text" class="form-control border-input" ngModel name="direccion" id="formDireccion" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion">Address:</label>
+                            <input type="text" class="form-control border-input" id="direccion" formControlName="direccion" required>
+                        </div>
+                        <div *ngIf="createPatientForm.controls['direccion'].invalid && (createPatientForm.controls['direccion'].dirty || createPatientForm.controls['direccion'].touched)" class="alert alert-danger">
+                            <div *ngIf="createPatientForm.controls['direccion'].errors.required">
+                                Address is required.
                             </div>
-                            <div class="form-group col-md-3">
-                                <label class="text-basic" for="formFecha_nacimiento"><b>{{"ficha-paciente.Birthday" | translate}}</b></label>
-                                <input type="date" class="form-control border-input" ngModel name="fecha_nacimiento" id="formFecha_nacimiento" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha_nacimiento">Birthday:</label>
+                            <input type="date" class="form-control border-input" id="fecha_nacimiento" formControlName="fecha_nacimiento" required>
+                        </div>
+                        <div *ngIf="createPatientForm.controls['fecha_nacimiento'].invalid && (createPatientForm.controls['fecha_nacimiento'].dirty || createPatientForm.controls['fecha_nacimiento'].touched)" class="alert alert-danger">
+                            <div *ngIf="createPatientForm.controls['fecha_nacimiento'].errors.required">
+                                Birthday is required.
                             </div>
-                            <div class="form-group col-md-3">
-                                <label class="text-basic" for="formCity"><b>{{"ficha-paciente.City" | translate}}</b></label>
-                                <select class="form-control border-input" ngModel name="ciudad" id="formCity" required>
-                    <option>Iquique</option>
-                    <option>Antofagasta</option>
-                    <option>Copiapó</option>
-                    <option>Arica</option>
-                    <option>Coyhaique</option>
-                    <option>Concepción</option>
-                    <option>La Serena</option>
-                    <option>Temuco</option>
-                    <option>Puerto Montt</option>
-                    <option>Valdivia</option>
-                    <option>Punta Arenas</option>
-                    <option>Talca</option>
-                    <option>Santiago</option>
-                    <option>Chillán</option>
-                    <option>Rancagua</option>
-                    <option>Valparaíso</option>
-                  </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ciudad">city</label>
+                            <select class="form-control border-input" id="ciudad" formControlName="ciudad" required>
+                  <option>Iquique</option>
+                  <option>Antofagasta</option>
+                  <option>Copiapó</option>
+                  <option>Arica</option>
+                  <option>Coyhaique</option>
+                  <option>Concepción</option>
+                  <option>La Serena</option>
+                  <option>Temuco</option>
+                  <option>Puerto Montt</option>
+                  <option>Valdivia</option>
+                  <option>Punta Arenas</option>
+                  <option>Talca</option>
+                  <option>Santiago</option>
+                  <option>Chillán</option>
+                  <option>Rancagua</option>
+                  <option>Valparaíso</option>
+                </select>
+                        </div>
+                        <div *ngIf="createPatientForm.controls['ciudad'].invalid && (createPatientForm.controls['ciudad'].dirty || createPatientForm.controls['ciudad'].touched)" class="alert alert-danger">
+                            <div *ngIf="createPatientForm.controls['ciudad'].errors.required">
+                                City is required.
                             </div>
                         </div>
 
-                        <div *ngIf="mostrar_error">
-                            <p class="text-danger">{{"ficha-paciente." + error_crear_paciente | translate}}</p>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-default btn-new-patient-and-addhistory border-input pt-2 pb-2 pr-4 pl-4">{{"ficha-paciente.Create Patient" | translate}}</button>
-                        </div>
+                        <button type="submit" [disabled]="createPatientForm.pristine || createPatientForm.invalid" class="btn btn-primary ">Create</button>
                     </form>
+
+
+                    <p *ngIf="mostrar_error" class="text-danger mt-2">{{"ficha-paciente." + error_crear_paciente | translate}}</p>
+
+
 
 
                 </div>
