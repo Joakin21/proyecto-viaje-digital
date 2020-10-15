@@ -35,18 +35,28 @@
         "No patient attended": "No patient attended",
         "Show recently attended": "Show recently attended"
     },
-    "ficha-paciente": {
-        "Medical History": "Medical History",
-        "Required information": "Required information",
+    "formulario-paciente": {
         "Name": "Name",
         "Last name": "Last name",
         "Rut": "ID",
         "Address": "Address",
         "Birthday": "Birthday",
         "City": "City",
+        "First name is required": "First name is required",
+        "Last name is required": "Last name is required",
+        "Rut is required": "Id is required",
+        "Address is required": "Address is required",
+        "Birthday is required": "Birthday is required",
+        "City is required": "City is required"
+    },
+    "ficha-paciente": {
+        "Medical History": "Medical History",
+        "Required information": "Required information",
+
         "Please enter all fields": "Please enter all fields",
         "the patient's id is already registered": "the patient's id is already registered",
         "Create Patient": "Create Patient",
+        "Session": "Session",
 
         "Place_patient_name": "patient name...",
         "Place_patient_lastname": "patient last name...",
@@ -95,7 +105,24 @@
         "In the clinical history": "In the clinical history",
         "Custom list": "Custom list",
         "Clinical history without archetypes": "Clinical history without archetypes",
-        "In construction": "In construction ..."
+        "In construction": "In construction ...",
+        "Show": "Show",
+        "Add to current session": "Add to current session",
+        "Save in my template": "Save in my template",
+        "Remove from": "Remove from",
+
+        "Add template to the current session": "Add template to the current session",
+        "Edit name": "Edit name",
+        "Delete": "Delete",
+        "Save": "Save",
+        "in": "in",
+        "List name": "Name",
+        "List name is required": "Template name is required",
+        "Create": "Create",
+        "Create New Template": "Create New Template",
+        "Edit list name": "Edit template name",
+        "Edit": "Edit"
+
     },
     "nombre-filtros": {
         "All": "All",

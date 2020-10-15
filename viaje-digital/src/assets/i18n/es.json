@@ -35,18 +35,28 @@
         "No patient attended": "Aun no hay pacientes atendidos",
         "Show recently attended": "Mostrar últimos pacientes atendidos"
     },
-    "ficha-paciente": {
-        "Medical History": "Historial Clínico",
-        "Required information": "Información Básica",
+    "formulario-paciente": {
         "Name": "Nombre",
         "Last name": "Apellidos",
         "Rut": "Rut",
         "Address": "Dirección",
         "Birthday": "Fecha de nacimiento",
         "City": "Ciudad",
+        "First name is required": "El campo Nombre es obligatorio",
+        "Last name is required": "El campo Apellido es obligatorio",
+        "Rut is required": "El campo Rut es obligatorio",
+        "Address is required": "El campo Dirección es obligatorio",
+        "Birthday is required": "El campo Fecha de nacimiento es obligatorio",
+        "City is required": "El campo Ciudad es obligatorio"
+    },
+    "ficha-paciente": {
+        "Medical History": "Historial Clínico",
+        "Required information": "Información Básica",
+
         "Please enter all fields": "Por favor llenar todos los campos",
         "the patient's id is already registered": "El rut del paciente ya esta registrado",
         "Create Patient": "Crear paciente",
+        "Session": "Sesión",
 
         "Place_patient_name": "Nombre del paciente...",
         "Place_patient_lastname": "Apellido del paciente...",
@@ -63,7 +73,7 @@
         "Date": "Fecha",
 
         "You must add at least one archetype to the session": "Para guardar debe al menos haber un arquetipo en la nueva sesión",
-        "To add an archetype you must create a session first": "Debes crear una nueva sesión médica para garegar arquetipos",
+        "To add an archetype you must create a session first": "Debes crear una nueva sesión médica para agregar arquetipos",
 
         "New medical sesion": "Nueva sesión médica",
         "Export to PDF": "Exportar a PDF",
@@ -89,13 +99,29 @@
         "Clinical Models": "Modelos Clínicos",
         "OpenEHR repository": "Repositorio OpenEHR",
         "My Archetypes": "Mis Arquetipos",
-        "My Templates": "Mis Templates",
+        "My Templates": "Mis Plantillas",
         "Topic": "Tema",
 
         "In the clinical history": "En el historial médico",
         "Custom list": "Lista personalizada",
         "Clinical history without archetypes": "Historial médico sin arquetipos",
-        "In construction": "En construcción ..."
+        "In construction": "En construcción ...",
+        "Show": "Ver",
+        "Add to current session": "Agregar a mi sesión",
+        "Save in my template": "Guardar en mi plantilla",
+        "Remove from": "Eliminar de",
+
+        "Add template to the current session": "Agregar template a la sesión",
+        "Edit name": "Editar nombre",
+        "Delete": "Eliminar",
+        "Save": "Guardar",
+        "in": "en",
+        "List name": "Nombre",
+        "List name is required": "Nombre de la plantilla es obligatorio",
+        "Create": "Crear",
+        "Create New Template": "Crear nueva plantilla",
+        "Edit list name": "Editar nombre de plantilla",
+        "Edit": "Editar"
 
     },
     "nombre-filtros": {
