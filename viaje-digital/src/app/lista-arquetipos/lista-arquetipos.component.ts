@@ -50,6 +50,8 @@ export class ListaArquetiposComponent implements OnInit {
   editListForm: FormGroup
   nombre_lista_a_cambiar: string
 
+  currentLang: string
+
   get userListsFormArray() {
     return this.ListsForm.controls.lists as FormArray;
   }
@@ -70,11 +72,20 @@ export class ListaArquetiposComponent implements OnInit {
     this.editListForm = this.formBuilder.group({
       list_name: ['', Validators.required]
     })
+
+    if (this.translate.currentLang == "en"){
+      this.currentLang = "en"
+    }
+    if (this.translate.currentLang == "es"){
+      this.currentLang = "es"
+    }
     
     this.current_user_id = parseInt(this.userService.getIdUser())
     this.userService.getUserArchetypeLists(this.current_user_id).subscribe(
       data => {
         this.user_listas_arquetipos = data["listas_arquetipos"]
+
+        //this.quitarListasDeOtrosIdiomas(data["listas_arquetipos"])
         this.addCheckboxes()
         //console.log(this.user_listas_arquetipos)
       },
@@ -85,8 +96,20 @@ export class ListaArquetiposComponent implements OnInit {
 
   }
 
+
+
   private addCheckboxes() {
     this.user_listas_arquetipos.forEach(() => this.userListsFormArray.push(new FormControl(false)));
+  }
+
+  quitarListasDeOtrosIdiomas(listas){
+    for(let i = 0; i < listas.length; i++){
+      if(listas[i]['idioma'] != this.currentLang){
+        console.log(listas[i])
+      }
+        
+    }
+
   }
 
   agregarArquetipoToLista(){
@@ -134,8 +157,9 @@ export class ListaArquetiposComponent implements OnInit {
   crearNuevaLista(){
     //console.log(this.createNewListForm.value)
     
-    let lista = { nombre_lista:this.createNewListForm.value.list_name, arquetipos:[] }
+    let lista = { nombre_lista:this.createNewListForm.value.list_name, arquetipos:[], idioma:this.currentLang }
     this.user_listas_arquetipos.push(lista)
+    console.log(this.user_listas_arquetipos)
 
     this.ListsForm = this.formBuilder.group({
       lists: new FormArray([], minSelectedCheckboxes(1))
@@ -271,10 +295,12 @@ export class ListaArquetiposComponent implements OnInit {
   seleccionarFiltro(nombre_filtro) {
     this.reestablecerArquetipos()
     var idioma_buscar
-    if (this.translate.currentLang == "en")
+    if (this.translate.currentLang == "en"){
       idioma_buscar = "Search in"
-    if (this.translate.currentLang == "es")
+    }
+    if (this.translate.currentLang == "es"){
       idioma_buscar = "Buscar en"
+    }
     this.translate.get("nombre-filtros." + nombre_filtro).subscribe(res => {
       var nombre_filtro_traducido = res
       this.placeholder_buscador = idioma_buscar + " " + nombre_filtro_traducido + " ..."

@@ -25,7 +25,6 @@ export class AppComponent implements OnInit {
         console.log('error', error)
       }
     );
-    console.log("Holaaaa")
 
   }
 }
