@@ -33,14 +33,14 @@
         </div>
 
     </div>
-    <button *ngIf="menu_abierto" (click)="menuToggle(false)" class="btn btn-link mt-3 ml-2 mr-2 h-100 btn-dropdown-menu text-decoration-none fa" id="menu-toggle">&#xf105;</button>
+    <button *ngIf="menu_abierto" (click)="menuToggle(false)" class="btn btn-link mt-5 ml-2 mr-2 h-100 btn-dropdown-menu text-decoration-none fa" id="menu-toggle">&#xf105;</button>
 
     <div id="page-content-wrapper" class="pl-2">
         <!--
         <button *ngIf="menu_abierto" (click)="menuToggle(false)" style='font-size:24px' class="btn btn-link text-decoration-none fa" id="menu-toggle">&#xf105;</button>
         <button *ngIf="!menu_abierto" (click)="menuToggle(true)" style='font-size:24px' class="btn btn-link text-decoration-none fa" id="menu-toggle">&#xf104;</button>
         -->
-        <div class="container mt-3" *ngIf="mostrar_diagrama_arquetipos">
+        <div class="container mt-5" *ngIf="mostrar_diagrama_arquetipos">
             <div class="bg-white p-3 shadow extra-style horizontal-center">
 
                 <div class="alert alert-danger mt-3 mb-2 text-basic" id="error_crear_sesion" style="display:none;" role="alert">
@@ -55,7 +55,7 @@
             </div>
         </div>
 
-        <div class="container-fluid bg-white mt-3 mb-3 shadow extra-style text-basic" id="medical-history">
+        <div class="container-fluid bg-white mt-5 mb-3 shadow extra-style text-basic" id="medical-history">
             <div class="overflow-auto p-3" style="height: 100vh;">
                 <div *ngIf="habilitar_form_datos_base">
                     <p class="text-title-ficha-paciente mb-3">{{"ficha-paciente.Required information" | translate}}</p>

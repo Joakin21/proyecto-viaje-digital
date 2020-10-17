@@ -57,9 +57,15 @@ export class ListaArquetiposComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.nombres_filtros = Object.keys(this.filtros)
+    if (this.translate.currentLang == "en"){
+      this.currentLang = "en"
+      this.nombres_filtros = Object.keys(this.filtros)
+    }
+    if (this.translate.currentLang == "es"){
+      this.currentLang = "es"
+    }
+    
     this.nombres_filtros.unshift("All")
-
     this.conexBack.getArquetipos().subscribe(resp => this.arquetiposFromDB(resp));
     this.en_historial_clinico = this.elegirArquetipo.getArquetipos_en_historial()
 
@@ -73,12 +79,6 @@ export class ListaArquetiposComponent implements OnInit {
       list_name: ['', Validators.required]
     })
 
-    if (this.translate.currentLang == "en"){
-      this.currentLang = "en"
-    }
-    if (this.translate.currentLang == "es"){
-      this.currentLang = "es"
-    }
     
     this.current_user_id = parseInt(this.userService.getIdUser())
     this.userService.getUserArchetypeLists(this.current_user_id).subscribe(
