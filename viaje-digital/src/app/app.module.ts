@@ -42,6 +42,8 @@ import { NgxPopper } from 'angular-popper';
 import { BuscadorRapidoComponent } from './buscador-rapido/buscador-rapido.component';
 import { SugerirArquetipoPipe } from './pipes/sugerir-arquetipo.pipe';
 
+import { DataTablesModule } from 'angular-datatables';
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -99,6 +101,9 @@ const routes: Routes = [
     MaterialModule,
 
     HttpClientModule,
+
+    DataTablesModule,
+    
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
