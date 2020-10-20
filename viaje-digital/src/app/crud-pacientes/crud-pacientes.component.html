@@ -1,23 +1,24 @@
 <div class="m-4">
     <div class="row">
         <div class="col-md-10">
-            <h3>Patients</h3>
+            <h3>{{"admin-menu.Patients" | translate}}</h3>
         </div>
         <div class="col-md-2">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#modalCreatePatient"> add new</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#modalCreatePatient">{{"admin-menu.add new" | translate}}</button>
         </div>
     </div>
-    <div class="table-responsive">
-        <table class="table">
-            <thead class="thead-light">
+
+    <div class="table-responsive mt-2">
+        <table *ngIf="my_patients.length > 0" datatable [dtOptions]="dtOptions" class="row-border hover">
+            <thead>
                 <tr>
-                    <th scope="col">First name</th>
-                    <th scope="col">Last name</th>
-                    <th scope="col">Rut</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Birthday</th>
-                    <th scope="col">City</th>
-                    <th scope="col">Actions</th>
+                    <th>{{"formulario-paciente.Name" | translate}}</th>
+                    <th>{{"formulario-paciente.Last name" | translate}}</th>
+                    <th>{{"formulario-paciente.Rut" | translate}}</th>
+                    <th>{{"formulario-paciente.Address" | translate}}</th>
+                    <th>{{"formulario-paciente.Birthday" | translate}}</th>
+                    <th>{{"formulario-paciente.City" | translate}}</th>
+                    <th>{{"admin-menu.Actions" | translate}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,7 +37,9 @@
                         </div>
                     </td>
 
+
                 </tr>
+
             </tbody>
         </table>
     </div>
@@ -47,7 +50,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Create Patient</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{"admin-menu.New Patient" | translate}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -55,52 +58,52 @@
             <div class="modal-body">
                 <form [formGroup]="createPatientForm" (ngSubmit)="createPatient()">
                     <div class="form-group">
-                        <label for="nombre">First name:</label>
+                        <label for="nombre">{{"formulario-paciente.Name" | translate}}:</label>
                         <input type="text" class="form-control" id="nombre" formControlName="nombre" required>
                     </div>
                     <div *ngIf="createPatientForm.controls['nombre'].invalid && (createPatientForm.controls['nombre'].dirty || createPatientForm.controls['nombre'].touched)" class="alert alert-danger">
                         <div *ngIf="createPatientForm.controls['nombre'].errors.required">
-                            First name is required.
+                            {{"formulario-paciente.First name is required" | translate}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="apellidos">Last name:</label>
+                        <label for="apellidos">{{"formulario-paciente.Last name" | translate}}:</label>
                         <input type="text" class="form-control" id="apellidos" formControlName="apellidos" required>
                     </div>
                     <div *ngIf="createPatientForm.controls['apellidos'].invalid && (createPatientForm.controls['apellidos'].dirty || createPatientForm.controls['apellidos'].touched)" class="alert alert-danger">
                         <div *ngIf="createPatientForm.controls['apellidos'].errors.required">
-                            Last name is required.
+                            {{"formulario-paciente.Last name is required" | translate}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="rut">Rut:</label>
+                        <label for="rut">{{"formulario-paciente.Rut" | translate}}:</label>
                         <input type="text" class="form-control" id="rut" formControlName="rut" required>
                     </div>
                     <div *ngIf="createPatientForm.controls['rut'].invalid && (createPatientForm.controls['rut'].dirty || createPatientForm.controls['rut'].touched)" class="alert alert-danger">
                         <div *ngIf="createPatientForm.controls['rut'].errors.required">
-                            Rut is required.
+                            {{"formulario-paciente.Rut is required" | translate}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="direccion">Address:</label>
+                        <label for="direccion">{{"formulario-paciente.Address" | translate}}:</label>
                         <input type="text" class="form-control" id="direccion" formControlName="direccion" required>
                     </div>
                     <div *ngIf="createPatientForm.controls['direccion'].invalid && (createPatientForm.controls['direccion'].dirty || createPatientForm.controls['direccion'].touched)" class="alert alert-danger">
                         <div *ngIf="createPatientForm.controls['direccion'].errors.required">
-                            Address is required.
+                            {{"formulario-paciente.Address is required" | translate}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="fecha_nacimiento">Birthday:</label>
+                        <label for="fecha_nacimiento">{{"formulario-paciente.Birthday" | translate}}:</label>
                         <input type="date" class="form-control" id="fecha_nacimiento" formControlName="fecha_nacimiento" required>
                     </div>
                     <div *ngIf="createPatientForm.controls['fecha_nacimiento'].invalid && (createPatientForm.controls['fecha_nacimiento'].dirty || createPatientForm.controls['fecha_nacimiento'].touched)" class="alert alert-danger">
                         <div *ngIf="createPatientForm.controls['fecha_nacimiento'].errors.required">
-                            Birthday is required.
+                            {{"formulario-paciente.Birthday is required" | translate}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="ciudad">city</label>
+                        <label for="ciudad">{{"formulario-paciente.City" | translate}}:</label>
                         <select class="form-control" id="ciudad" formControlName="ciudad" required>
               <option>Iquique</option>
               <option>Antofagasta</option>
@@ -122,18 +125,18 @@
                     </div>
                     <div *ngIf="createPatientForm.controls['ciudad'].invalid && (createPatientForm.controls['ciudad'].dirty || createPatientForm.controls['ciudad'].touched)" class="alert alert-danger">
                         <div *ngIf="createPatientForm.controls['ciudad'].errors.required">
-                            City is required.
+                            {{"formulario-paciente.City is required" | translate}}
                         </div>
                     </div>
 
-                    <button type="submit" [disabled]="createPatientForm.pristine || createPatientForm.invalid" class="btn btn-primary ">Create</button>
+                    <button type="submit" [disabled]="createPatientForm.pristine || createPatientForm.invalid" class="btn btn-primary ">{{"admin-menu.Create" | translate}}</button>
                 </form>
 
-                <p *ngIf="show_error_create_patient" class="text-danger mt-2">{{error_create_patient}}</p>
+                <p *ngIf="show_error_create_patient" class="text-danger mt-2">{{"admin-menu."+error_create_patient | translate}}</p>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{"admin-menu.Cancel" | translate}}</button>
             </div>
         </div>
     </div>
@@ -143,7 +146,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update Patient</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{"admin-menu.Update Patient" | translate}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -151,52 +154,52 @@
             <div class="modal-body">
                 <form [formGroup]="updatePatientForm" (ngSubmit)="updatePatient()">
                     <div class="form-group">
-                        <label for="update_nombre">First name:</label>
+                        <label for="update_nombre">{{"formulario-paciente.Name" | translate}}:</label>
                         <input type="text" class="form-control" id="update_nombre" formControlName="update_nombre" required>
                     </div>
                     <div *ngIf="updatePatientForm.controls['update_nombre'].invalid && (updatePatientForm.controls['update_nombre'].dirty || updatePatientForm.controls['update_nombre'].touched)" class="alert alert-danger">
                         <div *ngIf="updatePatientForm.controls['update_nombre'].errors.required">
-                            First name is required.
+                            {{"formulario-paciente.First name is required" | translate}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="update_apellidos">Last name:</label>
+                        <label for="update_apellidos">{{"formulario-paciente.Last name" | translate}}:</label>
                         <input type="text" class="form-control" id="update_apellidos" formControlName="update_apellidos" required>
                     </div>
                     <div *ngIf="updatePatientForm.controls['update_apellidos'].invalid && (updatePatientForm.controls['update_apellidos'].dirty || updatePatientForm.controls['update_apellidos'].touched)" class="alert alert-danger">
                         <div *ngIf="updatePatientForm.controls['update_apellidos'].errors.required">
-                            Last name is required.
+                            {{"formulario-paciente.Last name is required" | translate}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="update_rut">Rut:</label>
+                        <label for="update_rut">{{"formulario-paciente.Rut" | translate}}:</label>
                         <input type="text" class="form-control" id="update_rut" formControlName="update_rut" required>
                     </div>
                     <div *ngIf="updatePatientForm.controls['update_rut'].invalid && (updatePatientForm.controls['update_rut'].dirty || updatePatientForm.controls['update_rut'].touched)" class="alert alert-danger">
                         <div *ngIf="updatePatientForm.controls['update_rut'].errors.required">
-                            Rut is required.
+                            {{"formulario-paciente.Rut is required" | translate}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="update_direccion">Address:</label>
+                        <label for="update_direccion">{{"formulario-paciente.Address" | translate}}:</label>
                         <input type="text" class="form-control" id="update_direccion" formControlName="update_direccion" required>
                     </div>
                     <div *ngIf="updatePatientForm.controls['update_direccion'].invalid && (updatePatientForm.controls['update_direccion'].dirty || updatePatientForm.controls['update_direccion'].touched)" class="alert alert-danger">
                         <div *ngIf="updatePatientForm.controls['update_direccion'].errors.required">
-                            Address is required.
+                            {{"formulario-paciente.Address is required" | translate}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="update_fecha_nacimiento">Birthday:</label>
+                        <label for="update_fecha_nacimiento">{{"formulario-paciente.Birthday" | translate}}:</label>
                         <input type="date" class="form-control" id="update_fecha_nacimiento" formControlName="update_fecha_nacimiento" required>
                     </div>
                     <div *ngIf="updatePatientForm.controls['update_fecha_nacimiento'].invalid && (updatePatientForm.controls['update_fecha_nacimiento'].dirty || updatePatientForm.controls['update_fecha_nacimiento'].touched)" class="alert alert-danger">
                         <div *ngIf="updatePatientForm.controls['update_fecha_nacimiento'].errors.required">
-                            Birthday is required.
+                            {{"formulario-paciente.Birthday is required" | translate}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="update_ciudad">city</label>
+                        <label for="update_ciudad">{{"formulario-paciente.City" | translate}}:</label>
                         <select class="form-control" id="update_ciudad" formControlName="update_ciudad" required>
               <option>Iquique</option>
               <option>Antofagasta</option>
@@ -218,18 +221,18 @@
                     </div>
                     <div *ngIf="updatePatientForm.controls['update_ciudad'].invalid && (updatePatientForm.controls['update_ciudad'].dirty || updatePatientForm.controls['update_ciudad'].touched)" class="alert alert-danger">
                         <div *ngIf="updatePatientForm.controls['update_ciudad'].errors.required">
-                            City is required.
+                            {{"formulario-paciente.City is required" | translate}}
                         </div>
                     </div>
 
-                    <button type="submit" [disabled]="updatePatientForm.pristine || updatePatientForm.invalid" class="btn btn-primary">Update</button>
+                    <button type="submit" [disabled]="updatePatientForm.pristine || updatePatientForm.invalid" class="btn btn-primary">{{"admin-menu.Update" | translate}}</button>
                 </form>
 
-                <p *ngIf="show_error_update_patient" class="text-danger mt-2">{{error_update_patient}}</p>
+                <p *ngIf="show_error_update_patient" class="text-danger mt-2">{{"admin-menu."+error_update_patient | translate}}</p>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{"admin-menu.Cancel" | translate}}</button>
             </div>
         </div>
     </div>

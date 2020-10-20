@@ -35,6 +35,24 @@
         "No patient attended": "No patient attended",
         "Show recently attended": "Show recently attended"
     },
+    "formulario-usuarios": {
+        "Email": "Email",
+        "Password": "Password",
+        "Repeat Password": "Repeat Password",
+        "First name": "First name",
+        "Last name": "Last name",
+        "Profession": "Profession",
+        "Clinic": "Clinic",
+
+        "Email is required": "Email is required",
+        "Please enter a valid email": "Please enter a valid email",
+        "Password is required": "Password is required",
+        "Repeat Password is required": "Repeat Password is required",
+        "First name is required": "First name is required",
+        "Last name is required": "Last name is required",
+        "Profession is required": "Profession is required",
+        "Clinic is required": "Clinic is required"
+    },
     "formulario-paciente": {
         "Name": "Name",
         "Last name": "Last name",
@@ -57,6 +75,7 @@
         "the patient's id is already registered": "the patient's id is already registered",
         "Create Patient": "Create Patient",
         "Session": "Session",
+        "Session name": "Session name",
 
         "Place_patient_name": "patient name...",
         "Place_patient_lastname": "patient last name...",
@@ -159,6 +178,37 @@
         "Therapeutic precautions": "Therapeutic precautions",
         "Vital signs": "Vital signs"
 
+
+    },
+    "admin-menu": {
+        "Patient Journey Admin": "Patient Journey Admin",
+        "Healthcare Professionals": "Healthcare Professionals",
+        "Patients": "Patients",
+        "Archetype editor": "Archetype editor",
+        "Language": "Language",
+
+        "Logout": "Logout",
+        "Select language": "Select language",
+        "English": "English",
+        "Spanish": "Spanish",
+        "Language is required": "Language is required",
+        "Change": "Change",
+        "The language was changed": "The language was changed",
+
+        "add new": "add new",
+        "Patient rut already exists": "the patient's id is already registered",
+        "User already exists": "User email already exists",
+        "Passwords do not match": "Error, passwords do not match",
+
+        "New User": "New User",
+        "New Patient": "New Patient",
+        "Update User": "Update User",
+        "Update Patient": "Update Patient",
+
+        "Create": "Create",
+        "Cancel": "Cancel",
+        "Update": "Update",
+        "Actions": "Actions"
 
     }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../servicios/user.service';
 import { NgForm, FormGroup, FormControl } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
+import { TranslateService } from '.../../node_modules/@ngx-translate/core'
 
 declare var $: any;
 
@@ -11,13 +12,14 @@ declare var $: any;
   styleUrls: ['./crud-profesionales-salud.component.css']
 })
 export class CrudProfesionalesSaludComponent implements OnInit {
+  dtOptions: DataTables.Settings = {};
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder) { }
+  constructor(private userService: UserService, private formBuilder: FormBuilder, public translate: TranslateService) { }
   crearteUserForm: FormGroup
   updateUserForm: FormGroup
 
   myUsers: any[] = []
-  show_error_create_user: boolean = true
+  show_error_create_user: boolean = false
   show_error_update_user: boolean = false
   error_create_user: string = ""
 
@@ -34,7 +36,17 @@ export class CrudProfesionalesSaludComponent implements OnInit {
         console.log('error', error)
       }
     );
-
+    let my_url = 'http://cdn.datatables.net/plug-ins/1.10.21/i18n/English.json'
+    if(this.translate.currentLang == "es"){
+      my_url = '//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json'
+    }
+    //console.log(this.translate.currentLang)
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      language: {
+        url:my_url
+      }
+    };
     this.crearteUserForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -63,7 +75,7 @@ export class CrudProfesionalesSaludComponent implements OnInit {
     
     //this.passwords_match = new_user['password'] == new_user['repeat_password'] 
     if (form_user["password"] != form_user["repeat_password"]) {
-      this.error_create_user = "Error, passwords do not match"
+      this.error_create_user = "Passwords do not match"
       this.show_error_create_user = true
     }
   

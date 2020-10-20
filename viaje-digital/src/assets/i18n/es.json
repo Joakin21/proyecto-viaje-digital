@@ -35,6 +35,24 @@
         "No patient attended": "Aun no hay pacientes atendidos",
         "Show recently attended": "Mostrar últimos pacientes atendidos"
     },
+    "formulario-usuarios": {
+        "Email": "Correo electrónico",
+        "Password": "Contraseña",
+        "Repeat Password": "Repetir contraseña",
+        "First name": "Nombre",
+        "Last name": "Apellidos",
+        "Profession": "Profesión",
+        "Clinic": "Centro de atención",
+
+        "Email is required": "El campo Correo electrónico es obligatorio",
+        "Please enter a valid email": "Por favor ingresar un correo electrónico válido",
+        "Password is required": "El campo Contraseña es obligatorio",
+        "Repeat Password is required": "El campo Repetir contraseña es obligatorio",
+        "First name is required": "El campo Nombre es obligatorio",
+        "Last name is required": "El campo Apellidos es obligatorio",
+        "Profession is required": "El campo Profesión es obligatorio",
+        "Clinic is required": "El campo Centro de atención es obligatorio"
+    },
     "formulario-paciente": {
         "Name": "Nombre",
         "Last name": "Apellidos",
@@ -57,6 +75,7 @@
         "the patient's id is already registered": "El rut del paciente ya esta registrado",
         "Create Patient": "Crear paciente",
         "Session": "Sesión",
+        "Session name": "Nombre sesión",
 
         "Place_patient_name": "Nombre del paciente...",
         "Place_patient_lastname": "Apellido del paciente...",
@@ -158,6 +177,37 @@
         "Social determinants of health": "Determinantes sociales de la salud",
         "Therapeutic precautions": "Precauciones terapéuticas",
         "Vital signs": "Signos vitales"
+
+    },
+    "admin-menu": {
+        "Patient Journey Admin": "Administrador Salud Digital",
+        "Healthcare Professionals": "Profesionales del área de la salud",
+        "Patients": "Pacientes",
+        "Archetype editor": "Editor de arquetipos",
+        "Language": "Idioma",
+
+        "Logout": "Cerrar sesión",
+        "Select language": "Seleccionar idioma",
+        "English": "Ingles",
+        "Spanish": "Español",
+        "Language is required": "El campo idioma es obligatorio",
+        "Change": "Cambiar",
+        "The language was changed": "Se ha cambiado el idioma de la aplicación",
+
+        "add new": "Crear nuevo",
+        "Patient rut already exists": "El rut del paciente ya esta registrado",
+        "User already exists": "Este correo electrónico ya esta registrado",
+        "Passwords do not match": "Error, Contraseñas no coinciden",
+
+        "New User": "Nuevo Usuario",
+        "New Patient": "Nuevo Paciente",
+        "Update User": "Actualizar Usuario",
+        "Update Patient": "Actualizar Paciente",
+
+        "Create": "Crear",
+        "Cancel": "Cancelar",
+        "Update": "Actualizar",
+        "Actions": "Acciones"
 
     }
 

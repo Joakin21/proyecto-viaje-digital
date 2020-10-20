@@ -309,7 +309,7 @@
 
                 <form #sesion_name="ngForm" (ngSubmit)="createNewMedicalSesion(sesion_name)">
                     <div class="form-group">
-                        <label class="text-basic" for="formSesion_name"><b>{{"ficha-paciente.Name" | translate}}</b></label>
+                        <label class="text-basic" for="formSesion_name"><b>{{"ficha-paciente.Session name" | translate}}</b></label>
                         <input type="text" class="form-control border-input" ngModel name="name" id="formSesion_name" required>
                     </div>
                     <button type="submit" class="btn btn-default btn-new-patient-and-addhistory border-input pt-2 pb-2 pr-4 pl-4">{{"ficha-paciente.Add to History" | translate}}</button>

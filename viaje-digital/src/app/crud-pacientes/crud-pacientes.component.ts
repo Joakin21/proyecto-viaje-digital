@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PacienteService } from '../servicios/paciente.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from '.../../node_modules/@ngx-translate/core'
 
 declare var $: any;
 
@@ -10,8 +11,9 @@ declare var $: any;
   styleUrls: ['./crud-pacientes.component.css']
 })
 export class CrudPacientesComponent implements OnInit {
+  dtOptions: DataTables.Settings = {};
 
-  constructor(private patientService: PacienteService, private formBuilder: FormBuilder) { }
+  constructor(private patientService: PacienteService, private formBuilder: FormBuilder, public translate: TranslateService) { }
 
   createPatientForm: FormGroup
   updatePatientForm: FormGroup
@@ -29,6 +31,18 @@ export class CrudPacientesComponent implements OnInit {
         console.log('error', error)
       }
     );
+    
+    let my_url = 'http://cdn.datatables.net/plug-ins/1.10.21/i18n/English.json'
+    if(this.translate.currentLang == "es"){
+      my_url = '//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json'
+    }
+    //console.log(this.translate.currentLang)
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      language: {
+        url:my_url
+      }
+    };
 
     this.createPatientForm = this.formBuilder.group({
       nombre: ['', Validators.required],

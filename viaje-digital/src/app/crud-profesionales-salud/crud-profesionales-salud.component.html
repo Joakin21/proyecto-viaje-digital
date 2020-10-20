@@ -1,22 +1,22 @@
 <div class="m-4">
     <div class="row">
         <div class="col-md-10">
-            <h3>Healthcare Professionals</h3>
+            <h3>{{"admin-menu.Healthcare Professionals" | translate}}</h3>
         </div>
         <div class="col-md-2">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#modalCreateUser"> add new</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#modalCreateUser">{{"admin-menu.add new" | translate}}</button>
         </div>
     </div>
-    <div class="table-responsive">
-        <table class="table">
+    <div class="table-responsive mt-2">
+        <table *ngIf="myUsers.length > 0" datatable [dtOptions]="dtOptions" class="row-border hover">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col">Username</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Profession</th>
-                    <th scope="col">health clinic</th>
-                    <th scope="col">Actions</th>
+                    <th>{{"formulario-usuarios.Email" | translate}}</th>
+                    <th>{{"formulario-usuarios.First name" | translate}}</th>
+                    <th>{{"formulario-usuarios.Last name" | translate}}</th>
+                    <th>{{"formulario-usuarios.Profession" | translate}}</th>
+                    <th>{{"formulario-usuarios.Clinic" | translate}}</th>
+                    <th>{{"admin-menu.Actions" | translate}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,7 +45,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New User </h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{"admin-menu.New User" | translate}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -53,82 +53,82 @@
             <div class="modal-body">
                 <form [formGroup]="crearteUserForm" (ngSubmit)="createUser()">
                     <div class="form-group">
-                        <label for="username">Email:</label>
+                        <label for="username">{{"formulario-usuarios.Email" | translate}}:</label>
                         <input type="email" class="form-control" id="username" formControlName="username" required email>
                     </div>
                     <div *ngIf="crearteUserForm.controls['username'].invalid && (crearteUserForm.controls['username'].dirty || crearteUserForm.controls['username'].touched)" class="alert alert-danger">
                         <div *ngIf="crearteUserForm.controls['username'].errors.required">
-                            Email is required.
+                            {{"formulario-usuarios.Email is required" | translate}}
                         </div>
                         <div *ngIf="crearteUserForm.controls['username'].errors.email">
-                            Please enter a valid email.
+                            {{"formulario-usuarios.Please enter a valid email" | translate}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password:</label>
+                        <label for="password">{{"formulario-usuarios.Password" | translate}}:</label>
                         <input type="password" class="form-control" id="password" formControlName="password" required>
                     </div>
                     <div *ngIf="crearteUserForm.controls['password'].invalid && (crearteUserForm.controls['password'].dirty || crearteUserForm.controls['password'].touched)" class="alert alert-danger">
                         <div *ngIf="crearteUserForm.controls['password'].errors.required">
-                            password is required.
+                            {{"formulario-usuarios.Password is required" | translate}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="repeat_password">Repeat Password:</label>
+                        <label for="repeat_password">{{"formulario-usuarios.Repeat Password" | translate}}:</label>
                         <input type="password" class="form-control" id="repeat_password" formControlName="repeat_password" required>
                     </div>
                     <div *ngIf="crearteUserForm.controls['repeat_password'].invalid && (crearteUserForm.controls['repeat_password'].dirty || crearteUserForm.controls['repeat_password'].touched)" class="alert alert-danger">
                         <div *ngIf="crearteUserForm.controls['repeat_password'].errors.required">
-                            Repeat Password is required.
+                            {{"formulario-usuarios.Repeat Password is required" | translate}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="first_name">First name:</label>
+                        <label for="first_name">{{"formulario-usuarios.First name" | translate}}:</label>
                         <input type="text" class="form-control" id="first_name" formControlName="first_name" required>
                     </div>
                     <div *ngIf="crearteUserForm.controls['first_name'].invalid && (crearteUserForm.controls['first_name'].dirty || crearteUserForm.controls['first_name'].touched)" class="alert alert-danger">
                         <div *ngIf="crearteUserForm.controls['first_name'].errors.required">
-                            First name is required.
+                            {{"formulario-usuarios.First name is required" | translate}}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="last_name">Last name:</label>
+                        <label for="last_name">{{"formulario-usuarios.Last name" | translate}}:</label>
                         <input type="text" class="form-control" id="last_name" formControlName="last_name" required>
                     </div>
                     <div *ngIf="crearteUserForm.controls['last_name'].invalid && (crearteUserForm.controls['last_name'].dirty || crearteUserForm.controls['last_name'].touched)" class="alert alert-danger">
                         <div *ngIf="crearteUserForm.controls['last_name'].errors.required">
-                            Last name is required.
+                            {{"formulario-usuarios.Last name is required" | translate}}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="profesion">Profession:</label>
+                        <label for="profesion">{{"formulario-usuarios.Profession" | translate}}:</label>
                         <input type="text" class="form-control" id="profesion" formControlName="profesion" required>
                     </div>
                     <div *ngIf="crearteUserForm.controls['profesion'].invalid && (crearteUserForm.controls['profesion'].dirty || crearteUserForm.controls['profesion'].touched)" class="alert alert-danger">
                         <div *ngIf="crearteUserForm.controls['profesion'].errors.required">
-                            Profession is required.
+                            {{"formulario-usuarios.Profession is required" | translate}}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="centro_salud">Clinic:</label>
+                        <label for="centro_salud">{{"formulario-usuarios.Clinic" | translate}}:</label>
                         <input type="text" class="form-control" id="centro_salud" formControlName="centro_salud" required>
                     </div>
                     <div *ngIf="crearteUserForm.controls['centro_salud'].invalid && (crearteUserForm.controls['centro_salud'].dirty || crearteUserForm.controls['centro_salud'].touched)" class="alert alert-danger">
                         <div *ngIf="crearteUserForm.controls['centro_salud'].errors.required">
-                            Clinic is required.
+                            {{"formulario-usuarios.Clinic is required" | translate}}
                         </div>
                     </div>
 
-                    <button type="submit" [disabled]="crearteUserForm.pristine || crearteUserForm.invalid" class="btn btn-primary ">Create</button>
+                    <button type="submit" [disabled]="crearteUserForm.pristine || crearteUserForm.invalid" class="btn btn-primary ">{{"admin-menu.Create" | translate}}</button>
                 </form>
-                <p *ngIf="show_error_create_user" class="text-danger mt-2">{{error_create_user}}</p>
+                <p *ngIf="show_error_create_user" class="text-danger mt-2">{{"admin-menu."+error_create_user | translate}}</p>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{"admin-menu.Cancel" | translate}}</button>
             </div>
         </div>
     </div>
@@ -139,7 +139,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{"admin-menu.Update User" | translate}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -147,69 +147,69 @@
             <div class="modal-body">
                 <form [formGroup]="updateUserForm" (ngSubmit)="updateUser()">
                     <div class="form-group">
-                        <label for="username">Email:</label>
+                        <label for="username">{{"formulario-usuarios.Email" | translate}}:</label>
                         <input type="email" class="form-control" id="username" formControlName="username" required email>
                     </div>
                     <div *ngIf="updateUserForm.controls['username'].invalid && (updateUserForm.controls['username'].dirty || updateUserForm.controls['username'].touched)" class="alert alert-danger">
                         <div *ngIf="updateUserForm.controls['username'].errors.required">
-                            Email is required.
+                            {{"formulario-usuarios.Email is required" | translate}}
                         </div>
                         <div *ngIf="updateUserForm.controls['username'].errors.email">
-                            Please enter a valid email.
+                            {{"formulario-usuarios.Please enter a valid email" | translate}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password:</label>
+                        <label for="password">{{"formulario-usuarios.Password" | translate}}:</label>
                         <input type="password" class="form-control" id="password" formControlName="password">
                     </div>
 
                     <div class="form-group">
-                        <label for="first_name">First name:</label>
+                        <label for="first_name">{{"formulario-usuarios.First name" | translate}}:</label>
                         <input type="text" class="form-control" id="first_name" formControlName="first_name" required>
                     </div>
                     <div *ngIf="updateUserForm.controls['first_name'].invalid && (updateUserForm.controls['first_name'].dirty || updateUserForm.controls['first_name'].touched)" class="alert alert-danger">
                         <div *ngIf="updateUserForm.controls['first_name'].errors.required">
-                            First name is required.
+                            {{"formulario-usuarios.First name is required" | translate}}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="last_name">Last name:</label>
+                        <label for="last_name">{{"formulario-usuarios.Last name" | translate}}:</label>
                         <input type="text" class="form-control" id="last_name" formControlName="last_name" required>
                     </div>
                     <div *ngIf="updateUserForm.controls['last_name'].invalid && (updateUserForm.controls['last_name'].dirty || updateUserForm.controls['last_name'].touched)" class="alert alert-danger">
                         <div *ngIf="updateUserForm.controls['last_name'].errors.required">
-                            Last name is required.
+                            {{"formulario-usuarios.Last name is required" | translate}}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="profesion">Profession:</label>
+                        <label for="profesion">{{"formulario-usuarios.Profession" | translate}}:</label>
                         <input type="text" class="form-control" id="profesion" formControlName="profesion" required>
                     </div>
                     <div *ngIf="updateUserForm.controls['profesion'].invalid && (updateUserForm.controls['profesion'].dirty || updateUserForm.controls['profesion'].touched)" class="alert alert-danger">
                         <div *ngIf="updateUserForm.controls['profesion'].errors.required">
-                            Profession is required.
+                            {{"formulario-usuarios.Profession is required" | translate}}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="centro_salud">Clinic:</label>
+                        <label for="centro_salud">{{"formulario-usuarios.Clinic" | translate}}:</label>
                         <input type="text" class="form-control" id="centro_salud" formControlName="centro_salud" required>
                     </div>
                     <div *ngIf="updateUserForm.controls['centro_salud'].invalid && (updateUserForm.controls['centro_salud'].dirty || updateUserForm.controls['centro_salud'].touched)" class="alert alert-danger">
                         <div *ngIf="updateUserForm.controls['centro_salud'].errors.required">
-                            Clinic is required.
+                            {{"formulario-usuarios.Clinic is required" | translate}}
                         </div>
                     </div>
 
-                    <button type="submit" [disabled]="updateUserForm.pristine || updateUserForm.invalid" class="btn btn-primary ">Update</button>
+                    <button type="submit" [disabled]="updateUserForm.pristine || updateUserForm.invalid" class="btn btn-primary ">{{"admin-menu.Update" | translate}}</button>
                 </form>
-                <p *ngIf="show_error_update_user" class="text-danger mt-2">User already exists</p>
+                <p *ngIf="show_error_update_user" class="text-danger mt-2">{{"admin-menu.User already exists" | translate}}</p>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{"admin-menu.Cancel" | translate}}</button>
             </div>
         </div>
     </div>
