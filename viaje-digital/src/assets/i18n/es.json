@@ -3,13 +3,13 @@
         "Login": "Iniciar Sesión",
         "Place_email_address": "Correo Electrónico",
         "Place_password": "Contraseña",
-        "Remember": "Recuerda me",
+        "Remember": "Recuerdame",
         "invalid email or password": "Correo electrónico o contraseña incorrectos",
         "Please write your email and password": "Por favor, escribe tu correo electrónico y contraseña"
     },
     "barra": {
-        "Patient": "Paciente",
-        "Journey": "Viaje",
+        "Patient": "Salud",
+        "Journey": "Digital",
         "Need help?": "¿Necesitas ayuda?",
         "Home": "Inicio",
         "New patient": "Nuevo paciente",
@@ -180,8 +180,8 @@
 
     },
     "admin-menu": {
-        "Patient Journey Admin": "Administrador Salud Digital",
-        "Healthcare Professionals": "Profesionales del área de la salud",
+        "Patient Journey Admin": "Admin Salud Digital",
+        "Healthcare Professionals": "Usuarios",
         "Patients": "Pacientes",
         "Archetype editor": "Editor de arquetipos",
         "Language": "Idioma",

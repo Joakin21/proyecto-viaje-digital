@@ -41,7 +41,7 @@ export class DiagramaArquetiposComponent implements OnInit {
       if (typeof obj[k] == "object" && obj[k] !== null && !Array.isArray(obj[k])) {
 
         var direction = "left"
-        if (obj[k]["text"] == "description" || obj[k]["text"] == "attribution") {
+        if (obj[k]["text"] == "description" || obj[k]["text"] == "attribution" || obj[k]["text"] == "descripción" || obj[k]["text"] == "atribución") {
           direction = "right"
         } else {
           direction = "left"
