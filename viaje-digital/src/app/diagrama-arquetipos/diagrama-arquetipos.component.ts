@@ -135,7 +135,7 @@ export class DiagramaArquetiposComponent implements OnInit {
     arquetipo["id_nodo"] = "nodo1"
     this.myData.push({ "id": arquetipo["id_nodo"], "isroot": true, "background-color": "#4080ff", "topic": arquetipo["text"] })
     this.crearData(arquetipo)
-    console.log(arquetipo)
+    //console.log(arquetipo)
     this.arquetipo = arquetipo
     this.configurarJsMind()
 
@@ -149,10 +149,10 @@ export class DiagramaArquetiposComponent implements OnInit {
       this.arquetipo_id = id_arq
 
       if (this.arquetipo_id == null) {
-        console.log("test!")
+        //console.log("test!")
       }
       else if (this.arquetipo_id == "nuevo arquetipo") {
-        console.log(this.arquetipo_id)
+        //console.log(this.arquetipo_id)
 
       }
       else {

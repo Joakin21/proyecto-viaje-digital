@@ -50,10 +50,10 @@ export class LoginComponent implements OnInit {
   login(credenciales: NgForm) {
     var credenciales_ingresadas = credenciales.valid
     if (credenciales_ingresadas) {
-      console.log(credenciales.value)
+      //console.log(credenciales.value)
       this.userService.login(credenciales.value).subscribe(
         data => {
-          console.log(data)
+          //console.log(data)
           this.mostrar_error = false
           this.userService.setToken(data.token)
 
@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
       this.mensaje_login = "Please write your email and password"
     }
 
-    console.log(credenciales.valid);
+    //console.log(credenciales.valid);
   }
   goToInicio(): void {
     this.router.navigateByUrl('/inicio')

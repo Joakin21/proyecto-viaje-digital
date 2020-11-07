@@ -32,7 +32,7 @@ export class BuscadorRapidoComponent implements OnInit {
     //MEJORAR LOGICA DE COMO SE TRANSFIERE ESTA INFORMACIÓN ENTRE COMPONENTES
     this.conexBack.getArquetipoById(arquetipo_id).subscribe(
       arquetipo => {
-        console.log(arquetipo)
+        //console.log(arquetipo)
         this.emitir_id_arquetipo.emit(arquetipo["_id"])
         this.elegirArquetipo.agregarAlHistorial(arquetipo)
         this.buscarArquetipo = ''

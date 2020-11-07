@@ -56,7 +56,7 @@ export class FichaPacienteComponent implements OnInit {
   createPatientForm: FormGroup
 
   crearPaciente() {
-    console.log(this.createPatientForm.value)
+    //console.log(this.createPatientForm.value)
   
     this.patient_journey = this.createPatientForm.value
     this.patient_journey["es_atendido_ahora"] = false 

@@ -159,7 +159,7 @@ export class ListaArquetiposComponent implements OnInit {
     
     let lista = { nombre_lista:this.createNewListForm.value.list_name, arquetipos:[], idioma:this.currentLang }
     this.user_listas_arquetipos.push(lista)
-    console.log(this.user_listas_arquetipos)
+    //console.log(this.user_listas_arquetipos)
 
     this.ListsForm = this.formBuilder.group({
       lists: new FormArray([], minSelectedCheckboxes(1))
