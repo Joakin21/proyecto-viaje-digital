@@ -1,7 +1,7 @@
-<div id="myLogin" class="text-center mt-1">
+<div id="myLogin" class="text-center mt-4">
     <form #credenciales="ngForm" (ngSubmit)="login(credenciales)" class="form-signin">
         <img class="mb-4" src="assets/imagenes/logo_azul.png" alt="" width="166" height="157">
-        <h1 class="h3 mb-3 font-weight-normal">{{"login.Login" | translate}}</h1>
+        <h1 class="h3 mb-4 font-weight-normal">{{"login.Login" | translate}}</h1>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" name="username" class="form-control text-center mb-2" ngModel placeholder="{{'login.Place_email_address' | translate}}" required #email="ngModel" autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
