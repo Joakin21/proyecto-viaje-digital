@@ -95,7 +95,7 @@ export class InicioComponent implements OnInit {
       }
     );
   }
-  setEsAtendidoAhora(rut:string, valor: boolean){
+  /*setEsAtendidoAhora(rut:string, valor: boolean){
     this.patientService.setEsAtendidoAhora(rut, {es_atendido_ahora:valor}).subscribe(
       data => {
       },
@@ -103,14 +103,14 @@ export class InicioComponent implements OnInit {
         console.log('error', error)
       }
     );
-  }
+  }*/
 
 
   goToHistory(paciente: any = {}){
     if(paciente["es_atendido_ahora"] == false || this.es_atendido_ahora == false){
       let rut = paciente["rut"] ?? this.rut
       this.seleccionarPacienteService.asignar(rut)
-      this.setEsAtendidoAhora(rut, true)
+      //this.setEsAtendidoAhora(rut, true)
       this.router.navigateByUrl('/ficha-paciente')
     }
   }

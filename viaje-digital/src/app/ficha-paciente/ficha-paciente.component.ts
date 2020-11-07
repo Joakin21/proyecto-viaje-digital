@@ -59,7 +59,7 @@ export class FichaPacienteComponent implements OnInit {
     console.log(this.createPatientForm.value)
   
     this.patient_journey = this.createPatientForm.value
-    this.patient_journey["es_atendido_ahora"] = true 
+    this.patient_journey["es_atendido_ahora"] = false 
     this.patient_journey["profesionales_que_atendieron"] = []
     this.patient_journey["sesiones_medica"] = []
 
@@ -184,7 +184,7 @@ export class FichaPacienteComponent implements OnInit {
         ciudad: ['', Validators.required]
       })
   }
-  setEsAtendidoAhora(valor: boolean){
+  /*setEsAtendidoAhora(valor: boolean){
     let rut = this.patient_journey["rut"]
     if(rut){
       this.patientService.setEsAtendidoAhora(rut, {es_atendido_ahora:valor}).subscribe(
@@ -195,17 +195,17 @@ export class FichaPacienteComponent implements OnInit {
         }
       );
     }
-  }
+  }*/
 
   ngOnDestroy() {
-    this.setEsAtendidoAhora(false)
+    //this.setEsAtendidoAhora(false)
   }
 
-  @HostListener('window:beforeunload', ['$event'])
+  /*@HostListener('window:beforeunload', ['$event'])
   public beforeunloadHandler($event) {
     this.setEsAtendidoAhora(false)
     //$event.returnValue = "Are you sure?";
-  }
+  }*/
 
   agregarCampo(datos_campo: any) {
     var elemento

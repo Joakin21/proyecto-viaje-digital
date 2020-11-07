@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit{
       }
     )
   }
-  setEsAtendidoAhora(rut:string, valor: boolean){
+  /*setEsAtendidoAhora(rut:string, valor: boolean){
     if(this.paciente_en_edicion){
       this.patientService.setEsAtendidoAhora(rut, {es_atendido_ahora:valor}).subscribe(
         data => {
@@ -38,21 +38,21 @@ export class HeaderComponent implements OnInit{
       );
     }
 
-  }
+  }*/
 
   logout() {
-    this.setEsAtendidoAhora(this.paciente_en_edicion, false)
+    //this.setEsAtendidoAhora(this.paciente_en_edicion, false)
     this.userService.logout()
     this.router.navigateByUrl('')
   }
 
   goHome() {
-    this.setEsAtendidoAhora(this.paciente_en_edicion, false)
+    //this.setEsAtendidoAhora(this.paciente_en_edicion, false)
     this.router.navigateByUrl('/inicio')
   }
 
   createNewPatient() {
-    this.setEsAtendidoAhora(this.paciente_en_edicion, false)
+    //this.setEsAtendidoAhora(this.paciente_en_edicion, false)
     this.seleccionarPacienteService.asignar("new_patient")
     this.router.navigateByUrl('/ficha-paciente')
   }
