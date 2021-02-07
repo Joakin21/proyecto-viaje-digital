@@ -30,6 +30,10 @@ export class PacienteService {
     httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
     return this.httpClient.get(this.url_pacientes_atendidos + id_profesional + "/", httpOptions);
   }
+  putAttendedPatients(id_profesional: number, ultimos_pacientes_atendidos:any): Observable<any> {
+    httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
+    return this.httpClient.put(this.url_pacientes_atendidos + id_profesional + "/", ultimos_pacientes_atendidos, httpOptions);
+  }
   putPatient(rut: string, patient_journey: any): Observable<any> {
     httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
     return this.httpClient.put(this.url_pacientes + rut + "/", patient_journey, httpOptions)
