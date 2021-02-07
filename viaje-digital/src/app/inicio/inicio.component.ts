@@ -47,8 +47,8 @@ export class InicioComponent implements OnInit {
         this.patientService.getAttendedPatients(id_profesional).subscribe(
           data => {
 
-            this.pacientes_atendidos = data["pacientes_atendidos"]
-            //console.log(this.pacientes_atendidos)
+            this.pacientes_atendidos = data["ultimos_pacientes_atendidos"]
+            console.log(this.pacientes_atendidos)
           },
           error => {
             console.log('error', error)

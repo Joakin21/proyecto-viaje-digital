@@ -108,27 +108,13 @@ export class FichaPacienteComponent implements OnInit {
 
   }
   obtenerFechaActual(): string {
-    let month = {
-      "01":"Jan",
-      "02":"Feb",
-      "03":"Mar",
-      "04":"Apr",
-      "05":"May",
-      "06":"Jun",
-      "07":"Jul",
-      "08":"Aug",
-      "09":"Sep",
-      "10":"Oct",
-      "11":"Nov",
-      "12":"Dec",
-    }
 
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear().toString();
 
-    var my_current_date = dd + '-' + month[mm] + '-' + yyyy.slice(yyyy.length - 2, yyyy.length);//length
+    var my_current_date = dd + '/' + mm + '/' + yyyy//dd + '-' + month[mm] + '-' + yyyy.slice(yyyy.length - 2, yyyy.length);//length
     return my_current_date
   }
   usuario_logeado: string = ""//para pasar al header
@@ -142,7 +128,7 @@ export class FichaPacienteComponent implements OnInit {
       data => {
         this.usuario_logeado = data.user.first_name + " " + data.user.last_name//data.user.username
         this.user = data
-        //console.log(this.user)
+        console.log(this.user)
       },
       error => {
         console.log('error', error)
@@ -183,6 +169,7 @@ export class FichaPacienteComponent implements OnInit {
         fecha_nacimiento: ['', Validators.required],
         ciudad: ['', Validators.required]
       })
+
   }
   /*setEsAtendidoAhora(valor: boolean){
     let rut = this.patient_journey["rut"]
@@ -426,6 +413,52 @@ export class FichaPacienteComponent implements OnInit {
 
   }
 
+  actualizarUltimosPacientesAtendidos(user_id:number, ultimos_pacientes_atendidos:any){
+    this.patientService.putAttendedPatients(user_id, ultimos_pacientes_atendidos).subscribe(
+      data => {
+        console.log(data);
+        
+      },
+      error => {
+        console.log('error', error)
+      }
+    )
+  }
+  agregarToListaDePacientesAtendidos(user_id:number, rutPaciente:String){
+    let ultimos_pacientes_atendidos = []
+    let rut_ultimos_pacientes_atendidos = []
+    //this.user.user.id
+    this.patientService.getAttendedPatients(user_id).subscribe(
+      data => {
+        console.log("HOLA");
+        
+        ultimos_pacientes_atendidos = data["ultimos_pacientes_atendidos"]
+        //let cantidadPacientesAtendidos = ultimos_pacientes_atendidos.length
+        //lo he atendido antes?
+        for(let paciente of ultimos_pacientes_atendidos){
+          //Si no lo he atendido antes
+          if(paciente['rut'] != rutPaciente){
+            rut_ultimos_pacientes_atendidos.push({"rut":paciente['rut'], "fecha":paciente['fecha']})
+          }
+          
+        }
+        if(rut_ultimos_pacientes_atendidos.length == 7){//eliminar ultimo paciente de la lista
+          rut_ultimos_pacientes_atendidos.pop()
+        }
+        rut_ultimos_pacientes_atendidos.unshift({"rut":rutPaciente, "fecha":this.obtenerFechaActual()})
+        console.log(rut_ultimos_pacientes_atendidos);
+        
+        //usar put
+        this.actualizarUltimosPacientesAtendidos(user_id, {"ultimos_pacientes_atendidos":rut_ultimos_pacientes_atendidos})
+  
+      },
+      error => {
+        console.log('error', error)
+        //this.router.navigateByUrl('')
+      }
+    );
+  }
+
   submit(datos_form: any) {
 
     if (this.arquetipos_medical_sesion.length > 0) {
@@ -464,6 +497,8 @@ export class FichaPacienteComponent implements OnInit {
       if (!atendio_al_paciente_antes) {
         this.patient_journey["profesionales_que_atendieron"].push({"user_id": this.user.user.id, "fecha": this.current_medical_sesion["fecha"]})
       }
+      this.agregarToListaDePacientesAtendidos(this.user.user.id, this.patient_journey["rut"])
+
       this.resetDatosCurrentSesionMedica()
 
       this.patientService.putPatient(this.patient_journey["rut"], this.patient_journey).subscribe(
