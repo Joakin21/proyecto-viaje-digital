@@ -44,6 +44,8 @@ import { SugerirArquetipoPipe } from './pipes/sugerir-arquetipo.pipe';
 
 import { DataTablesModule } from 'angular-datatables';
 
+import { NgxSpinnerModule } from "ngx-spinner";
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -112,8 +114,8 @@ const routes: Routes = [
       }
     }),
 
+    NgxSpinnerModule,
     RouterModule.forRoot(routes),
-
     NgxPopper
   ],
   providers: [CookieService],

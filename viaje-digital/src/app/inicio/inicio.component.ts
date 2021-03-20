@@ -9,6 +9,9 @@ import { SeleccionarPacienteService } from '../servicios/seleccionar-paciente.se
 import { DOCUMENT } from '@angular/common';
 import { Inject } from '@angular/core';
 
+//Spiner
+import { NgxSpinnerService } from "ngx-spinner";
+
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
@@ -17,7 +20,7 @@ import { Inject } from '@angular/core';
 })
 export class InicioComponent implements OnInit {
 
-  constructor(@Inject(DOCUMENT) private _document, private router: Router, private userService: UserService, private patientService: PacienteService, private seleccionarPacienteService: SeleccionarPacienteService) { }
+  constructor(@Inject(DOCUMENT) private _document, private router: Router, private userService: UserService, private patientService: PacienteService, private seleccionarPacienteService: SeleccionarPacienteService, private spinner: NgxSpinnerService) { }
 
   mensaje_respuesta: string = ""
   mostrar_paciente_encontrado: boolean = false
@@ -25,9 +28,14 @@ export class InicioComponent implements OnInit {
 
   usuario_logeado: string = ""
   pacientes_atendidos: any = []
+
+  mensaje_spiner:string = ""
   
   ngOnInit(): void {
+
     this._document.body.style.background = '#f6f9fc';
+    /** spinner starts on init */
+
     if (!this.userService.getToken()) {//si no hay token
       this.router.navigateByUrl('')
     }
@@ -44,15 +52,24 @@ export class InicioComponent implements OnInit {
 
         //console.log(data)
         var id_profesional = data.user.id
+
+        this.mensaje_spiner = "Loading last seen patients..."
+        this.spinner.show();
         this.patientService.getAttendedPatients(id_profesional).subscribe(
           data => {
 
             this.pacientes_atendidos = data["ultimos_pacientes_atendidos"]
-            console.log(this.pacientes_atendidos)
+            if(this.pacientes_atendidos.length == 0){
+              this.pacientes_atendidos = null
+            }
+            //console.log(this.pacientes_atendidos)
+            this.spinner.hide();
           },
           error => {
             console.log('error', error)
             this.router.navigateByUrl('')
+            this.pacientes_atendidos = null
+            this.spinner.hide();
           }
         );
       },
@@ -61,6 +78,7 @@ export class InicioComponent implements OnInit {
         this.router.navigateByUrl('')
       }
     );
+    
 
   }
 
@@ -70,6 +88,8 @@ export class InicioComponent implements OnInit {
   es_atendido_ahora: boolean
 
   buscarPaciente(paciente: NgForm) {
+    this.spinner.show();
+    this.mensaje_spiner = "Searching Patient..."
     var rut = paciente.value.rut
     this.patientService.getPatient(rut).subscribe(
       data => {
@@ -81,17 +101,20 @@ export class InicioComponent implements OnInit {
           this.es_atendido_ahora = data["es_atendido_ahora"]
           this.mostrar_paciente_encontrado = true
           this.mostrar_error = false
+
         } else {
           this.mensaje_respuesta = data["detail"]
           this.mostrar_paciente_encontrado = false
           this.mostrar_error = true
 
         }
+        this.spinner.hide();
       },
       error => {
         this.mensaje_respuesta = "Patient not found"
         this.mostrar_error = true
         console.log('error', error)
+        this.spinner.hide();
       }
     );
   }

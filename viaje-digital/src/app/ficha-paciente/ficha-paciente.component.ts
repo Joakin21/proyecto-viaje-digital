@@ -12,6 +12,8 @@ import { SeleccionarPacienteService } from '../servicios/seleccionar-paciente.se
 import { PdfService } from '../servicios/pdf.service'
 import { months } from 'moment';
 
+//Spiner
+import { NgxSpinnerService } from "ngx-spinner";
 
 declare var $: any;
 
@@ -22,7 +24,7 @@ declare var $: any;
 })
 export class FichaPacienteComponent implements OnInit {
 
-  constructor(private conexBack: ConexionBackendService, private router: Router, private userService: UserService, private patientService: PacienteService, private seleccionarPacienteService: SeleccionarPacienteService, private pdfService: PdfService, private formBuilder: FormBuilder) { }
+  constructor(private conexBack: ConexionBackendService, private router: Router, private userService: UserService, private patientService: PacienteService, private seleccionarPacienteService: SeleccionarPacienteService, private pdfService: PdfService, private formBuilder: FormBuilder, private spinner: NgxSpinnerService) { }
   mostrar_diagrama_arquetipos: boolean = false
 
   patient_journey: any = {}
@@ -37,8 +39,8 @@ export class FichaPacienteComponent implements OnInit {
   habilitar_creacion_nueva_sesion: boolean = true
 
   mensaje_error2: string = ""
-
   menu_abierto: boolean = true
+  mensaje_spiner:string = "Loading Patient..."
 
   @ViewChild(DynamicFormComponent, { static: false }) form: DynamicFormComponent;
   regConfig: FieldConfig[] = [//Nos ayudara para agregar nuevas sesiones medicas a la estructura
@@ -57,7 +59,8 @@ export class FichaPacienteComponent implements OnInit {
 
   crearPaciente() {
     //console.log(this.createPatientForm.value)
-  
+    this.mensaje_spiner = "creating patient, this operation may take a few seconds ..."
+    this.spinner.show();
     this.patient_journey = this.createPatientForm.value
     this.patient_journey["es_atendido_ahora"] = false 
     this.patient_journey["profesionales_que_atendieron"] = []
@@ -68,15 +71,18 @@ export class FichaPacienteComponent implements OnInit {
         if(data["detail"]){
           this.mostrar_error = true
           this.error_crear_paciente = "the patient's id is already registered"
+          this.spinner.hide();
         }
         else {
           this.mostrar_error = false
           this.patient_journey["_id"] = data["_id"]
           this.showPatientJourney()
+          this.spinner.hide();
         }  
       },
       error => {
         console.log('error', error)
+        this.spinner.hide();
       }
     );
 
@@ -120,6 +126,7 @@ export class FichaPacienteComponent implements OnInit {
   usuario_logeado: string = ""//para pasar al header
 
   ngOnInit(): void {
+  
     if (!this.userService.getToken()) {//si no hay token
       this.router.navigateByUrl('')
     }
@@ -147,14 +154,18 @@ export class FichaPacienteComponent implements OnInit {
           this.habilitar_creacion_nueva_sesion = true
         }
         else {
+          /** spinner starts on init */
+          this.spinner.show();
           this.patientService.getPatient(rut).subscribe(
             data => {
-              this.patient_journey = data
+              this.patient_journey = data;
               //console.log(this.patient_journey)
-              this.showPatientJourney()
+              this.showPatientJourney();
+              this.spinner.hide();
             },
             error => {
-              console.log('error', error)
+              console.log('error', error);
+              this.spinner.hide();
             }
           );
 

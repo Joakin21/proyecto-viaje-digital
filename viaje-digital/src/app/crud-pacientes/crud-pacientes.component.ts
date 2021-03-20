@@ -25,7 +25,7 @@ export class CrudPacientesComponent implements OnInit {
     this.patientService.getAllPatients().subscribe(
       data => {
         this.my_patients = data
-        console.log(this.my_patients)
+        //console.log(this.my_patients)
       },
       error => {
         console.log('error', error)

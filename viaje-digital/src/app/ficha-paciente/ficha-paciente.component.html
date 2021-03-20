@@ -1,6 +1,9 @@
 <app-header [userName]="usuario_logeado"></app-header>
 
 <div class="d-flex ml-0" id="wrapper">
+    <ngx-spinner bdColor="rgba(246,249,252,0.8)" size="default" color="#59b0f3" type="square-jelly-box" [fullScreen]="true">
+        <p style="color: #59b0f3"> {{mensaje_spiner}} </p>
+    </ngx-spinner>
     <!--
     <div class="col-md-12" *ngIf="mostrar_diagrama_arquetipos">
         <div class="bg-white mt-5 p-3 shadow extra-style horizontal-center">
