@@ -4,13 +4,12 @@
             <h3>{{"admin-menu.Patients" | translate}}</h3>
         </div>
         <div class="col-md-2">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#modalCreatePatient">{{"admin-menu.add new" | translate}}</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#modalCreatePatient"> add new</button>
         </div>
     </div>
-
-    <div class="table-responsive mt-2">
-        <table *ngIf="my_patients.length > 0" datatable [dtOptions]="dtOptions" class="row-border hover">
-            <thead>
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-light">
                 <tr>
                     <th>{{"formulario-paciente.Name" | translate}}</th>
                     <th>{{"formulario-paciente.Last name" | translate}}</th>
@@ -37,12 +36,12 @@
                         </div>
                     </td>
 
-
                 </tr>
-
             </tbody>
         </table>
     </div>
+    <button *ngIf="skip > 0" (click)="previousPatients()" type="button" class="btn btn-secondary mr-2">Anterior</button>
+    <button (click)="nextPatients()" type="button" class="btn btn-secondary">Siguiente</button>
 </div>
 
 <!--Modal para crear un paciente-->

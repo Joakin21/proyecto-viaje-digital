@@ -20,17 +20,10 @@ export class CrudPacientesComponent implements OnInit {
 
 
   my_patients: any[] = []
+  skip:number = 0
 
   ngOnInit(): void {
-    this.patientService.getAllPatients().subscribe(
-      data => {
-        this.my_patients = data
-        //console.log(this.my_patients)
-      },
-      error => {
-        console.log('error', error)
-      }
-    );
+    this.getPatients(this.skip)
     
     let my_url = 'http://cdn.datatables.net/plug-ins/1.10.21/i18n/English.json'
     if(this.translate.currentLang == "es"){
@@ -98,6 +91,27 @@ export class CrudPacientesComponent implements OnInit {
 
 
   }
+  getPatients(skip:number){
+    this.patientService.getSkipPatients(skip).subscribe(
+      data => {
+        this.my_patients = data
+      },
+      error => {
+        console.log('error', error)
+      }
+    );
+  }
+
+  nextPatients(){
+    this.skip += 10
+    this.getPatients(this.skip)
+  }
+
+  previousPatients(){
+    this.skip -= 10
+    this.getPatients(this.skip)
+  }
+
 
   deletePatient(patient_index) {
     var respuesta = confirm("Are you sure you want to delete this patient?");
