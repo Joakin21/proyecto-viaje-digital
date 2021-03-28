@@ -1,7 +1,10 @@
 <div class="m-4">
+    <ngx-spinner bdColor="rgba(246,249,252,0.8)" size="default" color="#59b0f3" type="square-jelly-box" [fullScreen]="true">
+        <p style="color: #59b0f3"> {{mensaje_spiner}} </p>
+    </ngx-spinner>
     <div class="row">
         <div class="col-md-10">
-            <h3>{{"admin-menu.Patients" | translate}}</h3>
+            <h3>{{"admin-menu.Patients" | translate}} &#40;{{amountPatients}} Registred&#41;</h3>
         </div>
         <div class="col-md-2">
             <button class="btn btn-primary" data-toggle="modal" data-target="#modalCreatePatient"> add new</button>
@@ -11,6 +14,7 @@
         <table class="table">
             <thead class="thead-light">
                 <tr>
+                    <th>#</th>
                     <th>{{"formulario-paciente.Name" | translate}}</th>
                     <th>{{"formulario-paciente.Last name" | translate}}</th>
                     <th>{{"formulario-paciente.Rut" | translate}}</th>
@@ -22,6 +26,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let patient of my_patients; let i = index; trackBy: trackItem">
+                    <td>{{numberOfPatients[i]}}</td>
                     <td>{{patient["nombre"]}}</td>
                     <td>{{patient["apellidos"]}}</td>
                     <td>{{patient["rut"]}}</td>
@@ -40,8 +45,14 @@
             </tbody>
         </table>
     </div>
+    <p class="text-center">Page {{skip / 10 + 1}} of {{getNumOfPages()}}</p>
     <button *ngIf="skip > 0" (click)="previousPatients()" type="button" class="btn btn-secondary mr-2">Anterior</button>
-    <button (click)="nextPatients()" type="button" class="btn btn-secondary">Siguiente</button>
+    <button *ngIf="skip == 0" (click)="previousPatients()" type="button" class="btn btn-secondary mr-2" disabled>Anterior</button>
+
+    <button *ngIf="skip / 10 + 1 < getNumOfPages()" (click)="nextPatients()" type="button" class="btn btn-secondary">Siguiente</button>
+    <button *ngIf="skip / 10 + 1 >= getNumOfPages()" (click)="nextPatients()" type="button" class="btn btn-secondary" disabled>Siguiente</button>
+
+
 </div>
 
 <!--Modal para crear un paciente-->

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PacienteService } from '../servicios/paciente.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '.../../node_modules/@ngx-translate/core'
+import { NgxSpinnerService } from "ngx-spinner";
 
 declare var $: any;
 
@@ -13,7 +14,7 @@ declare var $: any;
 export class CrudPacientesComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
 
-  constructor(private patientService: PacienteService, private formBuilder: FormBuilder, public translate: TranslateService) { }
+  constructor(private patientService: PacienteService, private formBuilder: FormBuilder, public translate: TranslateService, private spinner: NgxSpinnerService) { }
 
   createPatientForm: FormGroup
   updatePatientForm: FormGroup
@@ -21,6 +22,10 @@ export class CrudPacientesComponent implements OnInit {
 
   my_patients: any[] = []
   skip:number = 0
+  amountPatients: number = 0
+  numberOfPatients:number[] = [1,2,3,4,5,6,7,8,9,10]
+
+  mensaje_spiner:string
 
   ngOnInit(): void {
     this.getPatients(this.skip)
@@ -55,11 +60,22 @@ export class CrudPacientesComponent implements OnInit {
       update_ciudad: ['', Validators.required]
     })
 
+    this.patientService.getAmountDocuments("historial_paciente").subscribe(
+      data => {
+        this.amountPatients = data['amount_documents']
+      },
+      error => {
+        console.log('error', error)
+      }
+    );
+
   }
 
   error_create_patient: string = ""
   show_error_create_patient: boolean = false
   createPatient() {
+    this.spinner.show();
+    this.mensaje_spiner = "Creating patient, this operation may take a few seconds ..."
     var new_patient = this.createPatientForm.value
     new_patient["es_atendido_ahora"] = false 
     new_patient["profesionales_que_atendieron"] = []
@@ -71,6 +87,7 @@ export class CrudPacientesComponent implements OnInit {
         if (new_patient_resp["detail"]) {
           this.error_create_patient = new_patient_resp["detail"]
           this.show_error_create_patient = true
+          this.spinner.hide();
         }
         else {
           this.show_error_create_patient = false
@@ -79,13 +96,17 @@ export class CrudPacientesComponent implements OnInit {
           delete new_patient["es_atendido_ahora"]
           delete new_patient["profesionales_que_atendieron"]
           delete new_patient["sesiones_medica"]
-          this.my_patients.push(new_patient)
+          this.my_patients.unshift(new_patient)
+          this.my_patients.pop()
+          this.amountPatients++
           $('#modalCreatePatient').modal('toggle');
+          this.spinner.hide();
         }
 
       },
       error => {
         console.log('error', error)
+        this.spinner.hide();
       }
     );
 
@@ -102,14 +123,27 @@ export class CrudPacientesComponent implements OnInit {
     );
   }
 
+  changeNumberOfPatients(increase:boolean){
+    for(let i = 0; i < this.numberOfPatients.length; i++){
+      if(increase){
+        this.numberOfPatients[i] = this.numberOfPatients[i] + 10
+      } 
+      else{
+        this.numberOfPatients[i] = this.numberOfPatients[i] - 10
+      }
+    }
+  }
+
   nextPatients(){
     this.skip += 10
     this.getPatients(this.skip)
+    this.changeNumberOfPatients(true)
   }
 
   previousPatients(){
     this.skip -= 10
     this.getPatients(this.skip)
+    this.changeNumberOfPatients(false)
   }
 
 
@@ -122,6 +156,7 @@ export class CrudPacientesComponent implements OnInit {
           if (!data["detail"]) {//sin no hay un error inesperado
             console.log(data)
             this.my_patients.splice(patient_index, 1)
+            this.amountPatients--
           }
         },
         error => {
@@ -149,6 +184,8 @@ export class CrudPacientesComponent implements OnInit {
   show_error_update_patient: boolean = false
   updatePatient() {
     //Los campos vienen listos (se validan que no esten vacios)
+    this.spinner.show();
+    this.mensaje_spiner = "Updating patient, this operation may take a few seconds ..."
     var updatePatientForm = this.updatePatientForm.value
     var rut_patient_to_update = this.my_patients[this.index_patient_to_update]["rut"]
     //obtener paciente completo:
@@ -173,27 +210,32 @@ export class CrudPacientesComponent implements OnInit {
               this.show_error_update_patient = false
               $('#modalUpdatePatient').modal('toggle');
               console.log(this.my_patients)
+              
             } else {
               this.error_update_patient = data["detail"]
               this.show_error_update_patient = true
             }
-
+            
           },
           error => {
             console.log('error', error)
           }
         );
+        this.spinner.hide();
 
       },
       error => {
         console.log('error', error)
+        this.spinner.hide();
       }
     );
 
 
   }
 
-
+  getNumOfPages(){
+    return Math.round(this.amountPatients / 10)
+  }
 
   public trackItem(index: number) {
 
