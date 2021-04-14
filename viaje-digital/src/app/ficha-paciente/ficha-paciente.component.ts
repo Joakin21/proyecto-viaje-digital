@@ -63,7 +63,6 @@ export class FichaPacienteComponent implements OnInit {
     this.spinner.show();
     this.patient_journey = this.createPatientForm.value
     this.patient_journey["es_atendido_ahora"] = false 
-    this.patient_journey["profesionales_que_atendieron"] = []
     this.patient_journey["sesiones_medica"] = []
 
     this.patientService.postPatient(this.patient_journey).subscribe(
@@ -497,17 +496,7 @@ export class FichaPacienteComponent implements OnInit {
       }
       this.current_medical_sesion["arquetipos"] = this.arquetipos_medical_sesion
       this.patient_journey["sesiones_medica"].push(this.current_medical_sesion)
-      //agrego el profesional que atendio solo si nunca habia atendido al paciente
-      var atendio_al_paciente_antes = false
-      for (let profesional of this.patient_journey["profesionales_que_atendieron"]) {
-        if (this.user.user.id == profesional["user_id"]) {
-          atendio_al_paciente_antes = true
-          profesional["fecha"] = this.current_medical_sesion["fecha"]
-        }
-      }
-      if (!atendio_al_paciente_antes) {
-        this.patient_journey["profesionales_que_atendieron"].push({"user_id": this.user.user.id, "fecha": this.current_medical_sesion["fecha"]})
-      }
+
       this.agregarToListaDePacientesAtendidos(this.user.user.id, this.patient_journey["rut"])
 
       this.resetDatosCurrentSesionMedica()

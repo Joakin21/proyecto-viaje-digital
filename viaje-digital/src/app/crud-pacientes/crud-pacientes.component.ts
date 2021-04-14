@@ -86,7 +86,6 @@ export class CrudPacientesComponent implements OnInit {
     this.mensaje_spiner = "Creating patient, this operation may take a few seconds ..."
     var new_patient = this.createPatientForm.value
     new_patient["es_atendido_ahora"] = false 
-    new_patient["profesionales_que_atendieron"] = []
     new_patient["sesiones_medica"] = []
 
     //Preparamos los datos
@@ -102,7 +101,6 @@ export class CrudPacientesComponent implements OnInit {
           //adapto respuesta (id de paciente creado)
           new_patient["_id"] = new_patient_resp["_id"]
           delete new_patient["es_atendido_ahora"]
-          delete new_patient["profesionales_que_atendieron"]
           delete new_patient["sesiones_medica"]
           this.my_patients.unshift(new_patient)
           this.my_patients.pop()
@@ -212,7 +210,6 @@ export class CrudPacientesComponent implements OnInit {
           data => {
 
             if (!data["detail"]) {
-              delete patient_to_uodate["profesionales_que_atendieron"]
               delete patient_to_uodate["sesiones_medica"]
               this.my_patients[this.index_patient_to_update] = patient_to_uodate
               this.show_error_update_patient = false
