@@ -3,14 +3,40 @@
         <p style="color: #59b0f3"> {{mensaje_spiner}} </p>
     </ngx-spinner>
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-10 mb-2">
             <h3>{{"admin-menu.Patients" | translate}} &#40;{{amountPatients}} Registred&#41;</h3>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 mb-2">
             <button class="btn btn-primary" data-toggle="modal" data-target="#modalCreatePatient"> add new</button>
         </div>
     </div>
-    <div class="table-responsive">
+    <div class="row">
+        <div class="col-md-12">
+            <form [formGroup]="searchPatientForm" class="form-inline" (ngSubmit)="buscarPaciente()">
+                <div class="form-group mb-2">
+                    <input type="text" class="form-control fa" ngModel id="rutToSearch" formControlName="rutToSearch" required placeholder="&#xf002; {{'inicio.Place_rut_paciente' | translate}}">
+                </div>
+                <!--
+                    <div class="form-group">
+                        <label for="nombre">{{"formulario-paciente.Name" | translate}}:</label>
+                        <input type="text" class="form-control" id="nombre" formControlName="nombre" required>
+                    </div>
+                    <div *ngIf="createPatientForm.controls['nombre'].invalid && (createPatientForm.controls['nombre'].dirty || createPatientForm.controls['nombre'].touched)" class="alert alert-danger">
+                        <div *ngIf="createPatientForm.controls['nombre'].errors.required">
+                            {{"formulario-paciente.First name is required" | translate}}
+                        </div>
+                    </div>
+                -->
+
+                <button type="submit" [disabled]="searchPatientForm.pristine || searchPatientForm.invalid" class="btn btn-secondary mb-2 ml-2">{{"inicio.Search" | translate}}</button>
+            </form>
+            <div *ngIf="msjBusqueda">
+                <p class="text-danger">{{"inicio."+msjBusqueda | translate}}</p>
+            </div>
+
+        </div>
+    </div>
+    <div class="table-responsive mt-2">
         <table class="table">
             <thead class="thead-light">
                 <tr>
@@ -45,12 +71,17 @@
             </tbody>
         </table>
     </div>
-    <p class="text-center">Page {{skip / 10 + 1}} of {{getNumOfPages()}}</p>
-    <button *ngIf="skip > 0" (click)="previousPatients()" type="button" class="btn btn-secondary mr-2">Anterior</button>
-    <button *ngIf="skip == 0" (click)="previousPatients()" type="button" class="btn btn-secondary mr-2" disabled>Anterior</button>
+    <div *ngIf="mostrarPacienteEncontrado; else mostrarPaginacion">
+        <button class="btn btn-secondary" (click)="backToShowPatientsList()">Back</button>
+    </div>
+    <ng-template #mostrarPaginacion>
+        <p class="text-center">Page {{skip / 10 + 1}} of {{getNumOfPages()}}</p>
+        <button *ngIf="skip > 0" (click)="previousPatients()" type="button" class="btn btn-secondary mr-2">Anterior</button>
+        <button *ngIf="skip == 0" (click)="previousPatients()" type="button" class="btn btn-secondary mr-2" disabled>Anterior</button>
 
-    <button *ngIf="skip / 10 + 1 < getNumOfPages()" (click)="nextPatients()" type="button" class="btn btn-secondary">Siguiente</button>
-    <button *ngIf="skip / 10 + 1 >= getNumOfPages()" (click)="nextPatients()" type="button" class="btn btn-secondary" disabled>Siguiente</button>
+        <button *ngIf="skip / 10 + 1 < getNumOfPages()" (click)="nextPatients()" type="button" class="btn btn-secondary">Siguiente</button>
+        <button *ngIf="skip / 10 + 1 >= getNumOfPages()" (click)="nextPatients()" type="button" class="btn btn-secondary" disabled>Siguiente</button>
+    </ng-template>
 
 
 </div>
