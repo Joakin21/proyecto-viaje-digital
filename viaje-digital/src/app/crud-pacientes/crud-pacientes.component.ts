@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PacienteService } from '../servicios/paciente.service'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { TranslateService } from '.../../node_modules/@ngx-translate/core'
 import { NgxSpinnerService } from "ngx-spinner";
+
 
 declare var $: any;
 
@@ -18,6 +19,7 @@ export class CrudPacientesComponent implements OnInit {
 
   createPatientForm: FormGroup
   updatePatientForm: FormGroup
+  searchPatientForm: FormGroup
 
 
   my_patients: any[] = []
@@ -26,6 +28,8 @@ export class CrudPacientesComponent implements OnInit {
   numberOfPatients:number[] = [1,2,3,4,5,6,7,8,9,10]
 
   mensaje_spiner:string
+  msjBusqueda: string = null
+  mostrarPacienteEncontrado:boolean = false
 
   ngOnInit(): void {
     this.getPatients(this.skip)
@@ -59,6 +63,10 @@ export class CrudPacientesComponent implements OnInit {
       update_fecha_nacimiento: ['', Validators.required],
       update_ciudad: ['', Validators.required]
     })
+    this.searchPatientForm = this.formBuilder.group({
+      rutToSearch: ['', Validators.required]
+    })
+    
 
     this.patientService.getAmountDocuments("historial_paciente").subscribe(
       data => {
@@ -231,6 +239,42 @@ export class CrudPacientesComponent implements OnInit {
     );
 
 
+  }
+
+  buscarPaciente(){
+
+    this.spinner.show();
+    this.msjBusqueda = null
+    this.mensaje_spiner = "Searching Patient..."
+    var rut = this.searchPatientForm.value.rutToSearch
+    this.patientService.getPatient(rut).subscribe(
+      data => {
+        if (data["rut"]) {
+          this.my_patients = []
+          this.my_patients.push(data)
+
+          //alert(data["rut"] + " - " + data["nombre"] + " - " + data["apellidos"] + " - " + data["es_atendido_ahora"])
+          this.mostrarPacienteEncontrado = true
+        } 
+        else {
+          //this.mensaje_respuesta = data["detail"]
+          this.mostrarPacienteEncontrado = false
+          this.msjBusqueda = data["detail"]
+        }
+        this.spinner.hide();
+      },
+      error => {
+        //this.mensaje_respuesta = "Patient not found"
+        this.msjBusqueda = "Patient not found"
+        this.spinner.hide();
+      }
+    );
+    
+
+  }
+  backToShowPatientsList(){
+    this.getPatients(this.skip)
+    this.mostrarPacienteEncontrado = false
   }
 
   getNumOfPages(){
