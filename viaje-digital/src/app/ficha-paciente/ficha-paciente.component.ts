@@ -63,6 +63,7 @@ export class FichaPacienteComponent implements OnInit {
     this.spinner.show();
     this.patient_journey = this.createPatientForm.value
     this.patient_journey["es_atendido_ahora"] = false 
+    this.patient_journey["activo"] = true
     this.patient_journey["sesiones_medica"] = []
 
     this.patientService.postPatient(this.patient_journey).subscribe(

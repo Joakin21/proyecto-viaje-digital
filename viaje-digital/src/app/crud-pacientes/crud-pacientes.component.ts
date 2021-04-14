@@ -86,6 +86,7 @@ export class CrudPacientesComponent implements OnInit {
     this.mensaje_spiner = "Creating patient, this operation may take a few seconds ..."
     var new_patient = this.createPatientForm.value
     new_patient["es_atendido_ahora"] = false 
+    new_patient["activo"] = true 
     new_patient["sesiones_medica"] = []
 
     //Preparamos los datos
