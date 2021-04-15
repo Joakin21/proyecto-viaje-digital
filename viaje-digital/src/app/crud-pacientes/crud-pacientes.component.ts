@@ -103,8 +103,9 @@ export class CrudPacientesComponent implements OnInit {
           new_patient["_id"] = new_patient_resp["_id"]
           delete new_patient["es_atendido_ahora"]
           delete new_patient["sesiones_medica"]
-          this.my_patients.unshift(new_patient)
-          this.my_patients.pop()
+          //this.my_patients.unshift(new_patient)
+          //this.my_patients.pop()
+          this.getPatients(this.skip)
           this.amountPatients++
           $('#modalCreatePatient').modal('toggle');
           this.spinner.hide();
@@ -276,7 +277,14 @@ export class CrudPacientesComponent implements OnInit {
   }
 
   getNumOfPages(){
-    return Math.round(this.amountPatients / 10)
+    //return Math.round(this.amountPatients / 10)
+    if(this.amountPatients % 10 == 0){
+      return Math.floor(this.amountPatients / 10)
+    }
+    else{
+      return Math.floor(this.amountPatients / 10) + 1
+    }
+    
   }
 
   public trackItem(index: number) {
