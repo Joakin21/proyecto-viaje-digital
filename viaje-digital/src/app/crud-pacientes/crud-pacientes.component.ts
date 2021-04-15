@@ -163,7 +163,8 @@ export class CrudPacientesComponent implements OnInit {
         data => {
           if (!data["detail"]) {//sin no hay un error inesperado
             console.log(data)
-            this.my_patients.splice(patient_index, 1)
+            //this.my_patients.splice(patient_index, 1)
+            this.getPatients(this.skip)
             this.amountPatients--
           }
         },
