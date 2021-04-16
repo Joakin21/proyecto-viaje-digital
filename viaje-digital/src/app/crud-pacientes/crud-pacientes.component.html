@@ -16,24 +16,23 @@
                 <div class="form-group mb-2">
                     <input type="text" class="form-control fa" ngModel id="rutToSearch" formControlName="rutToSearch" required placeholder="&#xf002; {{'inicio.Place_rut_paciente' | translate}}">
                 </div>
-                <!--
-                    <div class="form-group">
-                        <label for="nombre">{{"formulario-paciente.Name" | translate}}:</label>
-                        <input type="text" class="form-control" id="nombre" formControlName="nombre" required>
-                    </div>
-                    <div *ngIf="createPatientForm.controls['nombre'].invalid && (createPatientForm.controls['nombre'].dirty || createPatientForm.controls['nombre'].touched)" class="alert alert-danger">
-                        <div *ngIf="createPatientForm.controls['nombre'].errors.required">
-                            {{"formulario-paciente.First name is required" | translate}}
-                        </div>
-                    </div>
-                -->
-
                 <button type="submit" [disabled]="searchPatientForm.pristine || searchPatientForm.invalid" class="btn btn-secondary mb-2 ml-2">{{"inicio.Search" | translate}}</button>
             </form>
             <div *ngIf="msjBusqueda">
                 <p class="text-danger">{{"inicio."+msjBusqueda | translate}}</p>
             </div>
-
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" (click)="setPacientesActivos(true)" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+                <label class="form-check-label" for="inlineRadio1">Activos</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" (click)="setPacientesActivos(false)" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                <label class="form-check-label" for="inlineRadio2">Eliminados</label>
+            </div>
         </div>
     </div>
     <div class="table-responsive mt-2">
@@ -61,10 +60,14 @@
                     <td>{{patient["ciudad"]}}</td>
 
                     <td>
-                        <div class="btn-group" role="group" aria-label="Basic example">
+                        <div *ngIf="pacientesActivos" class="btn-group" role="group" aria-label="Basic example">
                             <button (click)="deletePatient(i)" class="btn btn-link text-decoration-none btn-lg fa text-danger p-1">&#xf014;</button>
                             <button (click)="prepareModalUpdatePatient(i)" class="btn btn-link text-decoration-none btn-lg fa text-info p-1">&#xf044;</button>
                         </div>
+                        <div *ngIf="!pacientesActivos" class="btn-group" role="group" aria-label="Basic example">
+                            <button (click)="restorePatient(i)" class="btn btn-link text-decoration-none btn-lg fa text-primary p-1">&#xf062;</button>
+                        </div>
+
                     </td>
 
                 </tr>
