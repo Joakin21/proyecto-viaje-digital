@@ -56,18 +56,18 @@ export class PacienteService {
     httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
     return this.httpClient.get(this.url_pacientes, httpOptions);
   }
-  getSkipPatients(skip: any): Observable<any> {
+  getSkipPatients(request: any): Observable<any> {
     httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
-    return this.httpClient.post(this.url_skip_patients + skip + "/", httpOptions)
+    return this.httpClient.post(this.url_skip_patients, request, httpOptions)
   }
 
   deletePatient(rut: string): Observable<any> {
     httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
     return this.httpClient.delete(this.url_pacientes + rut + "/", httpOptions);
   }
-  getAmountDocuments(collectionName: string): Observable<any> {
+  getAmountDocuments(request:any): Observable<any> {
     httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
-    return this.httpClient.get(this.url_amount_documents + collectionName + "/", httpOptions);
+    return this.httpClient.post(this.url_amount_documents, request, httpOptions);
   }
 
 }

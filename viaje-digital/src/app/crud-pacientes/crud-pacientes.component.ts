@@ -24,6 +24,7 @@ export class CrudPacientesComponent implements OnInit {
 
   my_patients: any[] = []
   skip:number = 0
+  pacientesActivos:boolean = true
   amountPatients: number = 0
   numberOfPatients:number[] = [1,2,3,4,5,6,7,8,9,10]
 
@@ -32,7 +33,7 @@ export class CrudPacientesComponent implements OnInit {
   mostrarPacienteEncontrado:boolean = false
 
   ngOnInit(): void {
-    this.getPatients(this.skip)
+    this.getPatients({skip:this.skip, activos:this.pacientesActivos})
     
     let my_url = 'http://cdn.datatables.net/plug-ins/1.10.21/i18n/English.json'
     if(this.translate.currentLang == "es"){
@@ -68,14 +69,7 @@ export class CrudPacientesComponent implements OnInit {
     })
     
 
-    this.patientService.getAmountDocuments("historial_paciente").subscribe(
-      data => {
-        this.amountPatients = data['amount_documents']
-      },
-      error => {
-        console.log('error', error)
-      }
-    );
+    this.getAmountDocuments()
 
   }
 
@@ -105,7 +99,7 @@ export class CrudPacientesComponent implements OnInit {
           delete new_patient["sesiones_medica"]
           //this.my_patients.unshift(new_patient)
           //this.my_patients.pop()
-          this.getPatients(this.skip)
+          this.getPatients({skip:this.skip, activos:this.pacientesActivos})
           this.amountPatients++
           $('#modalCreatePatient').modal('toggle');
           this.spinner.hide();
@@ -120,8 +114,8 @@ export class CrudPacientesComponent implements OnInit {
 
 
   }
-  getPatients(skip:number){
-    this.patientService.getSkipPatients(skip).subscribe(
+  getPatients(request:any){
+    this.patientService.getSkipPatients(request).subscribe(
       data => {
         this.my_patients = data
       },
@@ -130,7 +124,26 @@ export class CrudPacientesComponent implements OnInit {
       }
     );
   }
+  setPacientesActivos(pacientesActivos:boolean){
+    this.skip = 0
+    this.pacientesActivos = pacientesActivos
+    this.getAmountDocuments()
+    this.getPatients({skip:this.skip, activos:this.pacientesActivos})
+    //numberOfPatients:number[] = [1,2,3,4,5,6,7,8,9,10]
+    this.numberOfPatients = [1,2,3,4,5,6,7,8,9,10]
+  }
 
+  getAmountDocuments(){
+    let request = {activos:this.pacientesActivos}
+    this.patientService.getAmountDocuments(request).subscribe(
+      data => {
+        this.amountPatients = data['amount_documents']
+      },
+      error => {
+        console.log('error', error)
+      }
+    );
+  }
   changeNumberOfPatients(increase:boolean){
     for(let i = 0; i < this.numberOfPatients.length; i++){
       if(increase){
@@ -144,17 +157,19 @@ export class CrudPacientesComponent implements OnInit {
 
   nextPatients(){
     this.skip += 10
-    this.getPatients(this.skip)
+    this.getPatients({skip:this.skip, activos:this.pacientesActivos})
     this.changeNumberOfPatients(true)
   }
 
   previousPatients(){
     this.skip -= 10
-    this.getPatients(this.skip)
+    this.getPatients({skip:this.skip, activos:this.pacientesActivos})
     this.changeNumberOfPatients(false)
   }
 
-
+  restorePatient(patientIndex){
+    alert("Restore")
+  }
   deletePatient(patient_index) {
     var respuesta = confirm("Are you sure you want to delete this patient?");
     if (respuesta) {
@@ -164,7 +179,7 @@ export class CrudPacientesComponent implements OnInit {
           if (!data["detail"]) {//sin no hay un error inesperado
             console.log(data)
             //this.my_patients.splice(patient_index, 1)
-            this.getPatients(this.skip)
+            this.getPatients({skip:this.skip, activos:this.pacientesActivos})
             this.amountPatients--
           }
         },
