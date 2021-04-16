@@ -167,28 +167,33 @@ export class CrudPacientesComponent implements OnInit {
     this.changeNumberOfPatients(false)
   }
 
-  restorePatient(patientIndex){
-    alert("Restore")
+  restorePatient(patient_index){
+    var respuesta = confirm("Are you sure you want to restore this patient?");
+    if (respuesta) {
+      var patient_rut = this.my_patients[patient_index]["rut"]
+      this.setPatientStatus(patient_rut,!this.pacientesActivos)
+    }
   }
   deletePatient(patient_index) {
     var respuesta = confirm("Are you sure you want to delete this patient?");
     if (respuesta) {
       var patient_rut = this.my_patients[patient_index]["rut"]
-      this.patientService.deletePatient(patient_rut).subscribe(
-        data => {
-          if (!data["detail"]) {//sin no hay un error inesperado
-            console.log(data)
-            //this.my_patients.splice(patient_index, 1)
-            this.getPatients({skip:this.skip, activos:this.pacientesActivos})
-            this.amountPatients--
-          }
-        },
-        error => {
-          console.log('error', error)
-        }
-      );
+      this.setPatientStatus(patient_rut,!this.pacientesActivos)//!this.pacientesActivos
     }
-
+  }
+  setPatientStatus(patientRut:string, patientStatus:boolean){
+    let request = {rut:patientRut, activo:patientStatus} 
+    this.patientService.updatePatientStatus(request).subscribe(
+      data => {
+        if (!data["detail"]) {
+          this.getPatients({skip:this.skip, activos:this.pacientesActivos})
+          this.amountPatients--
+        }
+      },
+      error => {
+        console.log('error', error)
+      }
+    );
   }
   index_patient_to_update: number
   prepareModalUpdatePatient(patient_index) {
