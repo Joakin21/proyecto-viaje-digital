@@ -22,6 +22,7 @@ export class PacienteService {
   url_skip_patients = 'http://127.0.0.1:8000/getSkipPatients/'
   url_amount_documents = 'http://127.0.0.1:8000/amountDocuments/'
   url_eliminar_paciente = 'http://127.0.0.1:8000/setPatientStatus/'
+  url_admin_search = 'http://127.0.0.1:8000/adminSearch/'
 
   constructor(private httpClient: HttpClient, private cookies: CookieService) { }
 
@@ -65,6 +66,10 @@ export class PacienteService {
   updatePatientStatus(request: any): Observable<any> {
     httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
     return this.httpClient.put(this.url_eliminar_paciente, request, httpOptions);
+  }
+  adminSearch(request:any): Observable<any> {
+    httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());
+    return this.httpClient.post(this.url_admin_search, request, httpOptions);
   }
   getAmountDocuments(request:any): Observable<any> {
     httpOptions.headers = httpOptions.headers.set('Authorization', this.getToken());

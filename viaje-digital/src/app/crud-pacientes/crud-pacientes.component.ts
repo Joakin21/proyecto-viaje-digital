@@ -267,7 +267,8 @@ export class CrudPacientesComponent implements OnInit {
     this.msjBusqueda = null
     this.mensaje_spiner = "Searching Patient..."
     var rut = this.searchPatientForm.value.rutToSearch
-    this.patientService.getPatient(rut).subscribe(
+    let request = {rut:rut, activo:this.pacientesActivos}
+    this.patientService.adminSearch(request).subscribe(
       data => {
         if (data["rut"]) {
           this.my_patients = []
@@ -293,7 +294,8 @@ export class CrudPacientesComponent implements OnInit {
 
   }
   backToShowPatientsList(){
-    this.getPatients(this.skip)
+    //this.getPatients(this.skip)
+    this.setPacientesActivos(this.pacientesActivos)
     this.mostrarPacienteEncontrado = false
   }
 
